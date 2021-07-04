@@ -334,210 +334,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/05/25/docs/java-base-web/Web-001Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/25/docs/java-base-web/Web-001Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-05-25 22:17:34" itemprop="dateCreated datePublished" datetime="2021-05-25T22:17:34+08:00">2021-05-25</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-什么是Web服务器？"><a href="#1-什么是Web服务器？" class="headerlink" title="1. 什么是Web服务器？"></a>1. 什么是Web服务器？</h3><p>Web服务器一般指网站服务器，是指驻留于因特网上某种类型计算机的程序，可以向浏览器等Web客户端提供文档。目前最主流的三个Web服务器是Apache Nginx IIS。</p>
-<p><strong>从严格意义上来讲，Web服务器只负责处理HTTP协议，只能发送静态页面的内容。</strong></p>
-<p>客户端和服务器之间的通信使用HTTP协议进行。<strong>交付的页面最常见的是HTML文档，除了文本内容之外，还可能包含图像，样式表和脚本</strong>。</p>
-<p>Web服务器不仅用于为万维网服务。它们也可以被嵌入到诸如打印机，路由器，网络摄像机等设备中，并且仅服务于本地网络。然后，web服务器可以用作用于监视或管理所讨论的设备的系统的一部分。这通常意味着客户端计算机上不需要安装其他软件，因为只需要一个网络浏览器。</p>
-<h3 id="2-Web服务端工作流程"><a href="#2-Web服务端工作流程" class="headerlink" title="2. Web服务端工作流程"></a>2. Web服务端工作流程</h3><p>Web服务器的工作原理并不复杂，一般可分成如下4个步骤：连接过程、请求过程、应答过程以及关闭连接。</p>
-<p><strong>1）客户端发送请求</strong></p>
-<p>　　客户端（通过浏览器）和Web服务器建立TCP连接，连接建立以后，向Web服务器发出访问请求（如get）。根据HTTP协议，该请求中包含了客户端的IP地址、浏览器的类型和请求的URL等一系列信息。</p>
-<p> <strong>2）服务器解析请求</strong></p>
-<p>　　Web服务器对请求按照HTTP协议进行解码来确定进一步的动作，设计的内容有三鼐要点：方法（GET）、文档(/sample.html)、和浏览器使用的协议（HTTP/1.1）其中方法告诉服务器应完动的动作，GET方法的含义很明显是：服务器应定位、读取文件并将它返回给客户。</p>
-<p>Web服务器软件现在就知道了，它应该找到文件/sample.html，并使用HTTP/1.1协议将内存返回给客户。信息是经过与请求到来相同的连接发出的，所以服务器不需要定们客户或创建新的连接。</p>
-<p><strong>3）读取其它信息（非必须步骤）</strong></p>
-<p> 　　Web服务器根据需要去读取请求的其它部分。在HTTP/1.1下，客户还应给服务器提供关于它的一些信息。元信息（metainformation）可用来描述浏览器及其能力，以使服务器能据此确定如何返回应答。</p>
-<p><strong>4）完成请求的动作</strong></p>
-<p>　　若现在没有错误出现，WWW服务器将执行请求所要求的动作。如果成功经找到，则发送状态码200，表示一切都OK ，并返回相关文档。如果失败：返回错误指示。若服务器无法找到该资源，则发送状态码404 给客户。</p>
-<p><strong>5）关闭文件和网络连接，结束会话。</strong></p>
-<p>当文件已被发邮或错误已发出后，web服务器结束整个会话。它关闭打开的的被请求文件，关闭网络端口从而结束网络连接。</p>
-<h3 id="3-服务器端的组成模块"><a href="#3-服务器端的组成模块" class="headerlink" title="3. 服务器端的组成模块"></a>3. 服务器端的组成模块</h3><ul>
-<li><p>TCP监听模块</p>
-<p>服务器监听某个端口（一般默认是8080端口，用户可以设置其他端口），以建立和用户代理之间的连接。一旦建立连接，用户代理的后续HTTP请求将不用再进入监听模块。</p>
-</li>
-<li><p>预处理</p>
-<p>此处主要做三件事：1. 从TCP报文中获取HTTP请求报文。 2. 根据和用户代理的协商进行解密，解压，安全处理等等。3. 根据服务器自身的配置进行安全处理，建立会话状态等等。</p>
-</li>
-<li><p>URL路由</p>
-<p>解析URL字符串和动作以确定用户代理请求的资源，根据匹配规则（通常根据正则表达式+后缀）路由到静态资源处理模块或动态资源处理模块。</p>
-</li>
-<li><p>静态资源处理模块</p>
-<p>负责找到静态资源，比如HTML/Javascript/CSS文件/图片/图像，确定内容是字符流或者字节流，并确定对应MIME,比如HTML生成MIME为text/html的字符流，mpeg视频文件生成MIME为video/mpeg的字节流。</p>
-</li>
-<li><p>动态资源处理模块</p>
-<p>运行业务逻辑处理，动态决定返回的资源内容和类型，内容和类型的处理原则同上。</p>
-</li>
-<li><p>后处理</p>
-<p>根据和用户协商的协议进行加密，压缩，安全处理等等。</p>
-</li>
-<li><p>资源输出模块</p>
-<p>把处理好的内容和类型封装成HTTP报文，往TCP连接另一头的用户代理发送TCP报文（内容是HTTP报文）。</p>
-</li>
-</ul>
-<h3 id="4-Web应用程序服务器"><a href="#4-Web应用程序服务器" class="headerlink" title="4. Web应用程序服务器"></a>4. Web应用程序服务器</h3><p>应用程序服务器(简称应用服务器)。</p>
-<p>百度百科的定义如下：</p>
-<blockquote>
-<p>通俗的讲，Web服务器传送(serves)页面使浏览器可以浏览，然而<strong>应用程序服务器提供的是客户端应用程序可以调用(call)的方法(methods)。</strong></p>
-<p>确切一点，你可以说:Web服务器专门处理HTTP请求(request)，但是<strong>应用程序服务器是通过很多协议来为应用程序提供(serves)商业逻辑 (business logic)。</strong></p>
-</blockquote>
-<p>以Java EE为例，Web服务器主要是处理静态页面处理和作为 Servlet容器，解释和执行servlet/JSP，而应用服务器是运行业务逻辑的，主要是EJB、 JNDI和JMX API等J2EE API方面的，还包含事务处理、数据库连接等功能，所以在企业级应用中，应用服务器提供的功能比WEB服务器强大的多。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/05/25/docs/java-base-web/Web-004%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8E%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/25/docs/java-base-web/Web-004%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8E%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-05-25 22:17:34" itemprop="dateCreated datePublished" datetime="2021-05-25T22:17:34+08:00">2021-05-25</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在JavaWeb开发中，常常涉及到关于路径的问题。例如请求的转发、重定向、超链接等等，都需要明确写出相对应的位置信息。在这个里面，常用到两种路径：<strong>绝对路径与相对路径</strong>。</p>
-<p>在这里先给出结论：在JavaWeb开发中，建议使用绝对路径。**使用相对路径可能会有问题, 但使用绝对路径肯定没有问题.**比如，在由Servlet转发到JSP页面时，此时，浏览器地址栏上显示的是Servlet的路径。如果该JSP页面中的超链接是相对于该JSP页面的地址，则可能会出现路径混乱的问题。</p>
-<h2 id="1-绝对路径与相对路径"><a href="#1-绝对路径与相对路径" class="headerlink" title="1. 绝对路径与相对路径"></a>1. 绝对路径与相对路径</h2><p><strong>绝对路径定义</strong>：在Web开发中，将相对于<strong>当前WEB应用的根路径</strong>的路径，称为绝对路径。即任何的路径都必须要带上contextPath</p>
-<p>假设Web应用的项目名为helloworld,则有：</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">http:<span class="regexp">//</span>localhost:<span class="number">8989</span><span class="regexp">/helloworld/i</span>ndex.jsp  是绝对路径</span><br><span class="line">而</span><br><span class="line">http:<span class="regexp">//</span>localhost:<span class="number">8989</span>/index.jsp不是绝对路径。</span><br><span class="line">因为http:<span class="regexp">//</span>localhost:<span class="number">8989</span>/helloworld是当前web应用helloworld的根路径。</span><br><span class="line">总结下，绝对路径的基本样式为：</span><br><span class="line">http:<span class="regexp">//</span>localhost:<span class="number">8989</span><span class="regexp">/contextPath(当前WEB应用的上下文路径)/</span>xxx</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>如何编写绝对路径？</strong></li>
-</ul>
-<p>在路径的前面加上contextPath路径即可。如超链接里面：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;a href = <span class="string">&quot;TestServlet&quot;</span>&gt;to test&lt;/a&gt;</span><br><span class="line">    改为绝对路径为：</span><br><span class="line">&lt;a href = <span class="string">&quot;&lt;% request.getContextPath()%&gt;&quot;</span>/TestServlet&lt;/a&gt;</span><br></pre></td></tr></table></figure>
-
-<p>在重定向中，使用绝对路径的实现方法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">response.sendRedirect(request.getContextPath()+<span class="string">&quot;/path/hello.jsp&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p><strong>相对路径定义</strong>：默认从当前目录开始的目录路径称为相对路径。</p>
-<h2 id="2-JavaWEB开发中的“-”代表什么？"><a href="#2-JavaWEB开发中的“-”代表什么？" class="headerlink" title="2. JavaWEB开发中的“/”代表什么？"></a>2. JavaWEB开发中的“/”代表什么？</h2><ul>
-<li>/  什么时候代表当前 WEB 应用的根目录？WEB应用的根路径为：<a target="_blank" rel="noopener" href="http://localhost:8989/contextPath/">http://localhost:8989/contextPath/</a></li>
-</ul>
-<p>①：当请求转发时，“/”代表的是WEB应用的根目录</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">request</span>.getRequestDispatcher(<span class="string">&quot;/path/index.jsp&quot;</span>).forward(<span class="built_in">request</span>,<span class="built_in">response</span>);</span><br></pre></td></tr></table></figure>
-
-<p>②：在web.xml文件中映射Servlet访问路径时，“/”代表的是WEB应用的根目录</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>HelloServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/helloServlet<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li><strong>/ 什么时候代表站点的根目录？</strong>WEB站点的根路径：<a target="_blank" rel="noopener" href="http://localhost:8989/">http://localhost:8989/</a></li>
-</ul>
-<p>① 超链接：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;a&gt;  href=<span class="string">&quot;/TestServlet&quot;</span>&gt; To B Page&lt;/a&gt;</span><br></pre></td></tr></table></figure>
-
-<p>② 表单中的action</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;form action = <span class="string">&quot;/login.jsp&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
-
-<p>③ 请求重定向的时候</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">response.sendRedirect(<span class="string">&quot;/a.jsp&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>总结：</li>
-</ul>
-<p>若 / 需交由Servlet容器来处理，则/代表的是Web应用的根目录。</p>
-<p>若 / 需交由浏览器来处理，则代表站点的根目录。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/05/25/docs/java-base-web/Web-003%E4%BC%9A%E8%AF%9D%E4%B8%8E%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E4%B9%8BSession%E6%9C%BA%E5%88%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -639,6 +435,107 @@
 <li>利用Session防止表单重复提交 </li>
 <li>利用Session实现一次性验证码 </li>
 </ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/05/25/docs/java-base-web/Web-004%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8E%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/05/25/docs/java-base-web/Web-004%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8E%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-25 22:17:34" itemprop="dateCreated datePublished" datetime="2021-05-25T22:17:34+08:00">2021-05-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在JavaWeb开发中，常常涉及到关于路径的问题。例如请求的转发、重定向、超链接等等，都需要明确写出相对应的位置信息。在这个里面，常用到两种路径：<strong>绝对路径与相对路径</strong>。</p>
+<p>在这里先给出结论：在JavaWeb开发中，建议使用绝对路径。**使用相对路径可能会有问题, 但使用绝对路径肯定没有问题.**比如，在由Servlet转发到JSP页面时，此时，浏览器地址栏上显示的是Servlet的路径。如果该JSP页面中的超链接是相对于该JSP页面的地址，则可能会出现路径混乱的问题。</p>
+<h2 id="1-绝对路径与相对路径"><a href="#1-绝对路径与相对路径" class="headerlink" title="1. 绝对路径与相对路径"></a>1. 绝对路径与相对路径</h2><p><strong>绝对路径定义</strong>：在Web开发中，将相对于<strong>当前WEB应用的根路径</strong>的路径，称为绝对路径。即任何的路径都必须要带上contextPath</p>
+<p>假设Web应用的项目名为helloworld,则有：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">http:<span class="regexp">//</span>localhost:<span class="number">8989</span><span class="regexp">/helloworld/i</span>ndex.jsp  是绝对路径</span><br><span class="line">而</span><br><span class="line">http:<span class="regexp">//</span>localhost:<span class="number">8989</span>/index.jsp不是绝对路径。</span><br><span class="line">因为http:<span class="regexp">//</span>localhost:<span class="number">8989</span>/helloworld是当前web应用helloworld的根路径。</span><br><span class="line">总结下，绝对路径的基本样式为：</span><br><span class="line">http:<span class="regexp">//</span>localhost:<span class="number">8989</span><span class="regexp">/contextPath(当前WEB应用的上下文路径)/</span>xxx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>如何编写绝对路径？</strong></li>
+</ul>
+<p>在路径的前面加上contextPath路径即可。如超链接里面：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;a href = <span class="string">&quot;TestServlet&quot;</span>&gt;to test&lt;/a&gt;</span><br><span class="line">    改为绝对路径为：</span><br><span class="line">&lt;a href = <span class="string">&quot;&lt;% request.getContextPath()%&gt;&quot;</span>/TestServlet&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在重定向中，使用绝对路径的实现方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">response.sendRedirect(request.getContextPath()+<span class="string">&quot;/path/hello.jsp&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>相对路径定义</strong>：默认从当前目录开始的目录路径称为相对路径。</p>
+<h2 id="2-JavaWEB开发中的“-”代表什么？"><a href="#2-JavaWEB开发中的“-”代表什么？" class="headerlink" title="2. JavaWEB开发中的“/”代表什么？"></a>2. JavaWEB开发中的“/”代表什么？</h2><ul>
+<li>/  什么时候代表当前 WEB 应用的根目录？WEB应用的根路径为：<a target="_blank" rel="noopener" href="http://localhost:8989/contextPath/">http://localhost:8989/contextPath/</a></li>
+</ul>
+<p>①：当请求转发时，“/”代表的是WEB应用的根目录</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">request</span>.getRequestDispatcher(<span class="string">&quot;/path/index.jsp&quot;</span>).forward(<span class="built_in">request</span>,<span class="built_in">response</span>);</span><br></pre></td></tr></table></figure>
+
+<p>②：在web.xml文件中映射Servlet访问路径时，“/”代表的是WEB应用的根目录</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>HelloServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/helloServlet<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><strong>/ 什么时候代表站点的根目录？</strong>WEB站点的根路径：<a target="_blank" rel="noopener" href="http://localhost:8989/">http://localhost:8989/</a></li>
+</ul>
+<p>① 超链接：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;a&gt;  href=<span class="string">&quot;/TestServlet&quot;</span>&gt; To B Page&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p>② 表单中的action</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;form action = <span class="string">&quot;/login.jsp&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>③ 请求重定向的时候</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">response.sendRedirect(<span class="string">&quot;/a.jsp&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>总结：</li>
+</ul>
+<p>若 / 需交由Servlet容器来处理，则/代表的是Web应用的根目录。</p>
+<p>若 / 需交由浏览器来处理，则代表站点的根目录。</p>
 
       
     </div>
@@ -2127,6 +2024,125 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/08/13/docs/java-base-web/Web-001Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/13/docs/java-base-web/Web-001Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">web服务器工作原理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-13 15:27:34" itemprop="dateCreated datePublished" datetime="2020-08-13T15:27:34+08:00">2020-08-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-04 23:41:01" itemprop="dateModified" datetime="2021-07-04T23:41:01+08:00">2021-07-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E6%9C%8D%E5%8A%A1%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">Web服务器</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="什么是Web服务器？"><a href="#什么是Web服务器？" class="headerlink" title="什么是Web服务器？"></a>什么是Web服务器？</h3><p>Web服务器一般指网站服务器，是指驻留于因特网上某种类型计算机的程序，可以向浏览器等Web客户端提供文档。目前最主流的三个Web服务器是Apache Nginx IIS。</p>
+<p><strong>从严格意义上来讲，Web服务器只负责处理HTTP协议，只能发送静态页面的内容。</strong></p>
+<p>客户端和服务器之间的通信使用HTTP协议进行。<strong>交付的页面最常见的是HTML文档，除了文本内容之外，还可能包含图像，样式表和脚本</strong>。</p>
+<p>Web服务器不仅用于为万维网服务。它们也可以被嵌入到诸如打印机，路由器，网络摄像机等设备中，并且仅服务于本地网络。然后，web服务器可以用作用于监视或管理所讨论的设备的系统的一部分。这通常意味着客户端计算机上不需要安装其他软件，因为只需要一个网络浏览器。</p>
+<h3 id="Web服务端工作流程"><a href="#Web服务端工作流程" class="headerlink" title="Web服务端工作流程"></a>Web服务端工作流程</h3><p>Web服务器的工作原理并不复杂，一般可分成如下4个步骤：连接过程、请求过程、应答过程以及关闭连接。</p>
+<p><strong>1）客户端发送请求</strong></p>
+<p>　　客户端（通过浏览器）和Web服务器建立TCP连接，连接建立以后，向Web服务器发出访问请求（如get）。根据HTTP协议，该请求中包含了客户端的IP地址、浏览器的类型和请求的URL等一系列信息。</p>
+<p> <strong>2）服务器解析请求</strong></p>
+<p>　　Web服务器对请求按照HTTP协议进行解码来确定进一步的动作，设计的内容有三鼐要点：方法（GET）、文档(/sample.html)、和浏览器使用的协议（HTTP/1.1）其中方法告诉服务器应完动的动作，GET方法的含义很明显是：服务器应定位、读取文件并将它返回给客户。</p>
+<p>Web服务器软件现在就知道了，它应该找到文件/sample.html，并使用HTTP/1.1协议将内存返回给客户。信息是经过与请求到来相同的连接发出的，所以服务器不需要定们客户或创建新的连接。</p>
+<p><strong>3）读取其它信息（非必须步骤）</strong></p>
+<p> 　　Web服务器根据需要去读取请求的其它部分。在HTTP/1.1下，客户还应给服务器提供关于它的一些信息。元信息（metainformation）可用来描述浏览器及其能力，以使服务器能据此确定如何返回应答。</p>
+<p><strong>4）完成请求的动作</strong></p>
+<p>　　若现在没有错误出现，WWW服务器将执行请求所要求的动作。如果成功经找到，则发送状态码200，表示一切都OK ，并返回相关文档。如果失败：返回错误指示。若服务器无法找到该资源，则发送状态码404 给客户。</p>
+<p><strong>5）关闭文件和网络连接，结束会话。</strong></p>
+<p>当文件已被发邮或错误已发出后，web服务器结束整个会话。它关闭打开的的被请求文件，关闭网络端口从而结束网络连接。</p>
+<h3 id="服务器端的组成模块"><a href="#服务器端的组成模块" class="headerlink" title="服务器端的组成模块"></a>服务器端的组成模块</h3><ul>
+<li><p>TCP监听模块</p>
+<p>服务器监听某个端口（一般默认是8080端口，用户可以设置其他端口），以建立和用户代理之间的连接。一旦建立连接，用户代理的后续HTTP请求将不用再进入监听模块。</p>
+</li>
+<li><p>预处理</p>
+<p>此处主要做三件事：1. 从TCP报文中获取HTTP请求报文。 2. 根据和用户代理的协商进行解密，解压，安全处理等等。3. 根据服务器自身的配置进行安全处理，建立会话状态等等。</p>
+</li>
+<li><p>URL路由</p>
+<p>解析URL字符串和动作以确定用户代理请求的资源，根据匹配规则（通常根据正则表达式+后缀）路由到静态资源处理模块或动态资源处理模块。</p>
+</li>
+<li><p>静态资源处理模块</p>
+<p>负责找到静态资源，比如HTML/Javascript/CSS文件/图片/图像，确定内容是字符流或者字节流，并确定对应MIME,比如HTML生成MIME为text/html的字符流，mpeg视频文件生成MIME为video/mpeg的字节流。</p>
+</li>
+<li><p>动态资源处理模块</p>
+<p>运行业务逻辑处理，动态决定返回的资源内容和类型，内容和类型的处理原则同上。</p>
+</li>
+<li><p>后处理</p>
+<p>根据和用户协商的协议进行加密，压缩，安全处理等等。</p>
+</li>
+<li><p>资源输出模块</p>
+<p>把处理好的内容和类型封装成HTTP报文，往TCP连接另一头的用户代理发送TCP报文（内容是HTTP报文）。</p>
+</li>
+</ul>
+<h3 id="Web应用程序服务器"><a href="#Web应用程序服务器" class="headerlink" title="Web应用程序服务器"></a>Web应用程序服务器</h3><p>应用程序服务器(简称应用服务器)。</p>
+<p>百度百科的定义如下：</p>
+<blockquote>
+<p>通俗的讲，Web服务器传送(serves)页面使浏览器可以浏览，然而<strong>应用程序服务器提供的是客户端应用程序可以调用(call)的方法(methods)。</strong></p>
+<p>确切一点，你可以说:Web服务器专门处理HTTP请求(request)，但是<strong>应用程序服务器是通过很多协议来为应用程序提供(serves)商业逻辑 (business logic)。</strong></p>
+</blockquote>
+<p>以Java EE为例，Web服务器主要是处理静态页面处理和作为 Servlet容器，解释和执行servlet/JSP，而应用服务器是运行业务逻辑的，主要是EJB、 JNDI和JMX API等J2EE API方面的，还包含事务处理、数据库连接等功能，所以在企业级应用中，应用服务器提供的功能比WEB服务器强大的多。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -2198,20 +2214,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -2300,8 +2316,6 @@
 <script src="/js/next-boot.js"></script>
 
 
-  <script defer src="/lib/three/three.min.js"></script>
-    <script defer src="/lib/three/three-waves.min.js"></script>
 
 
   

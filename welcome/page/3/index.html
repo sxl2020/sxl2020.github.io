@@ -195,178 +195,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/05/25/docs/java-base-servlet/Estore_Wechat/%E7%94%B5%E5%95%86%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/25/docs/java-base-servlet/Estore_Wechat/%E7%94%B5%E5%95%86%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-05-25 22:17:34" itemprop="dateCreated datePublished" datetime="2021-05-25T22:17:34+08:00">2021-05-25</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Estore-Wechat-实现社交电商"><a href="#Estore-Wechat-实现社交电商" class="headerlink" title="Estore+Wechat 实现社交电商"></a>Estore+Wechat 实现社交电商</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<ul>
-<li><p>项目模块</p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/gpengDemo/Estore">estore</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/misterchaos/wechat">wechat</a></p>
-</li>
-<li><p>networkGame</p>
-</li>
-<li><p>技术架构</p>
-</li>
-<li><p><strong>estore模块</strong>： </p>
-<ol>
-<li>开发工具 <code>IntelliJ IDEA</code></li>
-<li>数据库 <code>Server version: 5.7.25 MySQL Community Server (GPL)</code></li>
-<li>服务器 <code>apache-tomcat-9.0.19</code></li>
-<li>数据库连接 <code>mysql-connector-java-5.1.47.jar</code></li>
-<li>后端技术：Servlet + Filter + jsp</li>
-<li>数据库链接：dbutils</li>
-</ol>
-</li>
-<li><p><strong>wechat模块：</strong></p>
-<p>wechat是一个在线聊天系统，提供实时聊天，账户管理，好友管理，聊天记录管理，聊天群组，朋友圈，相册等功能<br>后台技术：Java,tomcat,mysql,servlet,jsp<br>前端技术：html,js,css,ajax<br>通信技术：websocket,json</p>
-</li>
-<li><p>networkGame</p>
-<p>基于Fabric区块链来实现网络博弈平台</p>
-</li>
-</ul>
-</blockquote>
-<h3 id="1-Estore技术分析"><a href="#1-Estore技术分析" class="headerlink" title="1. Estore技术分析"></a>1. Estore技术分析</h3><p>分析基于Servlet相关的项目，基本步骤为：</p>
-<blockquote>
-<ol>
-<li>查找web.xml文件，寻找程序的入口</li>
-</ol>
-<p>若web.xml文件没有配置相关信息，则可能是将配置信息用代码的方式写好了。可以从LoginServlet开始。</p>
-<ol start="2">
-<li>一般Servlet服务器默认的主页为index.jsp或index.html等</li>
-</ol>
-</blockquote>
-<h4 id="1-1"><a href="#1-1" class="headerlink" title="1.1"></a>1.1</h4><h3 id="2-Wechat技术分析"><a href="#2-Wechat技术分析" class="headerlink" title="2. Wechat技术分析"></a>2. Wechat技术分析</h3><p>该项目是使用Servlet来实现的，通过分析可知，作者通过自定义注解和Provider类来实现不同的功能。如何将Provider类与Servlert类相绑定？作者通过利用反射机制和监听机制来实现的。</p>
-<h4 id="2-1-项目结构分析"><a href="#2-1-项目结构分析" class="headerlink" title="2.1 项目结构分析"></a>2.1 项目结构分析</h4><p>项目的目录结构如下所示：</p>
-<p><img src="pics%5C%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91.PNG" alt="项目目录结构"></p>
-<h4 id="2-2-实现业务逻辑的思路"><a href="#2-2-实现业务逻辑的思路" class="headerlink" title="2.2 实现业务逻辑的思路"></a>2.2 实现业务逻辑的思路</h4><p>通过MyServlet作为程序的入口，通过注解WebServlet实现在web.xml文件中实现映射。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@MultipartConfig(location = &quot;C:xxx\artifacts\\wechat_war_exploded\\upload&quot;)</span></span><br><span class="line"><span class="meta">@WebServlet(&quot;/wechat/*&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span></span><br></pre></td></tr></table></figure>
-
-<p>在MyServlet类中，通过providerMap来实现对业务功能的调用。其具体过程为，通过解析Http请求，得到url,再将url与providerMap中进行匹配，来实现业务的分发。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">       Map&lt;String, Provider&gt;providerMap = (Map&lt;String, Provider&gt;) getServletContext().getAttribute(<span class="string">&quot;providerMap&quot;</span>);</span><br><span class="line">       String url = req.getRequestURI();</span><br><span class="line">       Set&lt;String&gt; keys = providerMap.keySet();</span><br><span class="line">       Logger logger = Logger.getLogger(MyServlet.class);</span><br><span class="line">       logger.info(<span class="string">&quot;[请求url:]&quot;</span>+url+<span class="string">&quot;[匹配provider]:&quot;</span>+url.substring(<span class="number">14</span>));</span><br><span class="line">       <span class="keyword">boolean</span> isMatch=<span class="keyword">false</span>;</span><br><span class="line">       <span class="keyword">for</span> (String key : keys) &#123;</span><br><span class="line">           <span class="comment">//解析注解中的path信息，匹配ActionProvider</span></span><br><span class="line">           String path =providerMap.get(key).getPath();</span><br><span class="line">           <span class="keyword">if</span> (url.substring(<span class="number">14</span>).equalsIgnoreCase(path)) &#123;</span><br><span class="line">               providerMap.get(key).doAction(req, resp);</span><br><span class="line">               logger.info(<span class="string">&quot;provider 分发完毕&quot;</span>);</span><br><span class="line">               isMatch=<span class="keyword">true</span>;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
-
-<p>而providerMap从何而来呢？观察到在项目中有一个ServletContextListener，实现了任务的注册：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@WebListener</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServletContextListener</span> <span class="keyword">implements</span> <span class="title">javax</span>.<span class="title">servlet</span>.<span class="title">ServletContextListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ConcurrentHashMap&lt;String, Provider&gt; providerMap = <span class="keyword">new</span> ConcurrentHashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextInitialized</span><span class="params">(ServletContextEvent sce)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 用来装载provider的容器</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="comment">//注册服务</span></span><br><span class="line">        providerMap.put(<span class="string">&quot;userProvider&quot;</span>, <span class="keyword">new</span> UserProvider());</span><br><span class="line">        providerMap.put(<span class="string">&quot;chatProvider&quot;</span>, <span class="keyword">new</span> ChatProvider());</span><br><span class="line">        providerMap.put(<span class="string">&quot;uploadProvider&quot;</span>, <span class="keyword">new</span> UploadProvider());</span><br><span class="line">        providerMap.put(<span class="string">&quot;friendProvider&quot;</span>, <span class="keyword">new</span> FriendProvider());</span><br><span class="line">        providerMap.put(<span class="string">&quot;momentProvider&quot;</span>,<span class="keyword">new</span> MomentProvider());</span><br><span class="line">        providerMap.put(<span class="string">&quot;messageProvider&quot;</span>,<span class="keyword">new</span> MessageProvider());</span><br><span class="line">        providerMap.put(<span class="string">&quot;remarkProvider&quot;</span>,<span class="keyword">new</span> RemarkProvider());</span><br><span class="line">        <span class="comment">//将controllerMap注入ServletContext</span></span><br><span class="line">        ServletContext sc = sce.getServletContext();</span><br><span class="line">        sc.setAttribute(<span class="string">&quot;providerMap&quot;</span>, providerMap);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>这就是Provider能够担任Servlet角色的原因。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/05/25/docs/java-base-servlet/Estore_Wechat/%E7%9B%B8%E5%85%B3%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/25/docs/java-base-servlet/Estore_Wechat/%E7%9B%B8%E5%85%B3%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-05-25 22:17:34" itemprop="dateCreated datePublished" datetime="2021-05-25T22:17:34+08:00">2021-05-25</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Wechat-相关技术分析"><a href="#Wechat-相关技术分析" class="headerlink" title="Wechat 相关技术分析"></a>Wechat 相关技术分析</h3><h3 id="1-Java-标注"><a href="#1-Java-标注" class="headerlink" title="1. Java 标注"></a>1. Java 标注</h3><blockquote>
-<p><strong>Java注解</strong>又称Java标注，是JDK5.0版本开始支持加入源代码的特殊语法元数据。<br>Java语言中的类、方法、变量、参数和包等都可以被标注。</p>
-<p>和Javadoc不同，<strong>Java标注可以通过反射获取标注内容</strong>。</p>
-<p>在编译器生成类文件时，标注可以被嵌入到字节码中。Java虚拟机可以保留标注内容，在运行时可以获取到标注内容。 当然它也支持自定义Java标注。</p>
-</blockquote>
-<h3 id="2-Javadoc"><a href="#2-Javadoc" class="headerlink" title="2. Javadoc"></a>2. Javadoc</h3>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/06/17/docs/sys-linux-series/Windows%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -398,7 +226,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-04 16:25:19" itemprop="dateModified" datetime="2021-07-04T16:25:19+08:00">2021-07-04</time>
+                <time title="修改时间：2021-07-04 23:42:17" itemprop="dateModified" datetime="2021-07-04T23:42:17+08:00">2021-07-04</time>
               </span>
 
           
@@ -489,7 +317,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-04 16:52:57" itemprop="dateModified" datetime="2021-07-04T16:52:57+08:00">2021-07-04</time>
+                <time title="修改时间：2021-07-04 23:42:07" itemprop="dateModified" datetime="2021-07-04T23:42:07+08:00">2021-07-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -526,27 +354,27 @@
 <li>make install 安装</li>
 </ul>
 </blockquote>
-<h3 id="1-源码编译方式安装curl"><a href="#1-源码编译方式安装curl" class="headerlink" title="1. 源码编译方式安装curl"></a>1. 源码编译方式安装curl</h3><p>使用源码安装curl,为了实现最新版本的安装。</p>
-<h6 id="1-1-1-curl-常用参数"><a href="#1-1-1-curl-常用参数" class="headerlink" title="1.1.1 curl 常用参数"></a>1.1.1 curl 常用参数</h6><figure class="highlight smalltalk"><table><tr><td class="code"><pre><span class="line">curl -<span class="type">L</span> --retry <span class="number">5</span> --retry-delay <span class="number">3</span> <span class="comment">&quot;$&#123;URL&#125;&quot;</span> | tar xz || rc=<span class="string">$?</span></span><br></pre></td></tr></table></figure>
+<h3 id="源码编译方式安装curl"><a href="#源码编译方式安装curl" class="headerlink" title="源码编译方式安装curl"></a>源码编译方式安装curl</h3><p>使用源码安装curl,为了实现最新版本的安装。</p>
+<h6 id="curl-常用参数"><a href="#curl-常用参数" class="headerlink" title="curl 常用参数"></a>curl 常用参数</h6><figure class="highlight smalltalk"><table><tr><td class="code"><pre><span class="line">curl -<span class="type">L</span> --retry <span class="number">5</span> --retry-delay <span class="number">3</span> <span class="comment">&quot;$&#123;URL&#125;&quot;</span> | tar xz || rc=<span class="string">$?</span></span><br></pre></td></tr></table></figure>
 
-<h6 id="1-2-1-L参数"><a href="#1-2-1-L参数" class="headerlink" title="1.2.1 -L参数"></a>1.2.1 -L参数</h6><p>使用 <code>-L</code> 参数，curl 就会跳转到新的网址：</p>
+<h6 id="L参数"><a href="#L参数" class="headerlink" title="-L参数"></a>-L参数</h6><p>使用 <code>-L</code> 参数，curl 就会跳转到新的网址：</p>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> <span class="built_in">curl</span> <span class="literal">-L</span> www.sina.com</span><br></pre></td></tr></table></figure>
 
 <p>键入上面的命令，结果自动跳转为www. sina. com.</p>
-<h6 id="1-2-2-–retry"><a href="#1-2-2-–retry" class="headerlink" title="1.2.2 –retry"></a>1.2.2 –retry</h6><p>–retry <num> 指定重试次数</p>
-<h6 id="1-2-3-–retry-delay"><a href="#1-2-3-–retry-delay" class="headerlink" title="1.2.3 –retry-delay"></a>1.2.3 –retry-delay</h6><p>–retry-delay <seconds> 传输出现问题时，设置重试间隔时间</p>
-<h5 id="1-5-curl的错误总结"><a href="#1-5-curl的错误总结" class="headerlink" title="1.5 curl的错误总结"></a>1.5 curl的错误总结</h5><p>在使用curl来进行网络通信的时候，常常会出现各种错误。一下是对这些错误的总结。</p>
-<h6 id="1-2-1-curl-35-OpenSSL-SSL-connect"><a href="#1-2-1-curl-35-OpenSSL-SSL-connect" class="headerlink" title="1.2.1 curl: (35) OpenSSL SSL_connect"></a>1.2.1 curl: (35) OpenSSL SSL_connect</h6><p>BUG详细信息如下：</p>
+<h6 id="–retry"><a href="#–retry" class="headerlink" title="–retry"></a>–retry</h6><p>–retry <num> 指定重试次数</p>
+<h6 id="–retry-delay"><a href="#–retry-delay" class="headerlink" title="–retry-delay"></a>–retry-delay</h6><p>–retry-delay <seconds> 传输出现问题时，设置重试间隔时间</p>
+<h5 id="curl的错误总结"><a href="#curl的错误总结" class="headerlink" title="curl的错误总结"></a>curl的错误总结</h5><p>在使用curl来进行网络通信的时候，常常会出现各种错误。一下是对这些错误的总结。</p>
+<h6 id="curl-35-OpenSSL-SSL-connect"><a href="#curl-35-OpenSSL-SSL-connect" class="headerlink" title="curl: (35) OpenSSL SSL_connect"></a>curl: (35) OpenSSL SSL_connect</h6><p>BUG详细信息如下：</p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">sxl</span>@ubuntu<span class="number">18</span>:~/bkapp$ curl -sSL https://bit.ly/<span class="number">2</span>ysbOFE | bash -s -- <span class="number">2</span>.<span class="number">0</span>.<span class="number">1</span> <span class="number">1</span>.<span class="number">4</span>.<span class="number">6</span> <span class="number">0</span>.<span class="number">4</span>.<span class="number">18</span></span><br><span class="line"><span class="attribute">curl</span>: (<span class="number">35</span>) OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to bit.ly:<span class="number">443</span> </span><br></pre></td></tr></table></figure>
 
 
 
-<h6 id="1-2-2-curl-56-Recv-failure"><a href="#1-2-2-curl-56-Recv-failure" class="headerlink" title="1.2.2 curl: (56) Recv failure"></a>1.2.2 curl: (56) Recv failure</h6><p>BUG详细信息如下：</p>
+<h6 id="curl-56-Recv-failure"><a href="#curl-56-Recv-failure" class="headerlink" title="curl: (56) Recv failure"></a>curl: (56) Recv failure</h6><p>BUG详细信息如下：</p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">sxl</span>@ubuntu<span class="number">18</span>:~/bkapp$ curl -sSL http://bit.ly/<span class="number">2</span>ysbOFE | bash -s -- <span class="number">1</span>.<span class="number">4</span>.<span class="number">6</span> <span class="number">1</span>.<span class="number">4</span>.<span class="number">6</span> <span class="number">0</span>.<span class="number">4</span>.<span class="number">18</span></span><br><span class="line"><span class="attribute">curl</span>: (<span class="number">56</span>) Recv failure: 连接被对方重设</span><br></pre></td></tr></table></figure>
 
 
 
-<h3 id="2-OpenSSL的源码安装"><a href="#2-OpenSSL的源码安装" class="headerlink" title="2. OpenSSL的源码安装"></a>2. OpenSSL的源码安装</h3><ol>
+<h3 id="OpenSSL的源码安装"><a href="#OpenSSL的源码安装" class="headerlink" title="OpenSSL的源码安装"></a>OpenSSL的源码安装</h3><ol>
 <li>下载源码</li>
 </ol>
 <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">wget https:<span class="regexp">//</span>www.openssl.org<span class="regexp">/source/</span>openssl-<span class="number">1.1</span>.<span class="number">1</span>d.tar.gz --no-check-certificate</span><br></pre></td></tr></table></figure>
@@ -798,7 +626,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-04 16:52:50" itemprop="dateModified" datetime="2021-07-04T16:52:50+08:00">2021-07-04</time>
+                <time title="修改时间：2021-07-04 23:41:20" itemprop="dateModified" datetime="2021-07-04T23:41:20+08:00">2021-07-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -821,7 +649,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Linux常用命令"><a href="#Linux常用命令" class="headerlink" title="Linux常用命令"></a>Linux常用命令</h2><h3 id="文件类"><a href="#文件类" class="headerlink" title="文件类"></a>文件类</h3><h4 id="1-1-新增软连接"><a href="#1-1-新增软连接" class="headerlink" title="1.1 新增软连接"></a>1.1 新增软连接</h4><blockquote>
+          <h2 id="Linux常用命令"><a href="#Linux常用命令" class="headerlink" title="Linux常用命令"></a>Linux常用命令</h2><h3 id="文件类"><a href="#文件类" class="headerlink" title="文件类"></a>文件类</h3><h4 id="新增软连接"><a href="#新增软连接" class="headerlink" title="新增软连接"></a>新增软连接</h4><blockquote>
 <p>ln -s 软链接是Linux中一个非常重要命令。它的功能是为某一个文件在另外一个位置建立一个同不的链接。</p>
 <p>这个命令最常用的参数是-s,-s 是代号（symbolic）的意思。具这 里有两点要注意：</p>
 <ul>
@@ -832,7 +660,7 @@
 <p>具体用法是：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ln -s 源文件 目标文件</span><br><span class="line">比如：</span><br><span class="line">ln-s test_chk   test_chk_ln</span><br></pre></td></tr></table></figure>
 
-<h4 id="1-2-删除软连接"><a href="#1-2-删除软连接" class="headerlink" title="1.2 删除软连接"></a>1.2 删除软连接</h4><p>正确的删除方式（删除软链接，但不删除实际数据）</p>
+<h4 id="删除软连接"><a href="#删除软连接" class="headerlink" title="删除软连接"></a>删除软连接</h4><p>正确的删除方式（删除软链接，但不删除实际数据）</p>
 <figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">rm -rf  <span class="string">./test_chk_ln</span></span><br></pre></td></tr></table></figure>
 
 
@@ -1121,20 +949,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1223,8 +1051,6 @@
 <script src="/js/next-boot.js"></script>
 
 
-  <script defer src="/lib/three/three.min.js"></script>
-    <script defer src="/lib/three/three-waves.min.js"></script>
 
 
   

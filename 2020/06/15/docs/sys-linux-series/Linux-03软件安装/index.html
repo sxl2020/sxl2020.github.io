@@ -28,7 +28,7 @@
 <meta property="og:description" content="Linux 环境下安装软件笔记在Ubuntu下，使用源码编译源码安装工具，可以实现安装指定版本的需求，且安装后清除系统环境等也很有帮助。但是，源码编译安装笔使用apt等工具安装要复杂多了。为了积累经验，将日常学习和工作中安装软件的实践记录下来，以备将来用之。 使用源码安装linux相关工具的基本步骤如下：   在官网下载源码压缩包，一般为.tar.gz格式。 解压缩。一般使用 tar -zxvf">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-15T07:27:34.000Z">
-<meta property="article:modified_time" content="2021-07-04T08:52:57.446Z">
+<meta property="article:modified_time" content="2021-07-04T15:42:07.771Z">
 <meta property="article:author" content="苏小乐">
 <meta property="article:tag" content="shell">
 <meta name="twitter:card" content="summary">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-04 16:52:57" itemprop="dateModified" datetime="2021-07-04T16:52:57+08:00">2021-07-04</time>
+                <time title="修改时间：2021-07-04 23:42:07" itemprop="dateModified" datetime="2021-07-04T23:42:07+08:00">2021-07-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -273,27 +273,27 @@
 <li>make install 安装</li>
 </ul>
 </blockquote>
-<h3 id="1-源码编译方式安装curl"><a href="#1-源码编译方式安装curl" class="headerlink" title="1. 源码编译方式安装curl"></a>1. 源码编译方式安装curl</h3><p>使用源码安装curl,为了实现最新版本的安装。</p>
-<h6 id="1-1-1-curl-常用参数"><a href="#1-1-1-curl-常用参数" class="headerlink" title="1.1.1 curl 常用参数"></a>1.1.1 curl 常用参数</h6><figure class="highlight smalltalk"><table><tr><td class="code"><pre><span class="line">curl -<span class="type">L</span> --retry <span class="number">5</span> --retry-delay <span class="number">3</span> <span class="comment">&quot;$&#123;URL&#125;&quot;</span> | tar xz || rc=<span class="string">$?</span></span><br></pre></td></tr></table></figure>
+<h3 id="源码编译方式安装curl"><a href="#源码编译方式安装curl" class="headerlink" title="源码编译方式安装curl"></a>源码编译方式安装curl</h3><p>使用源码安装curl,为了实现最新版本的安装。</p>
+<h6 id="curl-常用参数"><a href="#curl-常用参数" class="headerlink" title="curl 常用参数"></a>curl 常用参数</h6><figure class="highlight smalltalk"><table><tr><td class="code"><pre><span class="line">curl -<span class="type">L</span> --retry <span class="number">5</span> --retry-delay <span class="number">3</span> <span class="comment">&quot;$&#123;URL&#125;&quot;</span> | tar xz || rc=<span class="string">$?</span></span><br></pre></td></tr></table></figure>
 
-<h6 id="1-2-1-L参数"><a href="#1-2-1-L参数" class="headerlink" title="1.2.1 -L参数"></a>1.2.1 -L参数</h6><p>使用 <code>-L</code> 参数，curl 就会跳转到新的网址：</p>
+<h6 id="L参数"><a href="#L参数" class="headerlink" title="-L参数"></a>-L参数</h6><p>使用 <code>-L</code> 参数，curl 就会跳转到新的网址：</p>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> <span class="built_in">curl</span> <span class="literal">-L</span> www.sina.com</span><br></pre></td></tr></table></figure>
 
 <p>键入上面的命令，结果自动跳转为www. sina. com.</p>
-<h6 id="1-2-2-–retry"><a href="#1-2-2-–retry" class="headerlink" title="1.2.2 –retry"></a>1.2.2 –retry</h6><p>–retry <num> 指定重试次数</p>
-<h6 id="1-2-3-–retry-delay"><a href="#1-2-3-–retry-delay" class="headerlink" title="1.2.3 –retry-delay"></a>1.2.3 –retry-delay</h6><p>–retry-delay <seconds> 传输出现问题时，设置重试间隔时间</p>
-<h5 id="1-5-curl的错误总结"><a href="#1-5-curl的错误总结" class="headerlink" title="1.5 curl的错误总结"></a>1.5 curl的错误总结</h5><p>在使用curl来进行网络通信的时候，常常会出现各种错误。一下是对这些错误的总结。</p>
-<h6 id="1-2-1-curl-35-OpenSSL-SSL-connect"><a href="#1-2-1-curl-35-OpenSSL-SSL-connect" class="headerlink" title="1.2.1 curl: (35) OpenSSL SSL_connect"></a>1.2.1 curl: (35) OpenSSL SSL_connect</h6><p>BUG详细信息如下：</p>
+<h6 id="–retry"><a href="#–retry" class="headerlink" title="–retry"></a>–retry</h6><p>–retry <num> 指定重试次数</p>
+<h6 id="–retry-delay"><a href="#–retry-delay" class="headerlink" title="–retry-delay"></a>–retry-delay</h6><p>–retry-delay <seconds> 传输出现问题时，设置重试间隔时间</p>
+<h5 id="curl的错误总结"><a href="#curl的错误总结" class="headerlink" title="curl的错误总结"></a>curl的错误总结</h5><p>在使用curl来进行网络通信的时候，常常会出现各种错误。一下是对这些错误的总结。</p>
+<h6 id="curl-35-OpenSSL-SSL-connect"><a href="#curl-35-OpenSSL-SSL-connect" class="headerlink" title="curl: (35) OpenSSL SSL_connect"></a>curl: (35) OpenSSL SSL_connect</h6><p>BUG详细信息如下：</p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">sxl</span>@ubuntu<span class="number">18</span>:~/bkapp$ curl -sSL https://bit.ly/<span class="number">2</span>ysbOFE | bash -s -- <span class="number">2</span>.<span class="number">0</span>.<span class="number">1</span> <span class="number">1</span>.<span class="number">4</span>.<span class="number">6</span> <span class="number">0</span>.<span class="number">4</span>.<span class="number">18</span></span><br><span class="line"><span class="attribute">curl</span>: (<span class="number">35</span>) OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to bit.ly:<span class="number">443</span> </span><br></pre></td></tr></table></figure>
 
 
 
-<h6 id="1-2-2-curl-56-Recv-failure"><a href="#1-2-2-curl-56-Recv-failure" class="headerlink" title="1.2.2 curl: (56) Recv failure"></a>1.2.2 curl: (56) Recv failure</h6><p>BUG详细信息如下：</p>
+<h6 id="curl-56-Recv-failure"><a href="#curl-56-Recv-failure" class="headerlink" title="curl: (56) Recv failure"></a>curl: (56) Recv failure</h6><p>BUG详细信息如下：</p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">sxl</span>@ubuntu<span class="number">18</span>:~/bkapp$ curl -sSL http://bit.ly/<span class="number">2</span>ysbOFE | bash -s -- <span class="number">1</span>.<span class="number">4</span>.<span class="number">6</span> <span class="number">1</span>.<span class="number">4</span>.<span class="number">6</span> <span class="number">0</span>.<span class="number">4</span>.<span class="number">18</span></span><br><span class="line"><span class="attribute">curl</span>: (<span class="number">56</span>) Recv failure: 连接被对方重设</span><br></pre></td></tr></table></figure>
 
 
 
-<h3 id="2-OpenSSL的源码安装"><a href="#2-OpenSSL的源码安装" class="headerlink" title="2. OpenSSL的源码安装"></a>2. OpenSSL的源码安装</h3><ol>
+<h3 id="OpenSSL的源码安装"><a href="#OpenSSL的源码安装" class="headerlink" title="OpenSSL的源码安装"></a>OpenSSL的源码安装</h3><ol>
 <li>下载源码</li>
 </ol>
 <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">wget https:<span class="regexp">//</span>www.openssl.org<span class="regexp">/source/</span>openssl-<span class="number">1.1</span>.<span class="number">1</span>d.tar.gz --no-check-certificate</span><br></pre></td></tr></table></figure>
@@ -391,7 +391,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">Linux 环境下安装软件笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85curl"><span class="nav-number">1.1.</span> <span class="nav-text">1. 源码编译方式安装curl</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-1-1-curl-%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0"><span class="nav-number">1.1.0.0.1.</span> <span class="nav-text">1.1.1 curl 常用参数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-2-1-L%E5%8F%82%E6%95%B0"><span class="nav-number">1.1.0.0.2.</span> <span class="nav-text">1.2.1 -L参数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-2-2-%E2%80%93retry"><span class="nav-number">1.1.0.0.3.</span> <span class="nav-text">1.2.2 –retry</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-2-3-%E2%80%93retry-delay"><span class="nav-number">1.1.0.0.4.</span> <span class="nav-text">1.2.3 –retry-delay</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-5-curl%E7%9A%84%E9%94%99%E8%AF%AF%E6%80%BB%E7%BB%93"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">1.5 curl的错误总结</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-2-1-curl-35-OpenSSL-SSL-connect"><span class="nav-number">1.1.0.1.1.</span> <span class="nav-text">1.2.1 curl: (35) OpenSSL SSL_connect</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-2-2-curl-56-Recv-failure"><span class="nav-number">1.1.0.1.2.</span> <span class="nav-text">1.2.2 curl: (56) Recv failure</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-OpenSSL%E7%9A%84%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.</span> <span class="nav-text">2. OpenSSL的源码安装</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">Linux 环境下安装软件笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85curl"><span class="nav-number">1.1.</span> <span class="nav-text">源码编译方式安装curl</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#curl-%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0"><span class="nav-number">1.1.0.0.1.</span> <span class="nav-text">curl 常用参数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#L%E5%8F%82%E6%95%B0"><span class="nav-number">1.1.0.0.2.</span> <span class="nav-text">-L参数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E2%80%93retry"><span class="nav-number">1.1.0.0.3.</span> <span class="nav-text">–retry</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E2%80%93retry-delay"><span class="nav-number">1.1.0.0.4.</span> <span class="nav-text">–retry-delay</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#curl%E7%9A%84%E9%94%99%E8%AF%AF%E6%80%BB%E7%BB%93"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">curl的错误总结</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#curl-35-OpenSSL-SSL-connect"><span class="nav-number">1.1.0.1.1.</span> <span class="nav-text">curl: (35) OpenSSL SSL_connect</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#curl-56-Recv-failure"><span class="nav-number">1.1.0.1.2.</span> <span class="nav-text">curl: (56) Recv failure</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenSSL%E7%9A%84%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.</span> <span class="nav-text">OpenSSL的源码安装</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -407,20 +407,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -509,8 +509,6 @@
 <script src="/js/next-boot.js"></script>
 
 
-  <script defer src="/lib/three/three.min.js"></script>
-    <script defer src="/lib/three/three-waves.min.js"></script>
 
 
   
