@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/fsxl-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/sxl-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sxl2020.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言在JavaWeb开发中，常常涉及到关于路径的问题。例如请求的转发、重定向、超链接等等，都需要明确写出相对应的位置信息。在这个里面，常用到两种路径：绝对路径与相对路径。 在这里先给出结论：在JavaWeb开发中，建议使用绝对路径。**使用相对路径可能会有问题, 但使用绝对路径肯定没有问题.**比如，在由Servlet转发到JSP页面时，此时，浏览器地址栏上显示的是Servlet的路径。如果该JS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="苏小乐の主站">
+<meta property="og:url" content="https://sxl2020.github.io/2021/05/25/docs/java-base-web/Web-004%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8E%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84/index.html">
+<meta property="og:site_name" content="苏小乐の主站">
+<meta property="og:description" content="前言在JavaWeb开发中，常常涉及到关于路径的问题。例如请求的转发、重定向、超链接等等，都需要明确写出相对应的位置信息。在这个里面，常用到两种路径：绝对路径与相对路径。 在这里先给出结论：在JavaWeb开发中，建议使用绝对路径。**使用相对路径可能会有问题, 但使用绝对路径肯定没有问题.**比如，在由Servlet转发到JSP页面时，此时，浏览器地址栏上显示的是Servlet的路径。如果该JS">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-25T14:17:34.477Z">
+<meta property="article:modified_time" content="2021-05-25T14:17:34.477Z">
+<meta property="article:author" content="苏小乐">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://sxl2020.github.io/2021/05/25/docs/java-base-web/Web-004%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8E%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | 苏小乐の主站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">苏小乐の主站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">后端工程师</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-docs">
+
+    <a href="/sxlDocs/" rel="section"><i class="fa fa-calendar fa-fw"></i>乐文档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/sxl2020" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/05/25/docs/java-base-web/Web-004%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8E%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-25 22:17:34" itemprop="dateCreated datePublished" datetime="2021-05-25T22:17:34+08:00">2021-05-25</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在JavaWeb开发中，常常涉及到关于路径的问题。例如请求的转发、重定向、超链接等等，都需要明确写出相对应的位置信息。在这个里面，常用到两种路径：<strong>绝对路径与相对路径</strong>。</p>
+<p>在这里先给出结论：在JavaWeb开发中，建议使用绝对路径。**使用相对路径可能会有问题, 但使用绝对路径肯定没有问题.**比如，在由Servlet转发到JSP页面时，此时，浏览器地址栏上显示的是Servlet的路径。如果该JSP页面中的超链接是相对于该JSP页面的地址，则可能会出现路径混乱的问题。</p>
+<h2 id="1-绝对路径与相对路径"><a href="#1-绝对路径与相对路径" class="headerlink" title="1. 绝对路径与相对路径"></a>1. 绝对路径与相对路径</h2><p><strong>绝对路径定义</strong>：在Web开发中，将相对于<strong>当前WEB应用的根路径</strong>的路径，称为绝对路径。即任何的路径都必须要带上contextPath</p>
+<p>假设Web应用的项目名为helloworld,则有：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">http:<span class="regexp">//</span>localhost:<span class="number">8989</span><span class="regexp">/helloworld/i</span>ndex.jsp  是绝对路径</span><br><span class="line">而</span><br><span class="line">http:<span class="regexp">//</span>localhost:<span class="number">8989</span>/index.jsp不是绝对路径。</span><br><span class="line">因为http:<span class="regexp">//</span>localhost:<span class="number">8989</span>/helloworld是当前web应用helloworld的根路径。</span><br><span class="line">总结下，绝对路径的基本样式为：</span><br><span class="line">http:<span class="regexp">//</span>localhost:<span class="number">8989</span><span class="regexp">/contextPath(当前WEB应用的上下文路径)/</span>xxx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>如何编写绝对路径？</strong></li>
+</ul>
+<p>在路径的前面加上contextPath路径即可。如超链接里面：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;a href = <span class="string">&quot;TestServlet&quot;</span>&gt;to test&lt;/a&gt;</span><br><span class="line">    改为绝对路径为：</span><br><span class="line">&lt;a href = <span class="string">&quot;&lt;% request.getContextPath()%&gt;&quot;</span>/TestServlet&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在重定向中，使用绝对路径的实现方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">response.sendRedirect(request.getContextPath()+<span class="string">&quot;/path/hello.jsp&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>相对路径定义</strong>：默认从当前目录开始的目录路径称为相对路径。</p>
+<h2 id="2-JavaWEB开发中的“-”代表什么？"><a href="#2-JavaWEB开发中的“-”代表什么？" class="headerlink" title="2. JavaWEB开发中的“/”代表什么？"></a>2. JavaWEB开发中的“/”代表什么？</h2><ul>
+<li>/  什么时候代表当前 WEB 应用的根目录？WEB应用的根路径为：<a target="_blank" rel="noopener" href="http://localhost:8989/contextPath/">http://localhost:8989/contextPath/</a></li>
+</ul>
+<p>①：当请求转发时，“/”代表的是WEB应用的根目录</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">request</span>.getRequestDispatcher(<span class="string">&quot;/path/index.jsp&quot;</span>).forward(<span class="built_in">request</span>,<span class="built_in">response</span>);</span><br></pre></td></tr></table></figure>
+
+<p>②：在web.xml文件中映射Servlet访问路径时，“/”代表的是WEB应用的根目录</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>HelloServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/helloServlet<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><strong>/ 什么时候代表站点的根目录？</strong>WEB站点的根路径：<a target="_blank" rel="noopener" href="http://localhost:8989/">http://localhost:8989/</a></li>
+</ul>
+<p>① 超链接：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;a&gt;  href=<span class="string">&quot;/TestServlet&quot;</span>&gt; To B Page&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p>② 表单中的action</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;form action = <span class="string">&quot;/login.jsp&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>③ 请求重定向的时候</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">response.sendRedirect(<span class="string">&quot;/a.jsp&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>总结：</li>
+</ul>
+<p>若 / 需交由Servlet容器来处理，则/代表的是Web应用的根目录。</p>
+<p>若 / 需交由浏览器来处理，则代表站点的根目录。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/25/docs/java-fw-springboot/%E5%B0%9A%E7%A1%85%E8%B0%B7-01-SpringBoot%E5%85%A5%E9%97%A8%E4%B8%8E%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/25/docs/java-base-web/Web-003%E4%BC%9A%E8%AF%9D%E4%B8%8E%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E4%B9%8BSession%E6%9C%BA%E5%88%B6/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8E%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84"><span class="nav-number">2.</span> <span class="nav-text">1. 绝对路径与相对路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-JavaWEB%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E2%80%9C-%E2%80%9D%E4%BB%A3%E8%A1%A8%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">2. JavaWEB开发中的“&#x2F;”代表什么？</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="苏小乐"
+      src="/images/sxl-head.png">
+  <p class="site-author-name" itemprop="name">苏小乐</p>
+  <div class="site-description" itemprop="description">人惟患无志,有志无有不成者</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">苏小乐</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
