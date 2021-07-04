@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/fsxl-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/sxl-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sxl2020.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一、Spring Boot 入门1、Spring Boot 简介 简化Spring应用开发的一个框架； 整个Spring技术栈的一个大整合； J2EE开发的一站式解决方案；  2、微服务2014，martin fowler  微服务：架构风格（服务微化）  一个应用应该是一组小型服务；可以通过HTTP的方式进行互通； 微服务：每一个功能元素最终都是一个可独立替换和独立升级的软件单元；  单体应用：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="苏小乐の主站">
+<meta property="og:url" content="https://sxl2020.github.io/2021/05/25/docs/SpringBoot/%E5%B0%9A%E7%A1%85%E8%B0%B7-01-SpringBoot%E5%85%A5%E9%97%A8%E4%B8%8E%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="苏小乐の主站">
+<meta property="og:description" content="一、Spring Boot 入门1、Spring Boot 简介 简化Spring应用开发的一个框架； 整个Spring技术栈的一个大整合； J2EE开发的一站式解决方案；  2、微服务2014，martin fowler  微服务：架构风格（服务微化）  一个应用应该是一组小型服务；可以通过HTTP的方式进行互通； 微服务：每一个功能元素最终都是一个可独立替换和独立升级的软件单元；  单体应用：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="e:/sxlKG/docs/SpringBoot/images/搜狗截图20180129151045.png">
+<meta property="og:image" content="e:/sxlKG/docs/SpringBoot/images/搜狗截图20180129151112.png">
+<meta property="og:image" content="e:/sxlKG/docs/SpringBoot/images/搜狗截图20180129224104.png">
+<meta property="article:published_time" content="2021-05-25T14:17:34.475Z">
+<meta property="article:modified_time" content="2021-05-25T14:17:34.475Z">
+<meta property="article:author" content="苏小乐">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="e:/sxlKG/docs/SpringBoot/images/搜狗截图20180129151045.png">
+
+<link rel="canonical" href="https://sxl2020.github.io/2021/05/25/docs/SpringBoot/%E5%B0%9A%E7%A1%85%E8%B0%B7-01-SpringBoot%E5%85%A5%E9%97%A8%E4%B8%8E%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | 苏小乐の主站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">苏小乐の主站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">后端工程师</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-docs">
+
+    <a href="/docs/" rel="section"><i class="fa fa-calendar fa-fw"></i>乐文档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/sxl2020" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/05/25/docs/SpringBoot/%E5%B0%9A%E7%A1%85%E8%B0%B7-01-SpringBoot%E5%85%A5%E9%97%A8%E4%B8%8E%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-25 22:17:34" itemprop="dateCreated datePublished" datetime="2021-05-25T22:17:34+08:00">2021-05-25</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="一、Spring-Boot-入门"><a href="#一、Spring-Boot-入门" class="headerlink" title="一、Spring Boot 入门"></a>一、Spring Boot 入门</h1><h2 id="1、Spring-Boot-简介"><a href="#1、Spring-Boot-简介" class="headerlink" title="1、Spring Boot 简介"></a>1、Spring Boot 简介</h2><blockquote>
+<p>简化Spring应用开发的一个框架；</p>
+<p>整个Spring技术栈的一个大整合；</p>
+<p>J2EE开发的一站式解决方案；</p>
+</blockquote>
+<h2 id="2、微服务"><a href="#2、微服务" class="headerlink" title="2、微服务"></a>2、微服务</h2><p>2014，martin fowler</p>
+<ul>
+<li>微服务：架构风格（服务微化）</li>
+</ul>
+<p>一个应用应该是一组小型服务；可以通过HTTP的方式进行互通；</p>
+<p>微服务：每一个功能元素最终都是一个可<strong>独立替换</strong>和<strong>独立升级</strong>的软件单元；</p>
+<ul>
+<li><p>单体应用：ALL IN ONE</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://martinfowler.com/articles/microservices.html#MicroservicesAndSoa">详细参照微服务文档</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="3、环境准备"><a href="#3、环境准备" class="headerlink" title="3、环境准备"></a>3、环境准备</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://www.gulixueyuan.com/">http://www.gulixueyuan.com/</a> 谷粒学院</li>
+</ul>
+<p>环境约束</p>
+<ul>
+<li><p>jdk1.8：Spring Boot 推荐jdk1.7及以上；java version “1.8.0_112”</p>
+</li>
+<li><p>maven3.x：maven 3.3以上版本；Apache Maven 3.3.9</p>
+</li>
+<li><p>IntelliJIDEA2017：IntelliJ IDEA 2017.2.2 x64、STS</p>
+</li>
+<li><p>SpringBoot 1.5.9.RELEASE：1.5.9；</p>
+</li>
+</ul>
+<p>统一环境</p>
+<h3 id="1、MAVEN设置；"><a href="#1、MAVEN设置；" class="headerlink" title="1、MAVEN设置；"></a>1、MAVEN设置；</h3><p>给maven 的settings.xml配置文件的profiles标签添加</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>jdk-1.8<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jdk</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">jdk</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.compilerVersion</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.compilerVersion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2、IDEA设置"><a href="#2、IDEA设置" class="headerlink" title="2、IDEA设置"></a>2、IDEA设置</h3><p>整合maven进来；</p>
+<p><img src="E:/sxlKG/docs/SpringBoot/images/搜狗截图20180129151045.png" alt="idea设置"></p>
+<p><img src="E:/sxlKG/docs/SpringBoot/images/搜狗截图20180129151112.png" alt="images/"></p>
+<h2 id="4、Spring-Boot-HelloWorld"><a href="#4、Spring-Boot-HelloWorld" class="headerlink" title="4、Spring Boot HelloWorld"></a>4、Spring Boot HelloWorld</h2><p>功能需求：浏览器发送hello请求，服务器接受请求并处理，响应Hello World字符串；</p>
+<h3 id="1、创建一个maven工程；（jar）"><a href="#1、创建一个maven工程；（jar）" class="headerlink" title="1、创建一个maven工程；（jar）"></a>1、创建一个maven工程；（jar）</h3><h3 id="2、导入spring-boot相关的依赖"><a href="#2、导入spring-boot相关的依赖" class="headerlink" title="2、导入spring boot相关的依赖"></a>2、导入spring boot相关的依赖</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.5.9.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3、编写一个主程序；启动Spring-Boot应用"><a href="#3、编写一个主程序；启动Spring-Boot应用" class="headerlink" title="3、编写一个主程序；启动Spring Boot应用"></a>3、编写一个主程序；启动Spring Boot应用</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@SpringBootApplication</span> 来标注一个主程序类，说明这是一个Spring Boot应用</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldMainApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Spring应用启动起来</span></span><br><span class="line">        SpringApplication.run(HelloWorldMainApplication.class,args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、编写相关的Controller、Service"><a href="#4、编写相关的Controller、Service" class="headerlink" title="4、编写相关的Controller、Service"></a>4、编写相关的Controller、Service</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello World!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、运行主程序测试"><a href="#5、运行主程序测试" class="headerlink" title="5、运行主程序测试"></a>5、运行主程序测试</h3><h3 id="6、简化部署"><a href="#6、简化部署" class="headerlink" title="6、简化部署"></a>6、简化部署</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 这个插件，可以将应用打包成一个可执行的jar包；--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>将这个应用打成jar包，直接使用java -jar的命令进行执行；</p>
+<blockquote>
+<p>在使用Intellij Idea来开发时，只需点击运行按钮便会自动安装部署。若没有安装Idea，也可以使用命令java -jar 来运行程序。</p>
+</blockquote>
+<h2 id="5、SpringBoot自动配置"><a href="#5、SpringBoot自动配置" class="headerlink" title="5、SpringBoot自动配置"></a>5、SpringBoot自动配置</h2><h3 id="5-1-POM文件研究"><a href="#5-1-POM文件研究" class="headerlink" title="5.1 POM文件研究"></a>5.1 POM文件研究</h3><p>关于Maven及POM的相关文献，可以参考博客</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_30757197/article/details/102599145">Maven笔记</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_30757197/article/details/103630048">基于maven的Java项目目录结构总结</a></li>
+</ul>
+<h4 id="5-1-1-父项目"><a href="#5-1-1-父项目" class="headerlink" title="5.1.1 父项目"></a>5.1.1 父项目</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;--- --所有Spring-Boot-starter项目的父项目-&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.5.9.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>在Idea中通过快捷键ctrl+点击spring-boot-starter-parent</strong>，进入其父项目的配置文件 spring-boot-dependencies。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.5.9.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">relativePath</span>&gt;</span>../../spring-boot-dependencies<span class="tag">&lt;/<span class="name">relativePath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>在Idea中通过快捷键ctrl+点击spring-boot-dependencies</strong>，进入其配置文件，发现<properties>属性配置了SpringBoot默认的配置</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">activemq.version</span>&gt;</span>5.15.12<span class="tag">&lt;/<span class="name">activemq.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">antlr2.version</span>&gt;</span>2.7.7<span class="tag">&lt;/<span class="name">antlr2.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appengine-sdk.version</span>&gt;</span>1.9.79<span class="tag">&lt;/<span class="name">appengine-sdk.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artemis.version</span>&gt;</span>2.10.1<span class="tag">&lt;/<span class="name">artemis.version</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">aspectj.version</span>&gt;</span>1.9.5<span class="tag">&lt;/<span class="name">aspectj.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span>    </span><br><span class="line">它来真正管理Spring Boot应用里面的所有依赖版本；</span><br></pre></td></tr></table></figure>
+
+<p>从上面的分析汇总，可以知道:</p>
+<p><strong>当我们导入SpringBoot项目时，是不需要写版本的，默认的版本在Springboot中均已配置好。</strong></p>
+<h4 id="5-1-2-spring-boot-starter-web-启动器"><a href="#5-1-2-spring-boot-starter-web-启动器" class="headerlink" title="5.1.2 spring-boot-starter-web 启动器"></a>5.1.2 spring-boot-starter-web 启动器</h4><p>在pom配置文件中，包含了该依赖spring-boot-starter-web。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>spring-boot-starter-web，主要作用是帮我们导入了<strong>web模块</strong>正常运行所依赖的组件。</li>
+</ul>
+<p>Spring Boot将所有的功能场景都抽取出来，称为spring-boot-starter：又叫做spring-boot场景启动器，主要是帮我们导入各种开发场景下所依赖的组件；做成一个个的starters（启动器），只需要在项目里面引入这些starter相关场景的所有依赖都会导入进来。要用什么功能就导入什么场景的启动器。常见的有：</p>
+<ul>
+<li>spring-boot-starter-activemq</li>
+<li>spring-boot-starter-aop等等</li>
+</ul>
+<h3 id="5-2-主程序类SpringApplication"><a href="#5-2-主程序类SpringApplication" class="headerlink" title="5.2 主程序类SpringApplication"></a>5.2 主程序类SpringApplication</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@SpringBootApplication</span> 来标注一个主程序类，说明这是一个Spring Boot应用</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldMainApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Spring应用启动起来</span></span><br><span class="line">        SpringApplication.run(HelloWorldMainApplication.class,args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="5-2-1-SpringBootApplication"><a href="#5-2-1-SpringBootApplication" class="headerlink" title="5.2.1 @SpringBootApplication:"></a>5.2.1 @<strong>SpringBootApplication</strong>:</h4><p>@<strong>SpringBootApplication</strong>:    </p>
+<p>Spring Boot应用标注在某个类上说明这个类是SpringBoot的<strong>主配置类</strong>，SpringBoot就应该运行这个类的main方法来启动SpringBoot应用；</p>
+<p>@<strong>SpringBootApplication</strong>:   </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@SpringBootConfiguration</span></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"><span class="meta">@ComponentScan(excludeFilters = &#123;</span></span><br><span class="line"><span class="meta">      @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),</span></span><br><span class="line"><span class="meta">      @Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) &#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootApplication &#123;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="5-2-1-1-SpringBootConfiguration"><a href="#5-2-1-1-SpringBootConfiguration" class="headerlink" title="5.2.1.1 @SpringBootConfiguration:"></a>5.2.1.1 @<strong>SpringBootConfiguration</strong>:</h5><p>@<strong>SpringBootConfiguration</strong>:</p>
+<p>该注解标注在某个类上，表示这是一个Spring Boot的配置类；这个注解也是一个组合注解，其核心注解代码为：</p>
+<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="variable">@Target</span>(&#123;ElementType.TYPE&#125;)</span><br><span class="line"><span class="variable">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="variable">@Documented</span></span><br><span class="line"><span class="variable">@Configuration</span></span><br><span class="line">public <span class="variable">@interface</span> SpringBootConfiguration &#123;</span><br></pre></td></tr></table></figure>
+
+<p>其内有一个@Configuration注解</p>
+<p>@<strong>Configuration</strong>:这是一个Spring注解，标注在配置类上来标注这个注解；</p>
+<blockquote>
+<p>配置类与配置文件：<br>配置类 与  配置文件的作用是一样的，对项目中的相关参数进行配置；使用<strong>配置类可以将配置操作代码化</strong>。配置类本质上也是容器中的一个组件，底层用@Component来标注。</p>
+</blockquote>
+<h5 id="5-2-1-2-EnableAutoConfiguration"><a href="#5-2-1-2-EnableAutoConfiguration" class="headerlink" title="5.2.1.2 @EnableAutoConfiguration"></a>5.2.1.2 @<strong>EnableAutoConfiguration</strong></h5><p>作用： <strong>开启自动配置功能；</strong></p>
+<p>以前我们需要配置的东西，Spring Boot帮我们自动配置；@<strong>EnableAutoConfiguration</strong>告诉SpringBoot开启自动配置功能；这样自动配置才能生效； EnableAutoConfiguration也是一个组合注解，是由 AutoConfigurationPackage和 Import两个注解组合而成。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@AutoConfigurationPackage</span></span><br><span class="line"><span class="meta">@Import(EnableAutoConfigurationImportSelector.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EnableAutoConfiguration &#123;</span><br></pre></td></tr></table></figure>
+
+<h6 id="5-2-1-2-1-AutoConfigurationPackage："><a href="#5-2-1-2-1-AutoConfigurationPackage：" class="headerlink" title="5.2.1.2.1@AutoConfigurationPackage："></a>5.2.1.2.1@<strong>AutoConfigurationPackage</strong>：</h6><p>作用：自动配置包</p>
+<p>其AutoConfigurationPackage的组合内，含有如下注解：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@Import(&#123;Registrar.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> AutoConfigurationPackage &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其本质是一个Spring的底层注解@Import，给容器中导入一个组件；</p>
+<p>​        @<strong>Import</strong>({Registrar.class})：</p>
+<p>导入的组件由AutoConfigurationPackages.Registrar.class来指定。</p>
+<p>进入Registrar类的核心代码观察到：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Registrar</span> <span class="keyword">implements</span> <span class="title">ImportBeanDefinitionRegistrar</span>, <span class="title">DeterminableImports</span> </span>&#123;</span><br><span class="line">        Registrar() &#123;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">// 注册一些Bean及相关信息</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(AnnotationMetadata metadata, BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line">            AutoConfigurationPackages.register(registry, (<span class="keyword">new</span> AutoConfigurationPackages.PackageImport(metadata)).getPackageName());</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上述代码中</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">AutoConfigurationPackages.PackageImport(metadata)).getPackageName()</span><br></pre></td></tr></table></figure>
+
+<p>计算的结构为主配置类所在的包名，在本项目中即com.atguigu。</p>
+<p><strong>因此，Registrar</strong>类的作用是：</p>
+<blockquote>
+<p>将主配置类（@SpringBootApplication标注的类）的所在包及下面所有子包里面的所有组件扫描到Spring容器；</p>
+</blockquote>
+<h6 id="5-2-2-2-2-AutoConfiguration…Selector-class"><a href="#5-2-2-2-2-AutoConfiguration…Selector-class" class="headerlink" title="5.2.2.2.2 AutoConfiguration…Selector.class"></a>5.2.2.2.2 AutoConfiguration…Selector.class</h6><p><strong>作用</strong>：@Import({AutoConfigurationImportSelector.class})，导入哪些组件的选择器；</p>
+<p><strong>探究：</strong>进入AutoConfigurationImportSelector类，观察到有一个SelectImports方法,该方法告知如何自动导入组件</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AutoConfigurationImportSelector</span> <span class="keyword">implements</span> <span class="title">DeferredImportSelector</span>, <span class="title">BeanClassLoaderAware</span>, <span class="title">ResourceLoaderAware</span>, <span class="title">BeanFactoryAware</span>, <span class="title">EnvironmentAware</span>, <span class="title">Ordered</span> </span>&#123;</span><br><span class="line">...</span><br><span class="line">	<span class="keyword">public</span> String[] selectImports(AnnotationMetadata annotationMetadata) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>.isEnabled(annotationMetadata)) &#123;</span><br><span class="line">            <span class="keyword">return</span> NO_IMPORTS;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            AutoConfigurationMetadata autoConfigurationMetadata = AutoConfigurationMetadataLoader.loadMetadata(<span class="keyword">this</span>.beanClassLoader);</span><br><span class="line">            AutoConfigurationImportSelector.AutoConfigurationEntry autoConfigurationEntry = <span class="keyword">this</span>.getAutoConfigurationEntry(autoConfigurationMetadata, annotationMetadata);</span><br><span class="line">            <span class="keyword">return</span> StringUtils.toStringArray(autoConfigurationEntry.getConfigurations());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>结论：</strong>将所有需要导入的组件以全类名的方式返回；这些组件就会被添加到容器中；会给容器中导入非常多的自动配置类（xxxAutoConfiguration）；<img src="E:/sxlKG/docs/SpringBoot/images/搜狗截图20180129224104.png" alt="自动配置类"></p>
+<p>有了自动配置类，免去了我们手动编写配置注入功能组件等的工作；</p>
+<p><strong>自动配置的原理：</strong></p>
+<p>Spring Boot在启动的时候从类路径下的META-INF/spring.factories中获取EnableAutoConfiguration指定的值，将这些值作为<strong>自动配置类导入到容器中</strong>，自动配置类就生效，帮我们进行自动配置工作；==以前我们需要自己配置的东西，自动配置类都帮我们；</p>
+<p><strong>J2EE的整体整合解决方案和自动配置都在spring-boot-autoconfigure-1.5.9.RELEASE.jar中；</strong></p>
+<h2 id="6、使用Spring-Initializer快速创建Spring-Boot项目"><a href="#6、使用Spring-Initializer快速创建Spring-Boot项目" class="headerlink" title="6、使用Spring Initializer快速创建Spring Boot项目"></a>6、使用Spring Initializer快速创建Spring Boot项目</h2><h3 id="6-1-IDEA：使用-Spring-Initializer快速创建项目"><a href="#6-1-IDEA：使用-Spring-Initializer快速创建项目" class="headerlink" title="6.1 IDEA：使用 Spring Initializer快速创建项目"></a>6.1 IDEA：使用 Spring Initializer快速创建项目</h3><p>IDE都支持使用Spring的项目创建向导快速创建一个Spring Boot项目；</p>
+<p>选择我们需要的模块；向导会联网创建Spring Boot项目；</p>
+<h4 id="6-1-1-默认项目结构"><a href="#6-1-1-默认项目结构" class="headerlink" title="6.1.1 默认项目结构"></a>6.1.1 默认项目结构</h4><p>默认生成的Spring Boot项目；</p>
+<ul>
+<li>主程序已经生成好了，我们只需要我们自己的逻辑</li>
+<li>resources文件夹中目录结构<ul>
+<li>static：保存所有的静态资源； js css  images；</li>
+<li>templates：保存所有的模板页面；（Spring Boot默认jar包使用嵌入式的Tomcat，默认不支持JSP页面）；可以使用模板引擎（freemarker、thymeleaf）；</li>
+<li>application.properties：Spring Boot应用的配置文件；可以修改一些默认设置；</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/25/docs/SpringBoot/%E5%B0%9A%E7%A1%85%E8%B0%B7Spring%20Boot/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/25/docs/Web/Web-004%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8E%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81Spring-Boot-%E5%85%A5%E9%97%A8"><span class="nav-number">1.</span> <span class="nav-text">一、Spring Boot 入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81Spring-Boot-%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">1、Spring Boot 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.2.</span> <span class="nav-text">2、微服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">1.3.</span> <span class="nav-text">3、环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81MAVEN%E8%AE%BE%E7%BD%AE%EF%BC%9B"><span class="nav-number">1.3.1.</span> <span class="nav-text">1、MAVEN设置；</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81IDEA%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.3.2.</span> <span class="nav-text">2、IDEA设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81Spring-Boot-HelloWorld"><span class="nav-number">1.4.</span> <span class="nav-text">4、Spring Boot HelloWorld</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAmaven%E5%B7%A5%E7%A8%8B%EF%BC%9B%EF%BC%88jar%EF%BC%89"><span class="nav-number">1.4.1.</span> <span class="nav-text">1、创建一个maven工程；（jar）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%AF%BC%E5%85%A5spring-boot%E7%9B%B8%E5%85%B3%E7%9A%84%E4%BE%9D%E8%B5%96"><span class="nav-number">1.4.2.</span> <span class="nav-text">2、导入spring boot相关的依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E4%B8%BB%E7%A8%8B%E5%BA%8F%EF%BC%9B%E5%90%AF%E5%8A%A8Spring-Boot%E5%BA%94%E7%94%A8"><span class="nav-number">1.4.3.</span> <span class="nav-text">3、编写一个主程序；启动Spring Boot应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E7%BC%96%E5%86%99%E7%9B%B8%E5%85%B3%E7%9A%84Controller%E3%80%81Service"><span class="nav-number">1.4.4.</span> <span class="nav-text">4、编写相关的Controller、Service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E8%BF%90%E8%A1%8C%E4%B8%BB%E7%A8%8B%E5%BA%8F%E6%B5%8B%E8%AF%95"><span class="nav-number">1.4.5.</span> <span class="nav-text">5、运行主程序测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81%E7%AE%80%E5%8C%96%E9%83%A8%E7%BD%B2"><span class="nav-number">1.4.6.</span> <span class="nav-text">6、简化部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">1.5.</span> <span class="nav-text">5、SpringBoot自动配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-POM%E6%96%87%E4%BB%B6%E7%A0%94%E7%A9%B6"><span class="nav-number">1.5.1.</span> <span class="nav-text">5.1 POM文件研究</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-1-%E7%88%B6%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">5.1.1 父项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-2-spring-boot-starter-web-%E5%90%AF%E5%8A%A8%E5%99%A8"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">5.1.2 spring-boot-starter-web 启动器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-%E4%B8%BB%E7%A8%8B%E5%BA%8F%E7%B1%BBSpringApplication"><span class="nav-number">1.5.2.</span> <span class="nav-text">5.2 主程序类SpringApplication</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-1-SpringBootApplication"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">5.2.1 @SpringBootApplication:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-2-1-1-SpringBootConfiguration"><span class="nav-number">1.5.2.1.1.</span> <span class="nav-text">5.2.1.1 @SpringBootConfiguration:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-2-1-2-EnableAutoConfiguration"><span class="nav-number">1.5.2.1.2.</span> <span class="nav-text">5.2.1.2 @EnableAutoConfiguration</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#5-2-1-2-1-AutoConfigurationPackage%EF%BC%9A"><span class="nav-number">1.5.2.1.2.1.</span> <span class="nav-text">5.2.1.2.1@AutoConfigurationPackage：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#5-2-2-2-2-AutoConfiguration%E2%80%A6Selector-class"><span class="nav-number">1.5.2.1.2.2.</span> <span class="nav-text">5.2.2.2.2 AutoConfiguration…Selector.class</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E3%80%81%E4%BD%BF%E7%94%A8Spring-Initializer%E5%BF%AB%E9%80%9F%E5%88%9B%E5%BB%BASpring-Boot%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.6.</span> <span class="nav-text">6、使用Spring Initializer快速创建Spring Boot项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-IDEA%EF%BC%9A%E4%BD%BF%E7%94%A8-Spring-Initializer%E5%BF%AB%E9%80%9F%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.6.1.</span> <span class="nav-text">6.1 IDEA：使用 Spring Initializer快速创建项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-1-%E9%BB%98%E8%AE%A4%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.6.1.1.</span> <span class="nav-text">6.1.1 默认项目结构</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="苏小乐"
+      src="/images/sxl-head.png">
+  <p class="site-author-name" itemprop="name">苏小乐</p>
+  <div class="site-description" itemprop="description">人惟患无志,有志无有不成者</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">苏小乐</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
