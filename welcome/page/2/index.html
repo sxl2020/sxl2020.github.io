@@ -195,7 +195,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/05/25/docs/java-base-web/README/">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/05/25/docs/java-base-web/Web-005%E8%AF%B7%E6%B1%82%E4%B8%8E%E8%BD%AC%E5%8F%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sxl-head.png">
@@ -209,7 +209,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/05/25/docs/java-base-web/README/" class="post-title-link" itemprop="url">未命名</a>
+            <a href="/2021/05/25/docs/java-base-web/Web-005%E8%AF%B7%E6%B1%82%E4%B8%8E%E8%BD%AC%E5%8F%91/" class="post-title-link" itemprop="url">未命名</a>
         </h2>
 
         <div class="post-meta">
@@ -221,13 +221,6 @@
 
               <time title="创建时间：2021-05-25 22:17:34" itemprop="dateCreated datePublished" datetime="2021-05-25T22:17:34+08:00">2021-05-25</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-04 16:11:25" itemprop="dateModified" datetime="2021-07-04T16:11:25+08:00">2021-07-04</time>
-              </span>
 
           
 
@@ -240,19 +233,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Web服务器"><a href="#Web服务器" class="headerlink" title="Web服务器"></a>Web服务器</h2><p>在选择后端这样一个方向之后，在学习的过程中，往往会有很多的疑惑。这里从一个小白的角度，总结这一路走来的很多问号。</p>
-<p>首先，什么是Web呢？我们使用Java开发的Web程序，是如何成为后台服务器来为用户提供服务的？</p>
-<p>最开始使用 Java 来写服务端的技术是Servlet。而现在基本上是使用SSM、SSH或者SpringBoot等框架来运行的。我想，尽管开发的框架不同，但是，Web服务器的工作原理肯定是一样的。因此，总结出Web服务器的工作原理：</p>
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在JavaWeb的开发中，常常会涉及要对请求的重定向和转发。比如用户的自动登录场景。程序若发现用户未登录，则需要将跳转到登录页面。实现页面跳转的方式主要有两种：请求和重定向。</p>
+<h3 id="1-请求的转发"><a href="#1-请求的转发" class="headerlink" title="1.请求的转发"></a>1.请求的转发</h3><p>RequestDispatcher接口可以实现请求的转发。 实现请求转发功能的主要步骤如下：</p>
+<ol>
+<li>调用<strong>HttpServletRequest</strong>的getRequestDispatcher()方法获取RequestDispatcher对象。</li>
+<li>调用RequestDispatcher对象的getRequestDispatcher()方法，输入要转发的地址。</li>
+<li>调用HttpServletRequest的forward(request,response)进行请求的转发。</li>
+</ol>
+<p>相关代码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ForwardServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">	System.out.println(<span class="string">&quot;ForwardServlet&#x27;s doGet&quot;</span>);</span><br><span class="line">	</span><br><span class="line">	request.setAttribute(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;abcde&quot;</span>);</span><br><span class="line">	System.out.println(<span class="string">&quot;ForwardServlet&#x27;s name: &quot;</span> + request.getAttribute(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//请求的转发.</span></span><br><span class="line">	<span class="comment">//1. 调用 HttpServletRequest 的 getRequestDispatcher() 方法获取  RequestDispatcher 对象</span></span><br><span class="line">	<span class="comment">//调用 getRequestDispatcher() 需要传入要转发的地址</span></span><br><span class="line">	String path = <span class="string">&quot;testServlet&quot;</span>;</span><br><span class="line">	RequestDispatcher requestDispatcher = request.getRequestDispatcher(<span class="string">&quot;/&quot;</span> + path);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//2. 调用 HttpServletRequest 的 forward(request, response) 进行请求的转发. </span></span><br><span class="line">	requestDispatcher.forward(request, response); </span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-请求的重定向"><a href="#2-请求的重定向" class="headerlink" title="2. 请求的重定向"></a>2. 请求的重定向</h3><p>使用HttpServletResponse对象的sendRedirect()方法，可以实现对请求的重定向。实现方法如下：</p>
 <ul>
-<li><h3 id="Web-服务器的工作原理"><a href="#Web-服务器的工作原理" class="headerlink" title="Web 服务器的工作原理"></a><a href="./docs/Web/Web-001Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.md">Web 服务器的工作原理</a></h3></li>
-<li><h3 id="Web-容器是什么？"><a href="#Web-容器是什么？" class="headerlink" title="Web 容器是什么？"></a><a href="./docs/Web/Web-002Web%E5%AE%B9%E5%99%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F.md">Web 容器是什么？</a></h3></li>
+<li>直接调用response.sendRedirect(path)方法，其中，path为重定向的地址。</li>
 </ul>
-<p>理解了web服务器的工作原理，于是以Servlet为基础开发Web项目，开始涉及到了网络请求、对文件资源的读取等等。因此，这一块涉及到了Web开发实战中的相关基础知识</p>
-<ul>
-<li><h3 id="会话管理与Session"><a href="#会话管理与Session" class="headerlink" title="会话管理与Session"></a><a href="./docs/Web/Web-003%E4%BC%9A%E8%AF%9D%E4%B8%8E%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E4%B9%8BSession%E6%9C%BA%E5%88%B6.md">会话管理与Session</a></h3></li>
-<li><h3 id="绝对路径与相对路径"><a href="#绝对路径与相对路径" class="headerlink" title="绝对路径与相对路径"></a><a href="./docs/Web/Web-004%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8E%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84.md">绝对路径与相对路径</a></h3></li>
-<li><h3 id="绝对路径与相对路径-1"><a href="#绝对路径与相对路径-1" class="headerlink" title="绝对路径与相对路径"></a><a href="./docs/Web/Web-004%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8E%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84.md">绝对路径与相对路径</a></h3></li>
-</ul>
+<p>相关代码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedirectServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">	System.out.println(<span class="string">&quot;RedirectServlet&#x27;s doGet&quot;</span>);</span><br><span class="line">	</span><br><span class="line">	request.setAttribute(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;xyzmn&quot;</span>);</span><br><span class="line">	System.out.println(<span class="string">&quot;RedirectServlet&#x27;s name: &quot;</span> + request.getAttribute(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//执行请求的重定向, 直接调用 response.sendRedirect(path) 方法,</span></span><br><span class="line">	<span class="comment">//path 为要重定向的地址</span></span><br><span class="line">	String path = <span class="string">&quot;testServlet&quot;</span>;</span><br><span class="line">	response.sendRedirect(path);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-两者区别"><a href="#3-两者区别" class="headerlink" title="3. 两者区别"></a>3. 两者区别</h3><p><strong>请求转发只发出了一次请求，请求重定向则发出了两次请求</strong></p>
 
       
     </div>
@@ -313,109 +315,6 @@
           <p>Using CATALINA_BASE:   “C:\Users\��С��.IntelliJIdea2018.3\system\tomcat\Unnamed_Estore-master”</p>
 <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="variable">$&#123;pageContext.request.contextPath&#125;</span></span><br></pre></td></tr></table></figure>
 
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/05/25/docs/java-base-web/Web-001Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/25/docs/java-base-web/Web-001Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-05-25 22:17:34" itemprop="dateCreated datePublished" datetime="2021-05-25T22:17:34+08:00">2021-05-25</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-什么是Web服务器？"><a href="#1-什么是Web服务器？" class="headerlink" title="1. 什么是Web服务器？"></a>1. 什么是Web服务器？</h3><p>Web服务器一般指网站服务器，是指驻留于因特网上某种类型计算机的程序，可以向浏览器等Web客户端提供文档。目前最主流的三个Web服务器是Apache Nginx IIS。</p>
-<p><strong>从严格意义上来讲，Web服务器只负责处理HTTP协议，只能发送静态页面的内容。</strong></p>
-<p>客户端和服务器之间的通信使用HTTP协议进行。<strong>交付的页面最常见的是HTML文档，除了文本内容之外，还可能包含图像，样式表和脚本</strong>。</p>
-<p>Web服务器不仅用于为万维网服务。它们也可以被嵌入到诸如打印机，路由器，网络摄像机等设备中，并且仅服务于本地网络。然后，web服务器可以用作用于监视或管理所讨论的设备的系统的一部分。这通常意味着客户端计算机上不需要安装其他软件，因为只需要一个网络浏览器。</p>
-<h3 id="2-Web服务端工作流程"><a href="#2-Web服务端工作流程" class="headerlink" title="2. Web服务端工作流程"></a>2. Web服务端工作流程</h3><p>Web服务器的工作原理并不复杂，一般可分成如下4个步骤：连接过程、请求过程、应答过程以及关闭连接。</p>
-<p><strong>1）客户端发送请求</strong></p>
-<p>　　客户端（通过浏览器）和Web服务器建立TCP连接，连接建立以后，向Web服务器发出访问请求（如get）。根据HTTP协议，该请求中包含了客户端的IP地址、浏览器的类型和请求的URL等一系列信息。</p>
-<p> <strong>2）服务器解析请求</strong></p>
-<p>　　Web服务器对请求按照HTTP协议进行解码来确定进一步的动作，设计的内容有三鼐要点：方法（GET）、文档(/sample.html)、和浏览器使用的协议（HTTP/1.1）其中方法告诉服务器应完动的动作，GET方法的含义很明显是：服务器应定位、读取文件并将它返回给客户。</p>
-<p>Web服务器软件现在就知道了，它应该找到文件/sample.html，并使用HTTP/1.1协议将内存返回给客户。信息是经过与请求到来相同的连接发出的，所以服务器不需要定们客户或创建新的连接。</p>
-<p><strong>3）读取其它信息（非必须步骤）</strong></p>
-<p> 　　Web服务器根据需要去读取请求的其它部分。在HTTP/1.1下，客户还应给服务器提供关于它的一些信息。元信息（metainformation）可用来描述浏览器及其能力，以使服务器能据此确定如何返回应答。</p>
-<p><strong>4）完成请求的动作</strong></p>
-<p>　　若现在没有错误出现，WWW服务器将执行请求所要求的动作。如果成功经找到，则发送状态码200，表示一切都OK ，并返回相关文档。如果失败：返回错误指示。若服务器无法找到该资源，则发送状态码404 给客户。</p>
-<p><strong>5）关闭文件和网络连接，结束会话。</strong></p>
-<p>当文件已被发邮或错误已发出后，web服务器结束整个会话。它关闭打开的的被请求文件，关闭网络端口从而结束网络连接。</p>
-<h3 id="3-服务器端的组成模块"><a href="#3-服务器端的组成模块" class="headerlink" title="3. 服务器端的组成模块"></a>3. 服务器端的组成模块</h3><ul>
-<li><p>TCP监听模块</p>
-<p>服务器监听某个端口（一般默认是8080端口，用户可以设置其他端口），以建立和用户代理之间的连接。一旦建立连接，用户代理的后续HTTP请求将不用再进入监听模块。</p>
-</li>
-<li><p>预处理</p>
-<p>此处主要做三件事：1. 从TCP报文中获取HTTP请求报文。 2. 根据和用户代理的协商进行解密，解压，安全处理等等。3. 根据服务器自身的配置进行安全处理，建立会话状态等等。</p>
-</li>
-<li><p>URL路由</p>
-<p>解析URL字符串和动作以确定用户代理请求的资源，根据匹配规则（通常根据正则表达式+后缀）路由到静态资源处理模块或动态资源处理模块。</p>
-</li>
-<li><p>静态资源处理模块</p>
-<p>负责找到静态资源，比如HTML/Javascript/CSS文件/图片/图像，确定内容是字符流或者字节流，并确定对应MIME,比如HTML生成MIME为text/html的字符流，mpeg视频文件生成MIME为video/mpeg的字节流。</p>
-</li>
-<li><p>动态资源处理模块</p>
-<p>运行业务逻辑处理，动态决定返回的资源内容和类型，内容和类型的处理原则同上。</p>
-</li>
-<li><p>后处理</p>
-<p>根据和用户协商的协议进行加密，压缩，安全处理等等。</p>
-</li>
-<li><p>资源输出模块</p>
-<p>把处理好的内容和类型封装成HTTP报文，往TCP连接另一头的用户代理发送TCP报文（内容是HTTP报文）。</p>
-</li>
-</ul>
-<h3 id="4-Web应用程序服务器"><a href="#4-Web应用程序服务器" class="headerlink" title="4. Web应用程序服务器"></a>4. Web应用程序服务器</h3><p>应用程序服务器(简称应用服务器)。</p>
-<p>百度百科的定义如下：</p>
-<blockquote>
-<p>通俗的讲，Web服务器传送(serves)页面使浏览器可以浏览，然而<strong>应用程序服务器提供的是客户端应用程序可以调用(call)的方法(methods)。</strong></p>
-<p>确切一点，你可以说:Web服务器专门处理HTTP请求(request)，但是<strong>应用程序服务器是通过很多协议来为应用程序提供(serves)商业逻辑 (business logic)。</strong></p>
-</blockquote>
-<p>以Java EE为例，Web服务器主要是处理静态页面处理和作为 Servlet容器，解释和执行servlet/JSP，而应用服务器是运行业务逻辑的，主要是EJB、 JNDI和JMX API等J2EE API方面的，还包含事务处理、数据库连接等功能，所以在企业级应用中，应用服务器提供的功能比WEB服务器强大的多。</p>
 
       
     </div>
@@ -536,6 +435,109 @@
 <li>利用Session防止表单重复提交 </li>
 <li>利用Session实现一次性验证码 </li>
 </ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/05/25/docs/java-base-web/Web-001Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/05/25/docs/java-base-web/Web-001Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-25 22:17:34" itemprop="dateCreated datePublished" datetime="2021-05-25T22:17:34+08:00">2021-05-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1-什么是Web服务器？"><a href="#1-什么是Web服务器？" class="headerlink" title="1. 什么是Web服务器？"></a>1. 什么是Web服务器？</h3><p>Web服务器一般指网站服务器，是指驻留于因特网上某种类型计算机的程序，可以向浏览器等Web客户端提供文档。目前最主流的三个Web服务器是Apache Nginx IIS。</p>
+<p><strong>从严格意义上来讲，Web服务器只负责处理HTTP协议，只能发送静态页面的内容。</strong></p>
+<p>客户端和服务器之间的通信使用HTTP协议进行。<strong>交付的页面最常见的是HTML文档，除了文本内容之外，还可能包含图像，样式表和脚本</strong>。</p>
+<p>Web服务器不仅用于为万维网服务。它们也可以被嵌入到诸如打印机，路由器，网络摄像机等设备中，并且仅服务于本地网络。然后，web服务器可以用作用于监视或管理所讨论的设备的系统的一部分。这通常意味着客户端计算机上不需要安装其他软件，因为只需要一个网络浏览器。</p>
+<h3 id="2-Web服务端工作流程"><a href="#2-Web服务端工作流程" class="headerlink" title="2. Web服务端工作流程"></a>2. Web服务端工作流程</h3><p>Web服务器的工作原理并不复杂，一般可分成如下4个步骤：连接过程、请求过程、应答过程以及关闭连接。</p>
+<p><strong>1）客户端发送请求</strong></p>
+<p>　　客户端（通过浏览器）和Web服务器建立TCP连接，连接建立以后，向Web服务器发出访问请求（如get）。根据HTTP协议，该请求中包含了客户端的IP地址、浏览器的类型和请求的URL等一系列信息。</p>
+<p> <strong>2）服务器解析请求</strong></p>
+<p>　　Web服务器对请求按照HTTP协议进行解码来确定进一步的动作，设计的内容有三鼐要点：方法（GET）、文档(/sample.html)、和浏览器使用的协议（HTTP/1.1）其中方法告诉服务器应完动的动作，GET方法的含义很明显是：服务器应定位、读取文件并将它返回给客户。</p>
+<p>Web服务器软件现在就知道了，它应该找到文件/sample.html，并使用HTTP/1.1协议将内存返回给客户。信息是经过与请求到来相同的连接发出的，所以服务器不需要定们客户或创建新的连接。</p>
+<p><strong>3）读取其它信息（非必须步骤）</strong></p>
+<p> 　　Web服务器根据需要去读取请求的其它部分。在HTTP/1.1下，客户还应给服务器提供关于它的一些信息。元信息（metainformation）可用来描述浏览器及其能力，以使服务器能据此确定如何返回应答。</p>
+<p><strong>4）完成请求的动作</strong></p>
+<p>　　若现在没有错误出现，WWW服务器将执行请求所要求的动作。如果成功经找到，则发送状态码200，表示一切都OK ，并返回相关文档。如果失败：返回错误指示。若服务器无法找到该资源，则发送状态码404 给客户。</p>
+<p><strong>5）关闭文件和网络连接，结束会话。</strong></p>
+<p>当文件已被发邮或错误已发出后，web服务器结束整个会话。它关闭打开的的被请求文件，关闭网络端口从而结束网络连接。</p>
+<h3 id="3-服务器端的组成模块"><a href="#3-服务器端的组成模块" class="headerlink" title="3. 服务器端的组成模块"></a>3. 服务器端的组成模块</h3><ul>
+<li><p>TCP监听模块</p>
+<p>服务器监听某个端口（一般默认是8080端口，用户可以设置其他端口），以建立和用户代理之间的连接。一旦建立连接，用户代理的后续HTTP请求将不用再进入监听模块。</p>
+</li>
+<li><p>预处理</p>
+<p>此处主要做三件事：1. 从TCP报文中获取HTTP请求报文。 2. 根据和用户代理的协商进行解密，解压，安全处理等等。3. 根据服务器自身的配置进行安全处理，建立会话状态等等。</p>
+</li>
+<li><p>URL路由</p>
+<p>解析URL字符串和动作以确定用户代理请求的资源，根据匹配规则（通常根据正则表达式+后缀）路由到静态资源处理模块或动态资源处理模块。</p>
+</li>
+<li><p>静态资源处理模块</p>
+<p>负责找到静态资源，比如HTML/Javascript/CSS文件/图片/图像，确定内容是字符流或者字节流，并确定对应MIME,比如HTML生成MIME为text/html的字符流，mpeg视频文件生成MIME为video/mpeg的字节流。</p>
+</li>
+<li><p>动态资源处理模块</p>
+<p>运行业务逻辑处理，动态决定返回的资源内容和类型，内容和类型的处理原则同上。</p>
+</li>
+<li><p>后处理</p>
+<p>根据和用户协商的协议进行加密，压缩，安全处理等等。</p>
+</li>
+<li><p>资源输出模块</p>
+<p>把处理好的内容和类型封装成HTTP报文，往TCP连接另一头的用户代理发送TCP报文（内容是HTTP报文）。</p>
+</li>
+</ul>
+<h3 id="4-Web应用程序服务器"><a href="#4-Web应用程序服务器" class="headerlink" title="4. Web应用程序服务器"></a>4. Web应用程序服务器</h3><p>应用程序服务器(简称应用服务器)。</p>
+<p>百度百科的定义如下：</p>
+<blockquote>
+<p>通俗的讲，Web服务器传送(serves)页面使浏览器可以浏览，然而<strong>应用程序服务器提供的是客户端应用程序可以调用(call)的方法(methods)。</strong></p>
+<p>确切一点，你可以说:Web服务器专门处理HTTP请求(request)，但是<strong>应用程序服务器是通过很多协议来为应用程序提供(serves)商业逻辑 (business logic)。</strong></p>
+</blockquote>
+<p>以Java EE为例，Web服务器主要是处理静态页面处理和作为 Servlet容器，解释和执行servlet/JSP，而应用服务器是运行业务逻辑的，主要是EJB、 JNDI和JMX API等J2EE API方面的，还包含事务处理、数据库连接等功能，所以在企业级应用中，应用服务器提供的功能比WEB服务器强大的多。</p>
 
       
     </div>
