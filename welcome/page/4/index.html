@@ -195,6 +195,567 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/08/14/docs/java-a-base/web/Web-002Web%E5%AE%B9%E5%99%A8%E6%98%AF%E4%BB%80%E4%B9%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/14/docs/java-a-base/web/Web-002Web%E5%AE%B9%E5%99%A8%E6%98%AF%E4%BB%80%E4%B9%88/" class="post-title-link" itemprop="url">Web容器是什么？</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-14 15:27:34" itemprop="dateCreated datePublished" datetime="2020-08-14T15:27:34+08:00">2020-08-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-06 23:10:44" itemprop="dateModified" datetime="2021-07-06T23:10:44+08:00">2021-07-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E6%9C%8D%E5%8A%A1%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">Web服务器</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Web容器是什么？"><a href="#Web容器是什么？" class="headerlink" title="Web容器是什么？"></a>Web容器是什么？</h2><p>Web应用程序是如何运行的呢？Web应用程序又是如何在Web服务器的Web容器内运行。</p>
+<p>基于上述两个疑问，开始了本文的探究。</p>
+<h3 id="什么是Web容器？"><a href="#什么是Web容器？" class="headerlink" title="什么是Web容器？"></a>什么是Web容器？</h3><p>Web服务器的出现的标志着WWW时代的带来，世界变得更加平面化。</p>
+<p>当初尝到甜头的开创者们开始不满足与在互联网上<strong>获取静态资源</strong>，于是出现了CGI脚本来动态获取资源。</p>
+<p>再后来网络发展方向也是朝着增强Web服务器动态获取资源的能力前进。</p>
+<p>以下是代表性的动态技术：</p>
+<table>
+<thead>
+<tr>
+<th align="left">技术名词</th>
+<th align="left">特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">CGI（Common Gateway Interface，公用网关接口）</td>
+<td align="left">以独立进程运行，可以用多种语言开发，比如C,C++,VB,Perl，灵活但效率低，维护复杂</td>
+</tr>
+<tr>
+<td align="left">PHP</td>
+<td align="left">服务器端嵌入HTML脚本，开源，功能强大，扩展性较差</td>
+</tr>
+<tr>
+<td align="left">JSP</td>
+<td align="left">服务器端嵌入HTML脚本，跨平台，部署前需编译，缺点是JSP比较复杂，需熟悉JAVA及相关技术</td>
+</tr>
+<tr>
+<td align="left">ASP</td>
+<td align="left">服务器端嵌入HTML脚本，开发简单，功能强大，只能在windows下运行</td>
+</tr>
+</tbody></table>
+<p>随后Web服务器朝着企业级应用方向发展，快速的业务变化，迫使Web开发人员面对新的挑战：</p>
+<ul>
+<li>如何快速写出鲁棒，可靠，符合业务需求的程序并顺利部署？</li>
+</ul>
+<p>解决这个挑战的一个有效的办法是，<strong>创造一个Web程序开发框架</strong>（含运行环境，比如解释执行JSP,Web API），这个框架解决鲁棒性，可靠性问题，提供快速开发接口。换言之，开发人员只需要专注于实现业务本身，如有更高的需求还可以对框架进行定制和扩展。这个框架的另外一个名字是<strong>Web应用程序容器。</strong></p>
+<p>因此，可以将Web容器，看做是Web程序的开发和运行环境。</p>
+<h3 id="Web容器的基本工作原理"><a href="#Web容器的基本工作原理" class="headerlink" title="Web容器的基本工作原理"></a>Web容器的基本工作原理</h3><p>相对于Web服务器，容器新增或强化了以下模块：</p>
+<ul>
+<li><p><strong>分配线程池资源</strong></p>
+<p>容器为每个请求分配一个线程进行处理，通常采取线程池的方式高效理由CPU算资源。</p>
+</li>
+<li><p><strong>封装Request上下文</strong></p>
+<p>一个请求对应一个Request上下文，它主要封装了用户请求的主要构成：URL,HTTP请求头，以及基于请求头构建的Session,Cookie等对象，方便编程使用。</p>
+</li>
+<li><p><strong>封装Response上下文</strong></p>
+<p>一个请求对应一个Response上下文，主要用于向用户代理返回资源。可以在其中写入输出流，或者重定向，或者返回错误码等等。</p>
+</li>
+<li><p><strong>URL路由</strong></p>
+<p>在容器里，运行开发人员设置不同的路由匹配规则，比如让.HTM返回.HTML,也可以自定义.xyz返回.HTML资源。更加灵活的配置可以参考JAVA MVC或者ASP.NET MVC的配置方案。</p>
+</li>
+<li><p><strong>动态资源处理模块</strong></p>
+<p>通常在这里具体的容器和开发语言都有自己的高效开发模型，比如JAVA的Servlet,ASP</p>
+</li>
+<li><p><strong>回收资源</strong></p>
+<p>这里会回收刚才的线程资源，为了线程复用，除非服务器空闲一般会将线程返回线程池。</p>
+<p>可以看出,Web容器本身具备了做为一个Web服务器的功能。</p>
+<p>事实上<strong>通常实现Web容器功能的服务器就是一个Web服务器</strong>.比如Tomcat , IIS ,Jetty。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/07/13/docs/z-carreer-plan/README/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/13/docs/z-carreer-plan/README/" class="post-title-link" itemprop="url">职业相关导览</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-13 15:27:34" itemprop="dateCreated datePublished" datetime="2020-07-13T15:27:34+08:00">2020-07-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-08 23:02:31" itemprop="dateModified" datetime="2021-07-08T23:02:31+08:00">2021-07-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a href="./carreer-plan/%E8%8B%8F%E5%B0%8F%E4%B9%90%E7%9A%84%E8%81%8C%E4%B8%9A%E6%80%9D%E8%80%83.md">苏小乐的职业思考</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/06/18/docs/z-student-life/README/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/18/docs/z-student-life/README/" class="post-title-link" itemprop="url">学生生涯目录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-18 15:27:34" itemprop="dateCreated datePublished" datetime="2020-06-18T15:27:34+08:00">2020-06-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-08 22:47:14" itemprop="dateModified" datetime="2021-07-08T22:47:14+08:00">2021-07-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a href="./z-student-life/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E4%B8%80%E7%AF%87%E7%A1%95%E5%A3%AB%E8%AE%BA%E6%96%87.md">如何写好一篇硕士论文</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/06/17/docs/sys-linux-series/Windows%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/17/docs/sys-linux-series/Windows%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C/" class="post-title-link" itemprop="url">Linux系列目录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-17 15:27:34" itemprop="dateCreated datePublished" datetime="2020-06-17T15:27:34+08:00">2020-06-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-04 23:42:17" itemprop="dateModified" datetime="2021-07-04T23:42:17+08:00">2021-07-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="CMD命令总结"><a href="#CMD命令总结" class="headerlink" title="CMD命令总结"></a>CMD命令总结</h2><h3 id="进程类"><a href="#进程类" class="headerlink" title="进程类"></a>进程类</h3><h4 id="netstat-命令"><a href="#netstat-命令" class="headerlink" title="netstat 命令"></a>netstat 命令</h4><h5 id="查找某一端口所占用的进程"><a href="#查找某一端口所占用的进程" class="headerlink" title="查找某一端口所占用的进程"></a>查找某一端口所占用的进程</h5><figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">netstat -ano<span class="string">|findstr &quot;</span>端口号<span class="string">&quot;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>命令解析：</p>
+<ul>
+<li>netstat </li>
+</ul>
+<p>netstat 命令用于显示与IP、TCP、UDP和ICMP协议相关的统计数据，一般用于检验本机各端口的网络连接情况。netstat是在内核中访问网络及相关信息的程序，它能提供TCP连接，TCP和UDP监听，进程内存管理的相关报告。</p>
+<p>参数说明：</p>
+<ul>
+<li><p>-a 或 -all 显示所有连线中的Socket。</p>
+</li>
+<li><p>-n 直接使用ip地址，不通过域名服务器</p>
+</li>
+<li><p>-o 显示计时器</p>
+</li>
+<li><p>-an 当不附加”-n”选项时，它显示的是本地计算机的netbios名字+端口号。而加了”-n”选项后，它显示的是本地IP地址+端口号</p>
+</li>
+</ul>
+<p>故 netstat -ano 表示打印所有连接的IP地址+端口号及链接时间</p>
+</blockquote>
+<h4 id="tasklist"><a href="#tasklist" class="headerlink" title="tasklist"></a>tasklist</h4><h5 id="根据PID查找对应的程序"><a href="#根据PID查找对应的程序" class="headerlink" title="根据PID查找对应的程序"></a>根据PID查找对应的程序</h5><figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">tasklist <span class="string">|findstr &quot;</span>PID<span class="string">&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="结束某一进程"><a href="#结束某一进程" class="headerlink" title="结束某一进程"></a>结束某一进程</h5><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">taskkill <span class="regexp">/pid xxxx /</span>F</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/06/15/docs/sys-linux-series/Linux-03%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/15/docs/sys-linux-series/Linux-03%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">Linux安装软件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-15 15:27:34" itemprop="dateCreated datePublished" datetime="2020-06-15T15:27:34+08:00">2020-06-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-04 23:42:07" itemprop="dateModified" datetime="2021-07-04T23:42:07+08:00">2021-07-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Linux-环境下安装软件笔记"><a href="#Linux-环境下安装软件笔记" class="headerlink" title="Linux 环境下安装软件笔记"></a>Linux 环境下安装软件笔记</h2><p>在Ubuntu下，使用源码编译源码安装工具，可以实现安装指定版本的需求，且安装后清除系统环境等也很有帮助。但是，源码编译安装笔使用apt等工具安装要复杂多了。为了积累经验，将日常学习和工作中安装软件的实践记录下来，以备将来用之。</p>
+<p>使用源码安装linux相关工具的基本步骤如下：</p>
+<blockquote>
+<ol>
+<li>在官网下载源码压缩包，一般为.tar.gz格式。</li>
+<li>解压缩。一般使用 tar -zxvf xxx.xxx.xxx.tar.gz来解压缩。</li>
+<li>编译安装源码：</li>
+</ol>
+<ul>
+<li>.configure –prefix opt/xxx/xxx  使用configure脚本来检查编译环境，并使用-prefix来指定安装目录。</li>
+<li>make 编译源码</li>
+<li>make install 安装</li>
+</ul>
+</blockquote>
+<h3 id="源码编译方式安装curl"><a href="#源码编译方式安装curl" class="headerlink" title="源码编译方式安装curl"></a>源码编译方式安装curl</h3><p>使用源码安装curl,为了实现最新版本的安装。</p>
+<h6 id="curl-常用参数"><a href="#curl-常用参数" class="headerlink" title="curl 常用参数"></a>curl 常用参数</h6><figure class="highlight smalltalk"><table><tr><td class="code"><pre><span class="line">curl -<span class="type">L</span> --retry <span class="number">5</span> --retry-delay <span class="number">3</span> <span class="comment">&quot;$&#123;URL&#125;&quot;</span> | tar xz || rc=<span class="string">$?</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="L参数"><a href="#L参数" class="headerlink" title="-L参数"></a>-L参数</h6><p>使用 <code>-L</code> 参数，curl 就会跳转到新的网址：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> <span class="built_in">curl</span> <span class="literal">-L</span> www.sina.com</span><br></pre></td></tr></table></figure>
+
+<p>键入上面的命令，结果自动跳转为www. sina. com.</p>
+<h6 id="–retry"><a href="#–retry" class="headerlink" title="–retry"></a>–retry</h6><p>–retry <num> 指定重试次数</p>
+<h6 id="–retry-delay"><a href="#–retry-delay" class="headerlink" title="–retry-delay"></a>–retry-delay</h6><p>–retry-delay <seconds> 传输出现问题时，设置重试间隔时间</p>
+<h5 id="curl的错误总结"><a href="#curl的错误总结" class="headerlink" title="curl的错误总结"></a>curl的错误总结</h5><p>在使用curl来进行网络通信的时候，常常会出现各种错误。一下是对这些错误的总结。</p>
+<h6 id="curl-35-OpenSSL-SSL-connect"><a href="#curl-35-OpenSSL-SSL-connect" class="headerlink" title="curl: (35) OpenSSL SSL_connect"></a>curl: (35) OpenSSL SSL_connect</h6><p>BUG详细信息如下：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">sxl</span>@ubuntu<span class="number">18</span>:~/bkapp$ curl -sSL https://bit.ly/<span class="number">2</span>ysbOFE | bash -s -- <span class="number">2</span>.<span class="number">0</span>.<span class="number">1</span> <span class="number">1</span>.<span class="number">4</span>.<span class="number">6</span> <span class="number">0</span>.<span class="number">4</span>.<span class="number">18</span></span><br><span class="line"><span class="attribute">curl</span>: (<span class="number">35</span>) OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to bit.ly:<span class="number">443</span> </span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="curl-56-Recv-failure"><a href="#curl-56-Recv-failure" class="headerlink" title="curl: (56) Recv failure"></a>curl: (56) Recv failure</h6><p>BUG详细信息如下：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">sxl</span>@ubuntu<span class="number">18</span>:~/bkapp$ curl -sSL http://bit.ly/<span class="number">2</span>ysbOFE | bash -s -- <span class="number">1</span>.<span class="number">4</span>.<span class="number">6</span> <span class="number">1</span>.<span class="number">4</span>.<span class="number">6</span> <span class="number">0</span>.<span class="number">4</span>.<span class="number">18</span></span><br><span class="line"><span class="attribute">curl</span>: (<span class="number">56</span>) Recv failure: 连接被对方重设</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="OpenSSL的源码安装"><a href="#OpenSSL的源码安装" class="headerlink" title="OpenSSL的源码安装"></a>OpenSSL的源码安装</h3><ol>
+<li>下载源码</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">wget https:<span class="regexp">//</span>www.openssl.org<span class="regexp">/source/</span>openssl-<span class="number">1.1</span>.<span class="number">1</span>d.tar.gz --no-check-certificate</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>解压缩</li>
+</ol>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">tar</span> zxvf openssl-<span class="number">1</span>.<span class="number">1</span>.<span class="number">1</span>d.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>配置 &amp; 编译 &amp;安装</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 1.进入解压文件，对程序进行配置</span></span><br><span class="line">cd openssl-<span class="number">1.1</span>.<span class="number">1</span>d/</span><br><span class="line">.<span class="regexp">/config shared --prefix=/u</span>sr<span class="regexp">/local/</span>	<span class="comment"># shared 的意思是创建共享库。</span></span><br><span class="line"><span class="comment">## 2.编译安装</span></span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line"><span class="comment">## 3.copy相关文件至系统文件夹</span></span><br><span class="line">sudo cp libcrypto.so.<span class="number">1.1</span> <span class="regexp">/usr/</span>lib<span class="regexp">/x86_64-linux-gnu/</span></span><br><span class="line">sudo cp libssl.so.<span class="number">1.1</span> <span class="regexp">/usr/</span>lib<span class="regexp">/x86_64-linux-gnu/</span></span><br><span class="line"><span class="comment">## 4. 创建软连接</span></span><br><span class="line">ln -s <span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>openssl <span class="regexp">/usr/</span>bin/openssl</span><br><span class="line">openssl version</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/06/15/docs/sys-linux-series/README/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/15/docs/sys-linux-series/README/" class="post-title-link" itemprop="url">Linux系列目录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-15 15:27:34" itemprop="dateCreated datePublished" datetime="2020-06-15T15:27:34+08:00">2020-06-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-04 16:24:45" itemprop="dateModified" datetime="2021-07-04T16:24:45+08:00">2021-07-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Linux命令总结"><a href="#Linux命令总结" class="headerlink" title="Linux命令总结"></a>Linux命令总结</h3><ul>
+<li><h4 id="Linux系统常用命令总结"><a href="#Linux系统常用命令总结" class="headerlink" title="Linux系统常用命令总结 "></a><a href="./sys-linux-series/linux-02Linux%E7%B3%BB%E7%BB%9F%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93.md">Linux系统常用命令总结 </a></h4></li>
+<li><h4 id="Git-命令使用总结"><a href="#Git-命令使用总结" class="headerlink" title="Git 命令使用总结"></a><a href="./sys-linux-series/linux-100git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93.md">Git 命令使用总结</a></h4></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/06/15/docs/z-carreer-plan/%E8%8B%8F%E5%B0%8F%E4%B9%90%E7%9A%84%E8%81%8C%E4%B8%9A%E6%80%9D%E8%80%83/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -482,6 +1043,227 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/04/01/docs/z-student-life/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E4%B8%80%E7%AF%87%E7%A1%95%E5%A3%AB%E8%AE%BA%E6%96%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/01/docs/z-student-life/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E4%B8%80%E7%AF%87%E7%A1%95%E5%A3%AB%E8%AE%BA%E6%96%87/" class="post-title-link" itemprop="url">Java 自定义注解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-01 15:27:34" itemprop="dateCreated datePublished" datetime="2020-04-01T15:27:34+08:00">2020-04-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-08 23:03:45" itemprop="dateModified" datetime="2021-07-08T23:03:45+08:00">2021-07-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BA%E6%96%87/" itemprop="url" rel="index"><span itemprop="name">论文</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="如何写一篇硕士毕业论文？"><a href="#如何写一篇硕士毕业论文？" class="headerlink" title="如何写一篇硕士毕业论文？"></a>如何写一篇硕士毕业论文？</h1><h2 id="00-前言"><a href="#00-前言" class="headerlink" title="00 - 前言"></a>00 - 前言</h2><p>毕业论文是研究生生涯的最后一站。从当初的一脸懵逼，到现在逐渐知晓了如何完成一篇硕士毕业论文，这期间有很多的经验和教训。基于自己的经历，将这段经历记录如下。在此部分，首先对写论文之前的一些注意事项做出强调。</p>
+<p><strong>相关经验</strong></p>
+<ul>
+<li><strong>提前设置好页面布局和文字格式</strong></li>
+</ul>
+<p>论文撰写好了之后，如果再更改格式，则会导致后面图片图表错乱，导致从新排版。</p>
+<ul>
+<li>毕业的基本流程<ul>
+<li>论文撰写 <ul>
+<li> <a target="_blank" rel="noopener" href="https://seugs.seu.edu.cn/_upload/article/files/d4/10/3e0724b84f799a3d7471d0527998/d1ebee3b-10e6-46c7-8250-129e122184f2.docx">东南大学研究生学位论文格式规定</a> </li>
+<li><a target="_blank" rel="noopener" href="https://seugs.seu.edu.cn/_t137/3688/list1.htm">东南大学硕士研究生封面、独创性声明下载</a></li>
+</ul>
+</li>
+<li>查重</li>
+<li>送审<ul>
+<li><a target="_blank" rel="noopener" href="https://seugs.seu.edu.cn/2013/1022/c12826a123110/page.htm">东南大学研究生学位论文盲审条例（2017年修订）</a></li>
+</ul>
+</li>
+<li>答辩</li>
+<li>毕业</li>
+</ul>
+</li>
+</ul>
+<h2 id="01-东南大学硕士论文基本格式要求"><a href="#01-东南大学硕士论文基本格式要求" class="headerlink" title="01-东南大学硕士论文基本格式要求"></a>01-东南大学硕士论文基本格式要求</h2><p>此处来源：<a target="_blank" rel="noopener" href="https://seugs.seu.edu.cn/_upload/article/files/d4/10/3e0724b84f799a3d7471d0527998/d1ebee3b-10e6-46c7-8250-129e122184f2.docx">东南大学研究生学位论文格式规定</a> </p>
+<h3 id="1-字数要求"><a href="#1-字数要求" class="headerlink" title="1. 字数要求"></a>1. 字数要求</h3><blockquote>
+<p>硕士学位论文一般在三万字以上</p>
+</blockquote>
+<h3 id="2-1-电子文档类型"><a href="#2-1-电子文档类型" class="headerlink" title="2.1 电子文档类型"></a>2.1 电子文档类型</h3><blockquote>
+<p>（1）基本要求</p>
+<p>学位论文要求电子文档用<strong>WORD输入（或PDF矢量文件格式）</strong>；其他格式应经校档案馆特许，原则上应能自动转成WORD格式并不会丢失图形、字符、分式和产生乱码。</p>
+<p>（2）学位论文电子文档的提交方式</p>
+<p>详见<strong>《东南大学研究生学位论文网上提交的要求》</strong>。</p>
+</blockquote>
+<h3 id="2-2-字体"><a href="#2-2-字体" class="headerlink" title="2.2 字体"></a>2.2 字体</h3><h4 id="正文字体"><a href="#正文字体" class="headerlink" title="正文字体"></a>正文字体</h4><p>（0）正文：小四号宋体，首行缩进。除<strong>引文</strong>和前面所述的某些外文符号外，正文一律用宋体，文字用横排。</p>
+<h4 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h4><p>（1）一级标题（题目）：二号宋体居中；</p>
+<h4 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h4><p>（2）二级标题（章）：三号黑体居中。</p>
+<h4 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h4><p>（3）三级标题（节）：四号宋体（加粗）居左；</p>
+<h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><p>（4）四级标题（节内小节）小四号黑体居左。</p>
+<h4 id="表格文字"><a href="#表格文字" class="headerlink" title="表格文字"></a>表格文字</h4><p>（5）表格文字可用<strong>小五宋体</strong>或<strong>正文字体</strong>，居中（或居左）并整齐划一</p>
+<h4 id="表格名-图名字体"><a href="#表格名-图名字体" class="headerlink" title="表格名-图名字体"></a>表格名-图名字体</h4><p>（6）表格名及图名用五号宋体。</p>
+<h4 id="标点符号"><a href="#标点符号" class="headerlink" title="标点符号"></a>标点符号</h4><p>（7）标点符号：单个的标点符号（如句号、逗号、分号、顿号、冒号、感叹号、破折号等）和成双的标点符号（如引号、括号）的后半部分<strong>不得放在行首</strong>，成双的标点符号前半个不得放在句末。</p>
+<h3 id="2-3-纸张尺寸和页码"><a href="#2-3-纸张尺寸和页码" class="headerlink" title="2.3 纸张尺寸和页码"></a>2.3 纸张尺寸和页码</h3><h4 id="尺寸"><a href="#尺寸" class="headerlink" title="尺寸"></a>尺寸</h4><p><strong>A4纸张，四周页边距2cm</strong>，带连续页码（罗马数字或阿拉伯数字页码，底部居中）。</p>
+<p>双面印刷，页数较少时也可用单面印刷。<strong>根据装订需要，左、右两侧的页边距也可以选2.5cm。</strong></p>
+<h4 id="页码"><a href="#页码" class="headerlink" title="页码"></a>页码</h4><p><strong>页码1从正文开始</strong>，<strong>前面摘要和目录等内容的页码用大写罗马数字表示</strong>。</p>
+<p>在WORD中分段设置页码采用菜单里的<strong>“插入”“分隔符”，然后选中“分节符”里的“下一页”</strong>，</p>
+<p>这样就可以分段设置连续页码和不同的页眉和页脚。</p>
+<h3 id="2-4页眉和页脚"><a href="#2-4页眉和页脚" class="headerlink" title="2.4页眉和页脚"></a>2.4页眉和页脚</h3><p>（1）页眉</p>
+<p>页眉采用下列形式（在页眉页脚的页面设置中选择“奇偶页不同”）：</p>
+<p>偶数页：</p>
+<p>东南大学硕士学位论文（<strong>小五号宋体居中</strong>）</p>
+<p>奇数页：</p>
+<p>第 * 章章题目（<strong>小五号宋体居中</strong>）</p>
+<p>若为博士学位论文则将页眉中的“硕士”换为“博士”。</p>
+<p>（2）页脚</p>
+<p><strong>正文及其以后部分，其页脚为居中、连续的阿拉伯数字页码。</strong>不宜采用分章的非连续页码。</p>
+<p><strong>摘要和目录等内容的页脚</strong>为居中、连续的大写罗马数字页码。</p>
+<h3 id="2-5-印刷要求"><a href="#2-5-印刷要求" class="headerlink" title="2.5 印刷要求"></a>2.5 印刷要求</h3><p>（1）印刷版论文必须清晰易读，字体必须美观、呈黑色。</p>
+<p>（2）印刷版论文内芯必须用白色无底纹（或水印）的高质量纸。封面用稍厚的封面纸张。</p>
+<p>（3）印刷版论文必须留足页边以便装订和复制保存。</p>
+<hr>
+<h2 id="02-硕士论文基本组成"><a href="#02-硕士论文基本组成" class="headerlink" title="02-硕士论文基本组成"></a>02-硕士论文基本组成</h2><blockquote>
+<p>一、学位论文的一般格式和顺序</p>
+<p>学位论文应包括：（1）中文封面；（2）中文页面；（3）英文页面；（4）论文独创性声明和使用授权声明；（5）中文内容提要及关键词；（6）英文内容提要及关键词；（7）目录；（8）正文；（9）致谢；（10）参考文献等要素并按此顺序排列。其他可以选择添加的内容有：位于目录之后的内容：（11）符号、变量、缩略词等本论文专用术语的注释表；参考文献后按序排列的内容：（12）附录；（13）索引（中、英文）；（14）作者简介（包括在学期间发表的论文和取得的学术成果清单）；（15）后记。</p>
+</blockquote>
+<h2 id="03-硕士论文各部分如何书写？"><a href="#03-硕士论文各部分如何书写？" class="headerlink" title="03-硕士论文各部分如何书写？"></a>03-硕士论文各部分如何书写？</h2><h3 id="1-论文题目"><a href="#1-论文题目" class="headerlink" title="1.论文题目"></a>1.论文题目</h3><p>论文题目是论文全貌的集中体现，应能概括整个论文最重要的内容，命题必须确切、简明，题目应力求简单，也不应宽泛笼统，须能看出论文的实质性内容和工作重心。</p>
+<p>中文题名一般不超过20个汉字，必要时可加副题名。副题名可另起一行，用破折号与主题名隔开。</p>
+<p>题名中应避免使用非公知公用的缩略语、字符、代号以及结构式和公式。</p>
+<h3 id="2-论文摘要"><a href="#2-论文摘要" class="headerlink" title="2. 论文摘要"></a>2. 论文摘要</h3><h4 id="2-1-中文摘要"><a href="#2-1-中文摘要" class="headerlink" title="2.1 中文摘要"></a>2.1 中文摘要</h4><p>论文摘要包括题名、硕士（博士）研究生姓名、导师姓名、学校名称、正文、关键词。</p>
+<p><strong>中文约500字左右</strong>，英文约200~300词左右，二者应基本对应。</p>
+<p>它是论文内容的高度概括，应说明<strong>研究目的、研究方法、成果和结论</strong>，要突出本论文的创造性成果或新的见解，用语简洁、准确。</p>
+<p>论文摘要后还应注明本文的<strong>关键词3至5个</strong>。关键词应为公知公用的词和学术术语，不可采用自造字词和略写、符号等，词组不宜过长。</p>
+<h4 id="2-2-英文摘要"><a href="#2-2-英文摘要" class="headerlink" title="2.2 英文摘要"></a>2.2 英文摘要</h4><p>英文摘要采用第三人称单数语气介绍该学位论文内容，目的是便于其他文摘摘录，因此在写作英文文摘时不宜用第一人称的语气陈述。</p>
+<p><strong>叙述的基本时态为一般现在时</strong>，确实需要强调过去的事情或者已经完成的行为才使用过去时、完成时等其他时态。可以采用被动语态，<strong>但要避免出现用“This paper”作为主语代替作者完成某些研究行为</strong>。</p>
+<p><strong>中国姓名译为英文时用汉语拼音</strong>，按照姓前名后的原则，姓、名均用全名，不宜用缩写。姓全用大写，名的第一个字母大写，名为双中文字时两个字的拼音之间可以不用短划线，但容易引起歧义时必须用短划线。例如“冯长根”译为“FENG Changgen”或“FENG Chang-gen”，而“冯长安”则必须译为“FENG Chang-an”。论文英文封面上的署名也遵守此规定。</p>
+<h3 id="3-目录"><a href="#3-目录" class="headerlink" title="3. 目录"></a>3. 目录</h3><p>目录是论文的大纲，它反映论文的梗概。论文目录要求层次清楚，应将论文的章节按顺序编好页码，页码居页面的右侧并排列整齐。</p>
+<h3 id="4-专用术语注释表（任选）"><a href="#4-专用术语注释表（任选）" class="headerlink" title="4. 专用术语注释表（任选）"></a>4. 专用术语注释表（任选）</h3><p>本论文专用术语（符号、变量、缩略词等）的注释表，如果有必要可以设置此注释表。此部分内容可根据论文中采用的符号、变量、缩略词等专用术语加以定义和注释，以便于论文阅读和迅速查出某符号的明确含义。</p>
+<h3 id="5-正文"><a href="#5-正文" class="headerlink" title="5. 正文"></a>5. 正文</h3><p>正文是学位论文的主体。内容可因研究课题的性质不同而有所变化。</p>
+<p>一般可包括：文献综述、理论基础、计算方法、实验方法、经过整理加工的实验结果的分析讨论、见解和结论。</p>
+<h4 id="第1章-绪论（前言）"><a href="#第1章-绪论（前言）" class="headerlink" title="第1章 - 绪论（前言）"></a>第1章 - 绪论（前言）</h4><p>本研究课题国内外已有的重要文献的扼要概括，<strong>阐明研究此课题的目的、意义，研究的主要内容和所要解决的问题</strong>。本研究工作在国民经济建设和社会发展中的理论意义与实用价值。绪论一般分为如下几个章节：</p>
+<ul>
+<li>研究背景</li>
+<li>研究现状  / 国内外研究动态</li>
+<li>论文研究内容</li>
+<li>论文组织结构</li>
+</ul>
+<h5 id="1-1-研究背景-重要部分"><a href="#1-1-研究背景-重要部分" class="headerlink" title="1.1 研究背景  (重要部分)"></a>1.1 研究背景  (重要部分)</h5><blockquote>
+<p><strong>此部分很重要，重要程度和摘要相当。</strong>评审老师主要通过看摘要和研究背景来了解文章。</p>
+</blockquote>
+<p>将摘要部分进行展开，详细说明问题的研究背景。这一部分主要说明研究课题的目的、意义和所要解决的问题。</p>
+<p>主要是要解释清楚：</p>
+<ul>
+<li><strong>研究的问题是什么</strong>？</li>
+<li><strong>研究的目的和意义是什么？</strong></li>
+</ul>
+<p>最好使用一张图来说明研究的问题。</p>
+<blockquote>
+<p>比如，我的论文题目是“基于区块链的网络博弈平台设计与实现”</p>
+<p>基本的逻辑顺序为：</p>
+<p>阐述背景—&gt; 传统博弈下存在什么问题 —-&gt;将传统博弈转化为网络博弈的研究意义是什么？（用一张图来举例）——-&gt;说明实现网络博弈平台需要解决的问题，最终实现的网络博弈平台的基本组成（最好用一张图来说明）</p>
+</blockquote>
+<h5 id="1-2-研究现状-文献综述"><a href="#1-2-研究现状-文献综述" class="headerlink" title="1.2 研究现状 / 文献综述"></a>1.2 研究现状 / 文献综述</h5><p>在查阅国内外文献和了解国内外有关科技情况的基础上，围绕课题涉及的问题，综述前人工作情况，达到承前启后的目的。要求：</p>
+<p>（1）总结课题方向至少10年以来的国内外动态；</p>
+<p>（2）明确前人的工作水平；</p>
+<p>（3）介绍目前尚存在的问题；</p>
+<p>（4）说明<strong>本课题的主攻方向</strong>。文献总结应达到可独立成为一篇综述文章的要求。</p>
+<blockquote>
+<p>我的思路：</p>
+<p>基于区块链的网络博弈平台</p>
+<p>==》 网络博弈的研究现状</p>
+<p>网络博弈的近10年研究现状；</p>
+<p>==》区块链的研究现状</p>
+<p>区块链的近10年研究现状</p>
+<p>===》目前上存在的问题： 没有一个能对博弈机制具有一般表达性的平台</p>
+<p>===》主攻方向：基于去中心化架构的计算模型，实现一个对博弈机制具有一般表达性的网络博弈平台。</p>
+</blockquote>
+<h5 id="1-3-研究内容"><a href="#1-3-研究内容" class="headerlink" title="1.3 研究内容"></a>1.3 研究内容</h5><ul>
+<li><p>要求：</p>
+</li>
+<li><p>写法：</p>
+</li>
+</ul>
+<p>描述清楚自己的研究内容即可。拓展摘要中的工作内容</p>
+<h5 id="1-4-组织结构"><a href="#1-4-组织结构" class="headerlink" title="1.4 组织结构"></a>1.4 组织结构</h5><ul>
+<li>写法：</li>
+</ul>
+<p>按章节阐述之，说明每一章节的主要研究内容。</p>
+<h4 id="第2章-相关理论及技术"><a href="#第2章-相关理论及技术" class="headerlink" title="第2章 - 相关理论及技术"></a>第2章 - 相关理论及技术</h4><p>要求：</p>
+<blockquote>
+<p>相关理论，不要仅仅罗列，要突出相关性。</p>
+</blockquote>
+<h4 id="第3章-理论分析、数值计算或同级分析"><a href="#第3章-理论分析、数值计算或同级分析" class="headerlink" title="第3章 - 理论分析、数值计算或同级分析"></a>第3章 - 理论分析、数值计算或同级分析</h4><p>要求：</p>
+<blockquote>
+<p>利用研究生本人所掌握的理论知识对所选课题进行科学地、严密地<strong>理论分析</strong>、数值计算或统计分析，剖析课题，提出自己的见解。</p>
+</blockquote>
+<p>写法：</p>
+<blockquote>
+<p>需要注意逻辑性，一步一步引入：</p>
+<p>我的论文，这一章主要是建立网络博弈模型，基本的底层逻辑为：</p>
+<ul>
+<li>网络博弈的描述（举两个例子）—&gt;从例子中抽象出网络博弈的基本流程——-{得出传统博弈到网络博弈需要引入网络结构与激励机制}</li>
+<li>网络博弈结构分析 与 动力分析 —&gt; 网络结构的分析—-{博弈动力的分析：博弈机制}</li>
+<li>网络博弈的建模</li>
+</ul>
+</blockquote>
+<h4 id="第4章-实验原理、实验方法及实验装置"><a href="#第4章-实验原理、实验方法及实验装置" class="headerlink" title="第4章 - 实验原理、实验方法及实验装置"></a>第4章 - 实验原理、实验方法及实验装置</h4><p>学位论文要求对实验原理、方法、装置、步骤和有关参数有较详细的阐述，以便评阅人及答辩委员会审核实验的可靠性，并能对实验进行重复以便验证结果的可靠性，也为以后的研究者提供一个较完整的研究方法。</p>
+<h4 id="第5章-实验结果及分析"><a href="#第5章-实验结果及分析" class="headerlink" title="第5章- 实验结果及分析"></a>第5章- 实验结果及分析</h4><p>列出数据的图或表，并对数据结果进行讨论，<strong>对比分析、结果推论要严格准确</strong>，<strong>避免采用模棱两可的评定语言</strong>。对反常的数据要保留并做解释或者说明，<strong>不可随意剔除数据做出有违科学公正的行为</strong>。</p>
+<p>引用别人的研究成果及数据应加注参考文献，较长的公式推导可列入附录。采纳文献及引用数据应为可以公开并能重复查到的文献资源，并需标明准确出处（如页码或图表序号等）。正文引用文献一律用右上角方括号内的次序号（阿拉伯数字）以“上标”格式标示。</p>
+<h4 id="第6章-总结与展望"><a href="#第6章-总结与展望" class="headerlink" title="第6章- 总结与展望"></a>第6章- 总结与展望</h4><p>对论文的工作作出总结和相关展望</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -553,20 +1335,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
