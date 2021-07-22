@@ -357,7 +357,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/12/docs/z-blog-history/Hexo%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/21/docs/design-ddd/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sxl-head.png">
@@ -371,7 +371,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/07/12/docs/z-blog-history/Hexo%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">小乐の主站Hexo 使用记录</a>
+            <a href="/2021/07/21/docs/design-ddd/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93/" class="post-title-link" itemprop="url">未命名</a>
         </h2>
 
         <div class="post-meta">
@@ -380,18 +380,8 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-07-12 13:12:34 / 修改时间：21:15:03" itemprop="dateCreated datePublished" datetime="2021-07-12T13:12:34+08:00">2021-07-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
-                </span>
+              <time title="创建时间：2021-07-21 11:01:11" itemprop="dateCreated datePublished" datetime="2021-07-21T11:01:11+08:00">2021-07-21</time>
             </span>
 
           
@@ -405,44 +395,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="小乐の主站Hexo-使用记录"><a href="#小乐の主站Hexo-使用记录" class="headerlink" title="小乐の主站Hexo 使用记录"></a>小乐の主站Hexo 使用记录</h2><h3 id="Hexo不渲染-md或者-html文件的方法"><a href="#Hexo不渲染-md或者-html文件的方法" class="headerlink" title="Hexo不渲染.md或者.html文件的方法"></a>Hexo不渲染.md或者.html文件的方法</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41287260/article/details/99705257">参考连接</a></li>
-</ul>
-<h4 id="不渲染-md-文件"><a href="#不渲染-md-文件" class="headerlink" title="不渲染 md 文件"></a>不渲染 md 文件</h4><p>如果想保留原 md 文件后缀要怎么做呢？这就需要在 站点配置文件 _config.yml 中配置.</p>
-<h5 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h5><p>具体操作步骤如下：</p>
-<ul>
-<li><ol>
-<li>找到站点配置文件_config.yml</li>
-</ol>
-</li>
-<li><ol start="2">
-<li>找到 skip_render 参数</li>
-</ol>
-</li>
-<li><ol start="3">
-<li>配置该参数。匹配的位置是基于你的 source_dir 的，一般来说，是你的 source 文件夹下。</li>
-</ol>
-</li>
-</ul>
-<p>常见的情况进行说明：</p>
-<ol>
-<li>skip_render: test/* 单个文件夹下全部文件</li>
-<li>skip_render: test/*.md 单个文件夹下指定类型文件</li>
-<li>skip_render: test/** 单个文件夹下全部文件以及子目录</li>
-<li>多个文件夹以及各种复杂情况：</li>
-</ol>
-<h5 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h5><p>若hexo的安装路径如下：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">_config.landscape.yml package-lock.json     source</span><br><span class="line">_config.yml           package.json          themes</span><br><span class="line">db.json               public                yarn.lock</span><br><span class="line">node_modules          scaffolds</span><br></pre></td></tr></table></figure>
-
-<p>不想渲染的文件路径如下</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="regexp">/source/</span>_posts<span class="regexp">/docs/i</span>ndex.html</span><br></pre></td></tr></table></figure>
-
-<p>则在 _config.yml 文件中，配置的路径如下</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">skip_render:</span> </span><br><span class="line">  <span class="string">_posts/docs/index.html</span></span><br></pre></td></tr></table></figure>
-
-<p>上述文件的路径，默认是以/source文件路径，作为配置的根路径来 生成的。</p>
-<h4 id="不渲染-html-文件"><a href="#不渲染-html-文件" class="headerlink" title="不渲染 html 文件"></a>不渲染 html 文件</h4><p>在不想被渲染的 html 文件最上面添加如下代码:</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">layout: false</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+          <h3 id="阿里编码规约实践"><a href="#阿里编码规约实践" class="headerlink" title="阿里编码规约实践"></a>阿里编码规约实践</h3><p>本文基于阿里编码规约，整理和统计平时代码中的坏味道，注意记录并解决。</p>
+<h4 id="方法【】需要在Transactional注解指定rollbackFor或者在方法中显式的rollback"><a href="#方法【】需要在Transactional注解指定rollbackFor或者在方法中显式的rollback" class="headerlink" title="方法【】需要在Transactional注解指定rollbackFor或者在方法中显式的rollback"></a>方法【】需要在Transactional注解指定rollbackFor或者在方法中显式的rollback</h4>
       
     </div>
 
@@ -461,7 +415,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/10/docs/java-c-utils/README/">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/21/docs/project-tool/Idea%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sxl-head.png">
@@ -475,7 +429,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/07/10/docs/java-c-utils/README/" class="post-title-link" itemprop="url">Java 工具类使用合集</a>
+            <a href="/2021/07/21/docs/project-tool/Idea%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">未命名</a>
         </h2>
 
         <div class="post-meta">
@@ -484,18 +438,8 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-07-10 00:00:00 / 修改时间：13:35:18" itemprop="dateCreated datePublished" datetime="2021-07-10T00:00:00+08:00">2021-07-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
+              <time title="创建时间：2021-07-21 10:24:25" itemprop="dateCreated datePublished" datetime="2021-07-21T10:24:25+08:00">2021-07-21</time>
             </span>
 
           
@@ -509,325 +453,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Java-开发中常见的工具类使用"><a href="#Java-开发中常见的工具类使用" class="headerlink" title="Java 开发中常见的工具类使用"></a>Java 开发中常见的工具类使用</h2><h3 id="1-表格的导出"><a href="#1-表格的导出" class="headerlink" title="1. 表格的导出"></a>1. 表格的导出</h3>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/10/docs/java-c-utils/001-excel-utils/README/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/10/docs/java-c-utils/001-excel-utils/README/" class="post-title-link" itemprop="url">Java 导出数据为Excel</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-07-10 00:00:00 / 修改时间：14:35:45" itemprop="dateCreated datePublished" datetime="2021-07-10T00:00:00+08:00">2021-07-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Java-开发中常见的导出表为Excel工具"><a href="#Java-开发中常见的导出表为Excel工具" class="headerlink" title="Java 开发中常见的导出表为Excel工具"></a>Java 开发中常见的导出表为Excel工具</h2><h3 id="1-表格的导出"><a href="#1-表格的导出" class="headerlink" title="1. 表格的导出"></a>1. 表格的导出</h3>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/10/docs/data-a-mysql/mybatis/001-Mybatis-%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/10/docs/data-a-mysql/mybatis/001-Mybatis-%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/" class="post-title-link" itemprop="url">Mybatis 增删改查</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-07-10 00:00:00 / 修改时间：14:55:54" itemprop="dateCreated datePublished" datetime="2021-07-10T00:00:00+08:00">2021-07-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Mybatis/" itemprop="url" rel="index"><span itemprop="name">Mybatis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Mybatis-增删改查"><a href="#Mybatis-增删改查" class="headerlink" title="Mybatis 增删改查"></a>Mybatis 增删改查</h2><h3 id="Mybatis简介"><a href="#Mybatis简介" class="headerlink" title="Mybatis简介"></a>Mybatis简介</h3><p>MyBatis 是一款优秀的持久层框架，它支持自定义 SQL、存储过程以及高级映射。</p>
-<p>MyBatis 免除了几乎所有的 JDBC 代码以及设置参数和获取结果集的工作。</p>
-<p>MyBatis 可以通过简单的 <strong>XML</strong> 或<strong>注解</strong>来配置和映射原始类型、接口和 Java POJO类。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/10/docs/data-a-mysql/mybatis/002-Mybatis-%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/10/docs/data-a-mysql/mybatis/002-Mybatis-%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">Mybatis 批量操作</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-07-10 00:00:00 / 修改时间：16:07:27" itemprop="dateCreated datePublished" datetime="2021-07-10T00:00:00+08:00">2021-07-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Mybatis批量操作"><a href="#Mybatis批量操作" class="headerlink" title="Mybatis批量操作"></a>Mybatis批量操作</h2><h3 id="批量更新"><a href="#批量更新" class="headerlink" title="批量更新"></a>批量更新</h3><ul>
-<li>参考文章：<a target="_blank" rel="noopener" href="https://diego1109.github.io/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2020/03/13/mybatis-batch-update/">mybatis批量更新</a></li>
-</ul>
-<h4 id="方法一：foreach"><a href="#方法一：foreach" class="headerlink" title="方法一：foreach"></a>方法一：foreach</h4><p>使用foreach标签，在该标签中，嵌套sql的更新语句。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="operator">&lt;</span>update id<span class="operator">=</span>&quot;updateBatch&quot;  parameterType<span class="operator">=</span>&quot;java.util.List&quot;<span class="operator">&gt;</span>  </span><br><span class="line">    <span class="operator">&lt;</span>foreach collection<span class="operator">=</span>&quot;list&quot; item<span class="operator">=</span>&quot;item&quot; index<span class="operator">=</span>&quot;index&quot; <span class="keyword">open</span><span class="operator">=</span>&quot;&quot; <span class="keyword">close</span><span class="operator">=</span>&quot;&quot; separator<span class="operator">=</span>&quot;;&quot;<span class="operator">&gt;</span></span><br><span class="line">        update tableName</span><br><span class="line">        <span class="operator">&lt;</span><span class="keyword">set</span><span class="operator">&gt;</span></span><br><span class="line">            name<span class="operator">=</span>#&#123;item.name&#125;,</span><br><span class="line">            name2<span class="operator">=</span>#&#123;item.name2&#125;</span><br><span class="line">        <span class="operator">&lt;</span><span class="operator">/</span><span class="keyword">set</span><span class="operator">&gt;</span></span><br><span class="line">        <span class="keyword">where</span> id <span class="operator">=</span> #&#123;item.id&#125;</span><br><span class="line">    <span class="operator">&lt;</span><span class="operator">/</span>foreach<span class="operator">&gt;</span>      </span><br><span class="line"><span class="operator">&lt;</span><span class="operator">/</span>update<span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="方法二：case-when-then-amp-trim"><a href="#方法二：case-when-then-amp-trim" class="headerlink" title="方法二：case-when-then &amp;  trim"></a>方法二：case-when-then &amp;  trim</h4><figure class="highlight"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/10/docs/data-a-mysql/mybatis/003-mybatis-xml%E6%A0%87%E7%AD%BE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/10/docs/data-a-mysql/mybatis/003-mybatis-xml%E6%A0%87%E7%AD%BE/" class="post-title-link" itemprop="url">Mybatis xml 文件标签</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-10 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-10T00:00:00+08:00">2021-07-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-12 13:39:07" itemprop="dateModified" datetime="2021-07-12T13:39:07+08:00">2021-07-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Mybatis/" itemprop="url" rel="index"><span itemprop="name">Mybatis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Mybatis-xml-文件标签"><a href="#Mybatis-xml-文件标签" class="headerlink" title="Mybatis xml 文件标签"></a>Mybatis xml 文件标签</h2><h3 id="trim"><a href="#trim" class="headerlink" title="trim"></a>trim</h3><ul>
+          <h2 id="Idea相关配置"><a href="#Idea相关配置" class="headerlink" title="Idea相关配置"></a>Idea相关配置</h2><h3 id="1-自动检测添加serialID"><a href="#1-自动检测添加serialID" class="headerlink" title="1. 自动检测添加serialID"></a>1. 自动检测添加serialID</h3><ul>
 <li>参考链接：<ul>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34975710/article/details/84963138">https://blog.csdn.net/qq_34975710/article/details/84963138</a> </li>
-<li><a target="_blank" rel="noopener" href="https://diego1109.github.io/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2020/03/13/mybatis-batch-update/">https://diego1109.github.io/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/2020/03/13/mybatis-batch-update/</a> </li>
-<li><a target="_blank" rel="noopener" href="https://mybatis.org/mybatis-3/zh/sqlmap-xml.html#select">https://mybatis.org/mybatis-3/zh/sqlmap-xml.html#select</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44753071/article/details/107462018">自动检测添加serialID</a></li>
 </ul>
 </li>
 </ul>
-<p>Mybatis具有实现动态SQL的能力，可以通过使用trim标签来拼凑SQL语句。</p>
-<p>trim 在英语中有“点缀物”，修剪的意思。可以把‘<trim>’标签为一个装饰sql的标签。</p>
-<h4 id="标签说明"><a href="#标签说明" class="headerlink" title="标签说明"></a>标签说明</h4><p>其基本格式如下：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">trim</span> <span class="attr">prefix</span>=<span class="string">&quot;&quot;</span> <span class="attr">suffix</span>=<span class="string">&quot;&quot;</span> <span class="attr">suffixOverrides</span>=<span class="string">&quot;&quot;</span> <span class="attr">prefixOverrides</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="prefix："><a href="#prefix：" class="headerlink" title="prefix："></a>prefix：</h5><p><strong>表示在trim包裹的SQL语句前面添加的指定内容。</strong></p>
-<p>以下两种表达方式等价：</p>
-<p>mapper接口如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">getUser</span><span class="params">(<span class="meta">@Param(&quot;LastName&quot;)</span> String lastName,<span class="meta">@Param(&quot;age&quot;)</span> Integer age,<span class="meta">@Param(&quot;phone&quot;)</span> String phone)</span></span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>对应的xml文件有两种方式：</p>
-<ul>
-<li>不带trim</li>
+<h3 id="2-自动清除无用的包"><a href="#2-自动清除无用的包" class="headerlink" title="2. 自动清除无用的包"></a>2. 自动清除无用的包</h3><ul>
+<li>参考链接<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/HeatDeath/article/details/79353990">自动清除无用的包</a></li>
 </ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="operator">&lt;</span><span class="keyword">select</span> id<span class="operator">=</span>&quot;getUser&quot; <span class="keyword">result</span><span class="operator">=</span>&quot;user&quot;<span class="operator">&gt;</span></span><br><span class="line">	<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> user_tab <span class="keyword">where</span> last_name<span class="operator">=</span>#&#123;lastName&#125; <span class="keyword">and</span> age<span class="operator">=</span>#&#123;age&#125; <span class="keyword">and</span> phone<span class="operator">=</span>#&#123;phone&#125;</span><br><span class="line"><span class="operator">&lt;</span><span class="operator">/</span><span class="keyword">select</span><span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>带trim</li>
+</li>
 </ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="operator">&lt;</span><span class="keyword">select</span> id<span class="operator">=</span>&quot;getUser&quot; resultType<span class="operator">=</span>&quot;user&quot;<span class="operator">&gt;</span></span><br><span class="line">	<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> user_tab </span><br><span class="line">	<span class="operator">&lt;</span>trim prefix<span class="operator">=</span>&quot;where&quot;<span class="operator">&gt;</span></span><br><span class="line">		last_name<span class="operator">=</span>#&#123;lastName&#125; <span class="keyword">and</span> age<span class="operator">=</span>#&#123;age&#125; <span class="keyword">and</span> phone<span class="operator">=</span>#&#123;phone&#125;</span><br><span class="line">	<span class="operator">&lt;</span><span class="operator">/</span>trim<span class="operator">&gt;</span></span><br><span class="line"><span class="operator">&lt;</span><span class="operator">/</span><span class="keyword">select</span><span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4>
+<h3 id="3-idea-导出setting配置文件"><a href="#3-idea-导出setting配置文件" class="headerlink" title="3. idea 导出setting配置文件"></a>3. idea 导出setting配置文件</h3><ul>
+<li><p>2019版</p>
+<p><strong>导出：</strong><br>File- –&gt;Export Settings -&gt;选择导出目录，会出现一个settings.jar的文件</p>
+<p><strong>导入方法</strong>：<br>File-&gt;Import Settings -&gt;选择需要导入的settings.jar即可</p>
+</li>
+<li><p>2020版</p>
+<p>File &gt; Manage IDE Settings &gt; Import Settings </p>
+</li>
+</ul>
+<h3 id="4-安装阿里巴巴开发规范插件"><a href="#4-安装阿里巴巴开发规范插件" class="headerlink" title="4. 安装阿里巴巴开发规范插件"></a>4. 安装阿里巴巴开发规范插件</h3>
       
     </div>
 
@@ -846,7 +493,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/10/docs/data-a-mysql/mysql/mysql/">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/19/docs/java-b-framework/spring/Spring%E6%8F%90%E4%BE%9B%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sxl-head.png">
@@ -860,7 +507,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/07/10/docs/data-a-mysql/mysql/mysql/" class="post-title-link" itemprop="url">Mysql 语法应用</a>
+            <a href="/2021/07/19/docs/java-b-framework/spring/Spring%E6%8F%90%E4%BE%9B%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB/" class="post-title-link" itemprop="url">未命名</a>
         </h2>
 
         <div class="post-meta">
@@ -870,23 +517,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-07-10 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-10T00:00:00+08:00">2021-07-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-12 09:41:02" itemprop="dateModified" datetime="2021-07-12T09:41:02+08:00">2021-07-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
+              <time title="创建时间：2021-07-19 15:08:24" itemprop="dateCreated datePublished" datetime="2021-07-19T15:08:24+08:00">2021-07-19</time>
             </span>
 
           
@@ -900,11 +531,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="MySQL语法及应用"><a href="#MySQL语法及应用" class="headerlink" title="MySQL语法及应用"></a>MySQL语法及应用</h2><h3 id="case-when-then-语法"><a href="#case-when-then-语法" class="headerlink" title="case-when-then 语法"></a><code>case-when-then</code> 语法</h3><h4 id="语法说明"><a href="#语法说明" class="headerlink" title="语法说明"></a>语法说明</h4><h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><h3 id="mysql-实现for循环"><a href="#mysql-实现for循环" class="headerlink" title="mysql 实现for循环"></a>mysql 实现for循环</h3><ul>
-<li>参考连接:<a href=""></a></li>
-</ul>
-<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span>  `<span class="keyword">user</span>` ageupdate(a <span class="type">int</span>) </span><br><span class="line">    <span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">declare</span> i <span class="type">int</span> <span class="keyword">default</span> <span class="number">18</span>;</span><br><span class="line">    <span class="keyword">while</span> i&lt;=a <span class="keyword">DO</span> <span class="comment">-- 循环开始</span></span><br><span class="line">        <span class="keyword">set</span> device_type =<span class="string">&#x27;&lt;&#x27;</span>+i+<span class="string">&#x27;&gt;&#x27;</span></span><br><span class="line">				<span class="keyword">where</span> device_type = CAST(i <span class="keyword">AS</span> <span class="type">CHAR</span>);</span><br><span class="line">    <span class="keyword">end</span> <span class="keyword">while</span>; <span class="comment">-- 循环结束</span></span><br><span class="line">    <span class="keyword">end</span>;</span><br><span class="line">    <span class="comment">-- 执行存储过程</span></span><br><span class="line">		</span><br><span class="line"><span class="keyword">call</span> ageupdate(<span class="number">30</span>);</span><br></pre></td></tr></table></figure>
-
+          <p>BeanUtils</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>如何避免空指针异常</p>
 
       
     </div>
@@ -924,7 +552,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/06/13/%E5%B0%8F%E4%B9%90%E3%81%AE%E4%B8%BB%E7%AB%99%E5%BB%BA%E7%AB%99%E5%8F%B2/">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/19/docs/design-ddd/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sxl-head.png">
@@ -938,7 +566,128 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/06/13/%E5%B0%8F%E4%B9%90%E3%81%AE%E4%B8%BB%E7%AB%99%E5%BB%BA%E7%AB%99%E5%8F%B2/" class="post-title-link" itemprop="url">小乐の主站建站史</a>
+            <a href="/2021/07/19/docs/design-ddd/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-07-19 14:00:50 / 修改时间：21:35:18" itemprop="dateCreated datePublished" datetime="2021-07-19T14:00:50+08:00">2021-07-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="领域驱动设计"><a href="#领域驱动设计" class="headerlink" title="领域驱动设计"></a>领域驱动设计</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天我们在做业务研发时，更多的会去关注一些宏观的架构，比如SOA架构、微服务架构。但是应用内部的架构设计却往往被我们忽略，很容易导致代码逻辑混乱，很难维护，容易产生bug而且很难发现。</p>
+<p>今天通过学习美团和淘宝的技术人员关于DDD相关的文章，来学习使用DDD设计出一套高质量的DDD框架。</p>
+<h4 id="1-美团"><a href="#1-美团" class="headerlink" title="1. 美团"></a>1. 美团</h4><p><a target="_blank" rel="noopener" href="https://tech.meituan.com/2017/12/22/ddd-in-practice.html">领域驱动设计在互联网业务开发中的实践</a></p>
+<h4 id="2-淘宝"><a href="#2-淘宝" class="headerlink" title="2. 淘宝"></a>2. 淘宝</h4><p><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/719251">基于DDD的应用内部架构</a> </p>
+<h4 id="阿里盒马"><a href="#阿里盒马" class="headerlink" title="阿里盒马"></a>阿里盒马</h4><p><a target="_blank" rel="noopener" href="https://www.infoq.cn/article/alibaba-freshhema-ddd-practice">阿里盒马领域驱动设计实践</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/18/docs/data-b-cache/redis/Redis%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/18/docs/data-b-cache/redis/Redis%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-07-18 22:11:08 / 修改时间：22:11:36" itemprop="dateCreated datePublished" datetime="2021-07-18T22:11:08+08:00">2021-07-18</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/18/docs/java-z-idea-projects/001-%E5%BC%80%E5%8F%91%E8%A7%84%E7%BA%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/18/docs/java-z-idea-projects/001-%E5%BC%80%E5%8F%91%E8%A7%84%E7%BA%A6/" class="post-title-link" itemprop="url">未命名</a>
         </h2>
 
         <div class="post-meta">
@@ -948,14 +697,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-06-13 15:27:34" itemprop="dateCreated datePublished" datetime="2021-06-13T15:27:34+08:00">2021-06-13</time>
+              <time title="创建时间：2021-07-18 14:11:41" itemprop="dateCreated datePublished" datetime="2021-07-18T14:11:41+08:00">2021-07-18</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-04 22:55:57" itemprop="dateModified" datetime="2021-07-04T22:55:57+08:00">2021-07-04</time>
+                <time title="修改时间：2021-07-19 20:24:43" itemprop="dateModified" datetime="2021-07-19T20:24:43+08:00">2021-07-19</time>
               </span>
 
           
@@ -969,62 +718,176 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="1-技术方面"><a href="#1-技术方面" class="headerlink" title="1. 技术方面"></a>1. 技术方面</h3><p>本站采用的是hexo+githubPage搭建来搭建的。在博客的实现技术中，有两种技术，一个是静态网站技术，一个是动态网站技术。动态网站基本的组成是有前端页面+数据库服务器来实现的。考虑到主要是做一个博客的网站，所以采用了静态网站技术。这种技术不用数据库，通过一些生成工具，生成静态的HTML来供用户访问。</p>
-<h4 id="1-1-技术选型"><a href="#1-1-技术选型" class="headerlink" title="1.1 技术选型"></a>1.1 技术选型</h4><ul>
-<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000039837806">hugo,hexo,Jekyll几种静态网站生成工具 </a> </li>
-</ul>
-<h4 id="1-2-技术实现"><a href="#1-2-技术实现" class="headerlink" title="1.2 技术实现"></a>1.2 技术实现</h4><ul>
-<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1520557">hexo+githubPage静态网站</a> </li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/101126727">知乎–基于Github Pages + docsify</a></li>
-</ul>
-<h3 id="2-搭建记录"><a href="#2-搭建记录" class="headerlink" title="2. 搭建记录"></a>2. 搭建记录</h3><p>本博客采用两种方式来展示。</p>
+          <h2 id="Java开发中常见的名称"><a href="#Java开发中常见的名称" class="headerlink" title="Java开发中常见的名称"></a>Java开发中常见的名称</h2><ul>
+<li><p>参考链接：</p>
 <ul>
-<li>方式一：hexo</li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zxf330301/p/6534643.html">https://www.cnblogs.com/zxf330301/p/6534643.html</a> </li>
 </ul>
-<p>在主页面，采用的是Hexo来静态生成页面，根据时间轴，分类等维度来展示博客列表.</p>
-<ul>
-<li>方式二： docsify</li>
+</li>
+<li><p> <a target="_blank" rel="noopener" href="https://www.cnblogs.com/qixuejia/p/10789612.html">领域驱动设计系列文章（1）——通过现实例子显示领域驱动设计的威力</a></p>
+</li>
 </ul>
-<p>docsify也是一种博客生成的工具，这种框架可以实现类似思维导图的方式来展示博客。因此，在“乐文档”模块，采用该类型来展示。</p>
-<h4 id="2-2-使用docsify来构建“小乐文档”"><a href="#2-2-使用docsify来构建“小乐文档”" class="headerlink" title="2.2 使用docsify来构建“小乐文档”"></a>2.2 使用docsify来构建“小乐文档”</h4><ul>
-<li>参考<ul>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/101126727">知乎–基于Github Pages + docsify</a></li>
+<h3 id="PO"><a href="#PO" class="headerlink" title="PO"></a>PO</h3><p>**PO: ** persistant object持久对象,可以看成是与数据库中的表相映射的java对象。</p>
+<p>最简单的PO就是对应数据库中某个表中的一条记录，多个记录可以用PO的集合。PO中应该不包含任何对数据库的操作.</p>
+<h3 id="VO"><a href="#VO" class="headerlink" title="VO"></a>VO</h3><p>**VO: **value object值对象。通常用于业务层之间的数据传递，和PO一样也是仅仅包含数据而已。但应是抽象出的业务对象,可以和表对应,也可以不,这根据业务的需要.个人觉得同DTO(数据传输对象),在web上传递.</p>
+<h3 id="DAO"><a href="#DAO" class="headerlink" title="DAO"></a>DAO</h3><p><strong>DAO:</strong> data access object数据访问对象，此对象用于访问数据库。通常和PO结合使用，DAO中包含了各种数据库的操作方法。通过它的方法,结合PO对数据库进行相关的操作.</p>
+<h3 id="BO"><a href="#BO" class="headerlink" title="BO"></a>BO</h3><p>  **BO:**business object业务对象,封装业务逻辑的java对象,通过调用DAO方法,结合PO,VO进行业务操作;</p>
+<h3 id="DO"><a href="#DO" class="headerlink" title="DO"></a>DO</h3><p><strong>DO</strong>（Domain Object）：领域对象，就是从现实世界中抽象出来的有形或无形的业务实体。</p>
+<h3 id="DTO"><a href="#DTO" class="headerlink" title="DTO"></a>DTO</h3><p><strong>DTO</strong>：（Data Transfer Objec）数据传输对象，这个概念来源于J2EE的设计模。</p>
+<p>泛指用于展示层与服务层之间的数据传输对象。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/18/docs/data-b-cache/redis/001-mac-redis-%E5%AE%89%E8%A3%85l/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/18/docs/data-b-cache/redis/001-mac-redis-%E5%AE%89%E8%A3%85l/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-07-18 11:16:11 / 修改时间：22:17:12" itemprop="dateCreated datePublished" datetime="2021-07-18T11:16:11+08:00">2021-07-18</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="mac下安装Redis"><a href="#mac下安装Redis" class="headerlink" title="mac下安装Redis"></a>mac下安装Redis</h3><h4 id="使用brew来安装"><a href="#使用brew来安装" class="headerlink" title="使用brew来安装"></a>使用brew来安装</h4><ul>
+<li>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/realize_dream/article/details/106227622">https://blog.csdn.net/realize_dream/article/details/106227622</a></li>
+</ul>
+<h4 id="安装命令："><a href="#安装命令：" class="headerlink" title="安装命令："></a>安装命令：</h4><figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>redis</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装的路径："><a href="#安装的路径：" class="headerlink" title="安装的路径："></a>安装的路径：</h4><ul>
+<li>Homebrew安装的软件会默认在<code>/usr/local/Cellar/</code>路径下</li>
+<li>redis的配置文件<code>redis.conf</code>存放在<code>/usr/local/etc</code>路径下</li>
+</ul>
+<h4 id="启动命令"><a href="#启动命令" class="headerlink" title="启动命令"></a>启动命令</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">//方式一：使用brew帮助我们启动软件</span><br><span class="line">brew services start redis</span><br><span class="line">//方式二</span><br><span class="line">redis-server /usr/local/etc/redis.conf</span><br></pre></td></tr></table></figure>
+
+<h4 id="链接方式"><a href="#链接方式" class="headerlink" title="链接方式"></a>链接方式</h4><h5 id="使用redis-cli来链接"><a href="#使用redis-cli来链接" class="headerlink" title="使用redis-cli来链接"></a>使用redis-cli来链接</h5><p>redis默认端口号<strong>6379</strong>，默认<strong>auth</strong>为空，输入以下命令即可连接</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">redis</span>-cli -h <span class="number">127.0.0.1</span> -p <span class="number">6379</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="使用Redis客户端链接"><a href="#使用Redis客户端链接" class="headerlink" title="使用Redis客户端链接"></a>使用Redis客户端链接</h5>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/17/docs/java-d-mq/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/17/docs/java-d-mq/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-17 22:53:01" itemprop="dateCreated datePublished" datetime="2021-07-17T22:53:01+08:00">2021-07-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-18 21:35:19" itemprop="dateModified" datetime="2021-07-18T21:35:19+08:00">2021-07-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="消息队列的两种模式"><a href="#消息队列的两种模式" class="headerlink" title="消息队列的两种模式"></a>消息队列的两种模式</h3><ul>
+<li>参考链接：<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/HEYUTAO007/article/details/50131089">https://blog.csdn.net/HEYUTAO007/article/details/50131089</a> </li>
 </ul>
 </li>
 </ul>
-<p>首先，参考上述教程，在sxlSite/blog/source/_posts路径下，创建docs目录，将docsify相关的配置以及后续要写的博客，统一放置到该目录下。</p>
-<p>并将其上传到GitHub，并开启GitHubPage即可。</p>
-<h3 id="3-主题美化"><a href="#3-主题美化" class="headerlink" title="3. 主题美化"></a>3. 主题美化</h3><h4 id="3-1-Hexo-主题美化"><a href="#3-1-Hexo-主题美化" class="headerlink" title="3.1 Hexo 主题美化"></a>3.1 Hexo 主题美化</h4><ul>
-<li>NEXT主题美化博文<ul>
-<li><a target="_blank" rel="noopener" href="https://vic.kim/2019/05/25/Hexo%E5%8D%9A%E5%AE%A2%E4%BC%98%E5%8C%96%E4%B9%8BNext%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96/">next 7.0+ 美化</a> </li>
-<li><a target="_blank" rel="noopener" href="https://tding.top/archives/dfac1e9c.html">next添加动画效果</a></li>
-</ul>
-</li>
-<li>统计功能开通<ul>
-<li><a target="_blank" rel="noopener" href="http://www.1226.site/2020/11/23/NexT7.8.0%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/">NexT7.8.0主题美化</a> </li>
-</ul>
-</li>
-</ul>
-<h4 id="3-2-Docsify-主题美化"><a href="#3-2-Docsify-主题美化" class="headerlink" title="3.2 Docsify 主题美化"></a>3.2 Docsify 主题美化</h4><ul>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247486555&idx=2&sn=8486026ee9f9ba645ff0363df6036184&chksm=cea24390f9d5ca86ff4177c0aca5e719de17dc89e918212513ee661dd56f17ca8269f4a6e303&token=36880070&lang=zh_CN#rd">JavaGuide–&gt;docsify搭建文档</a></li>
-</ul>
-<h3 id="4-维护方法"><a href="#4-维护方法" class="headerlink" title="4. 维护方法"></a>4. 维护方法</h3><p>本网站使用两个博客搭建框架来实现，旨在从不同的维度来展现博客内容。</p>
-<ul>
-<li>hexo 框架，旨在从时间，分类等维度来整理博客。</li>
-<li>docsify 框架，旨在将所有的博客进行结构化，形成个人的知识文库。</li>
-</ul>
-<p>因此，在维护的时候，需要从两个目录进行维度。</p>
-<h4 id="4-1-docsify-的维护"><a href="#4-1-docsify-的维护" class="headerlink" title="4.1 docsify 的维护"></a>4.1 docsify 的维护</h4><p>本站将docsify框架的源文件路径,在本地服务器的地址如下：</p>
-<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="regexp">/Sxl_JGCloud/</span>sxlSite<span class="regexp">/blog/</span><span class="keyword">source</span><span class="regexp">/_posts/</span>docs</span><br></pre></td></tr></table></figure>
+<p>Java消息服务（Java Message Service，JMS）应用程序接口是一个Java平台中关于面向消息中间件（MOM）的API，用于在两个应用程序之间，或分布式系统中发送消息，进行异步通信。</p>
+<p>点对点与发布订阅最初是由JMS定义的。</p>
+<p>这两种模式主要区别或解决的问题就是发送到队列的消息能否重复消费(多订阅)。</p>
+<h4 id="队列模式"><a href="#队列模式" class="headerlink" title="队列模式"></a>队列模式</h4><p>消息生产者生产消息发送到queue中，然后消息消费者从queue中取出并且消费消息。<br>消息被消费以后，queue中不再有存储，所以消息消费者不可能消费到已经被消费的消息。Queue支持存在多个消费者，但是对一个消息而言，只会有一个消费者可以消费。</p>
+<img src="../pics/queue-p2p.png" alt="img" style="zoom:50%;" />
 
-<p>docs文件目录与远程仓库 sxlDocs相关联。如要更新docsify文件显示的内容，只需要将变动的内容通过git上传即可。</p>
-<p>常用的命令如下：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 本地部署</span></span><br><span class="line">cd /_posts</span><br><span class="line">docsify server ./docs</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 上传到远程</span></span><br><span class="line">cd ./source/_posts/docs</span><br><span class="line">git add . </span><br><span class="line">git commit -m &quot;博客内容更新&quot;</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="4-2-hexo-的维护"><a href="#4-2-hexo-的维护" class="headerlink" title="4.2 hexo 的维护"></a>4.2 hexo 的维护</h4><p>Hexo 对于docsify而言，每次更新都需要将所有的源文件进行重新生成，然后在部署到远程服务器。其常用的命令为：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd ./blog</span><br><span class="line"><span class="meta">#</span><span class="bash"> 本地部署</span></span><br><span class="line">hexo clean &amp; hexo g &amp; hexo s</span><br><span class="line"><span class="meta">#</span><span class="bash"> 远程部署</span></span><br><span class="line">hexo clean &amp; hexo g &amp; hexo d</span><br></pre></td></tr></table></figure>
+<h4 id="发布订阅模式"><a href="#发布订阅模式" class="headerlink" title="发布订阅模式"></a>发布订阅模式</h4><p>消息生产者（发布）将消息发布到topic中，同时有多个消息消费者（订阅）消费该消息。和点对点方式不同，发布到topic的消息会被所有订阅者消费。</p>
+<p>发布订阅模式下，当发布者消息量很大时，显然单个订阅者的处理能力是不足的。实际上现实场景中是多个订阅者节点组成一个订阅组负载均衡消费topic消息即分组订阅，这样订阅者很容易实现消费能力线性扩展。可以看成是一个topic下有多个Queue，每个Queue是点对点的方式，Queue之间是发布订阅方式。</p>
+<img src="../pics/queue-sp.png" alt="img" style="zoom:50%;" />
 
 
       
@@ -1044,7 +907,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/welcome/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/welcome/page/4/">4</a><a class="extend next" rel="next" href="/welcome/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/welcome/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/welcome/page/6/">6</a><a class="extend next" rel="next" href="/welcome/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1112,20 +975,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
