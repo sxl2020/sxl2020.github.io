@@ -195,7 +195,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/06/15/docs/sys-linux-series/README/">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/09/02/docs/java-b-framework/springboot-sgg/03-Springboot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sxl-head.png">
@@ -209,7 +209,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/06/15/docs/sys-linux-series/README/" class="post-title-link" itemprop="url">Linux系列目录</a>
+            <a href="/2020/09/02/docs/java-b-framework/springboot-sgg/03-Springboot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">Springboot自动配置详解</a>
         </h2>
 
         <div class="post-meta">
@@ -219,15 +219,24 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-06-15 15:27:34" itemprop="dateCreated datePublished" datetime="2020-06-15T15:27:34+08:00">2020-06-15</time>
+              <time title="创建时间：2020-09-02 15:27:34" itemprop="dateCreated datePublished" datetime="2020-09-02T15:27:34+08:00">2020-09-02</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-04 16:24:45" itemprop="dateModified" datetime="2021-07-04T16:24:45+08:00">2021-07-04</time>
+                <time title="修改时间：2021-07-22 16:30:52" itemprop="dateModified" datetime="2021-07-22T16:30:52+08:00">2021-07-22</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a>
+                </span>
+            </span>
 
           
 
@@ -240,611 +249,1141 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="Linux命令总结"><a href="#Linux命令总结" class="headerlink" title="Linux命令总结"></a>Linux命令总结</h3><ul>
-<li><h4 id="Linux系统常用命令总结"><a href="#Linux系统常用命令总结" class="headerlink" title="Linux系统常用命令总结 "></a><a href="./sys-linux-series/linux-02Linux%E7%B3%BB%E7%BB%9F%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93.md">Linux系统常用命令总结 </a></h4></li>
-<li><h4 id="Git-命令使用总结"><a href="#Git-命令使用总结" class="headerlink" title="Git 命令使用总结"></a><a href="./sys-linux-series/linux-100git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93.md">Git 命令使用总结</a></h4></li>
+          <h2 id="SpringBoot自动配置"><a href="#SpringBoot自动配置" class="headerlink" title="SpringBoot自动配置"></a>SpringBoot自动配置</h2><h3 id="从pom文件出发"><a href="#从pom文件出发" class="headerlink" title="从pom文件出发"></a>从pom文件出发</h3><p>关于Maven及POM的相关文献，可以参考博客</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_30757197/article/details/102599145">Maven笔记</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_30757197/article/details/103630048">基于maven的Java项目目录结构总结</a></li>
 </ul>
+<p>在springboot项目中，为我们实现了对依赖包的自动配置。那我们就从程序依赖的pom文件入手，一探SpringBoot自动化配置的底层原理。</p>
+<h4 id="spring-boot-starter-parent"><a href="#spring-boot-starter-parent" class="headerlink" title="spring-boot-starter-parent"></a>spring-boot-starter-parent</h4><p>打开所有的springboot项目，其pom文件中，都包含了一个父项目spring-boot-starter-parent。</p>
+<p><strong>父项目</strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;--- --所有Spring-Boot-starter项目的父项目-&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.5.9.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/06/15/docs/z-carreer-plan/%E8%8B%8F%E5%B0%8F%E4%B9%90%E7%9A%84%E8%81%8C%E4%B8%9A%E6%80%9D%E8%80%83/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/15/docs/z-carreer-plan/%E8%8B%8F%E5%B0%8F%E4%B9%90%E7%9A%84%E8%81%8C%E4%B8%9A%E6%80%9D%E8%80%83/" class="post-title-link" itemprop="url">苏小乐的职业规划思考</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-15 15:27:34" itemprop="dateCreated datePublished" datetime="2020-06-15T15:27:34+08:00">2020-06-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-04 16:38:32" itemprop="dateModified" datetime="2021-07-04T16:38:32+08:00">2021-07-04</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="苏宁的成长规划路径"><a href="#苏宁的成长规划路径" class="headerlink" title="苏宁的成长规划路径"></a>苏宁的成长规划路径</h3><p><img src="C:\Users\苏小乐\AppData\Roaming\Typora\typora-user-images\image-20200418105303757.png" alt="image-20200418105303757"></p>
-<blockquote>
-<p><strong>1200工程培养工程</strong></p>
+<p><strong>在Idea中通过快捷键ctrl+点击spring-boot-starter-parent</strong>，进入其父项目的配置文件：</p>
 <ul>
-<li><p>第一阶段：成长期：<strong>第1年</strong>，主要任务是成为业务新手，能够管理自我。 2020年 7月 =====2021年 7月</p>
-</li>
-<li><p>开发 | 熟悉业务：</p>
-</li>
-<li><p><strong>开发方面</strong>：</p>
+<li> spring-boot-dependencies。</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.5.9.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">relativePath</span>&gt;</span>../../spring-boot-dependencies<span class="tag">&lt;/<span class="name">relativePath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>在Idea中通过快捷键ctrl+点击spring-boot-dependencies</strong>，进入其配置文件，发现<properties>属性配置了SpringBoot默认的配置</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">activemq.version</span>&gt;</span>5.15.12<span class="tag">&lt;/<span class="name">activemq.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">antlr2.version</span>&gt;</span>2.7.7<span class="tag">&lt;/<span class="name">antlr2.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appengine-sdk.version</span>&gt;</span>1.9.79<span class="tag">&lt;/<span class="name">appengine-sdk.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artemis.version</span>&gt;</span>2.10.1<span class="tag">&lt;/<span class="name">artemis.version</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">aspectj.version</span>&gt;</span>1.9.5<span class="tag">&lt;/<span class="name">aspectj.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span>    </span><br><span class="line">它来真正管理Spring Boot应用里面的所有依赖版本；</span><br></pre></td></tr></table></figure>
+
+<p>从上面的分析汇总，可以知道:</p>
+<p><strong>当我们导入SpringBoot项目时，是不需要写版本的，默认的版本在Springboot中均已配置好。</strong></p>
+<h4 id="spring-boot-starter-web-启动器"><a href="#spring-boot-starter-web-启动器" class="headerlink" title="spring-boot-starter-web 启动器"></a>spring-boot-starter-web 启动器</h4><p>对于基于springboot的问项目，在pom配置文件中，包含了该依赖spring-boot-starter-web。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>SpringBoot</li>
-<li>RESTful</li>
-<li>git</li>
-<li>linux等</li>
-<li>数据库</li>
+<li>spring-boot-starter-web，主要作用是帮我们导入了<strong>web模块</strong>正常运行所依赖的组件。</li>
+</ul>
+<p>Spring Boot将所有的功能场景都抽取出来，称为spring-boot-starter：又叫做spring-boot场景启动器，主要是帮我们导入各种开发场景下所依赖的组件；做成一个个的starters（启动器），只需要在项目里面引入这些starter相关场景的所有依赖都会导入进来。要用什么功能就导入什么场景的启动器。常见的有：</p>
+<ul>
+<li>spring-boot-starter-activemq</li>
+<li>spring-boot-starter-aop等等</li>
+</ul>
+<h3 id="从SpringApplication出发"><a href="#从SpringApplication出发" class="headerlink" title="从SpringApplication出发"></a>从SpringApplication出发</h3><p>所有的Springboot应用，都有一个启动类，在该类中使用 @SpringBootApplication 来标注该类是一个主程序类，该应用是一个Spring Boot应用。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldMainApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// SpringBoot应用启动起来</span></span><br><span class="line">        SpringApplication.run(HelloWorldMainApplication.class,args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="SpringBootApplication"><a href="#SpringBootApplication" class="headerlink" title="@SpringBootApplication:"></a>@<strong>SpringBootApplication</strong>:</h4><p>点击该注解，发现@<strong>SpringBootApplication</strong>是一个组合注解，其组成如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@SpringBootConfiguration</span></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"><span class="meta">@ComponentScan(excludeFilters = &#123;</span></span><br><span class="line"><span class="meta">      @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),</span></span><br><span class="line"><span class="meta">      @Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) &#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootApplication &#123;</span><br></pre></td></tr></table></figure>
+
+<p>其结构如下：</p>
+<ul>
+<li><p>@<strong>SpringBootApplication</strong>:</p>
+<ul>
+<li><strong>@SpringBootConfiguration</strong><ul>
+<li><strong>@Configuration</strong></li>
 </ul>
 </li>
-<li><p>具体计划</p>
-<ul>
-<li><blockquote>
+<li>@<strong>EnableAutoConfiguration</strong><ul>
+<li><strong>@AutoConfigurationPackage</strong></li>
+<li><strong>@Import(EnableAutoConfigurationImportSelector.class)</strong></li>
+</ul>
+</li>
+</ul>
+<p>接下来，逐一探究这些注解的意义和作用</p>
+</li>
+</ul>
 <ol>
-<li>勤写代码</li>
+<li><strong>@SpringBootConfiguration:</strong></li>
 </ol>
-<p>对于程序员来讲，通常不是书读的太少，而是代码写的太少。**所以我觉得对于初级程序员来讲，最好的学习规划是去写一个实用的、和工作相关的开源小项目或者可以发布到市场的独立小软件。</p>
-<ul>
-<li>时间：<strong>从现在 到 入职前 2020.6.31日</strong></li>
-</ul>
-<p>通过学习SpringBoot框架，跟着网上的开源代码，去实现一个基于SpringBoot的相关项目。</p>
-</blockquote>
-</li>
-<li><p>熟悉业务方面：</p>
-</li>
-</ul>
-</li>
-<li><p>企业文化学习</p>
-</li>
-<li><p>第二阶段：成熟期：第2-3年（<strong>2023年6月30日</strong>）：主要任务是成为业务能手，能够管理他人，成为基层管理者（<strong>组负责人）</strong></p>
-</li>
-<li><p>高级开发 | 基层管理者</p>
-</li>
-<li><p>第三阶段：成才期：第4-5年：成为某一单一领域内的业务专家，能够管理团队，部分将成长为中层管理者（部门负责人）</p>
-</li>
-<li><p>资深专家 | 部门负责人</p>
-</li>
-<li><p>第四阶段：成功期：第6-8年：成为跨领域业务专家，能够管理体系，成为中高层管理者（二级中心负责人或子公司总经理）</p>
-</li>
-<li><p> 架构师| 子公司总经理 </p>
-</li>
-</ul>
-</blockquote>
-<h3 id="职场的发展路线"><a href="#职场的发展路线" class="headerlink" title="职场的发展路线"></a>职场的发展路线</h3><p><img src="https://user-gold-cdn.xitu.io/2017/11/2/d61430e73b57c512c7a576856ef16828"></p>
+<p>该注解标注在某个类上，表示这是一个Spring Boot的配置类；这个注解也是一个组合注解，其核心注解代码为：</p>
+<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="variable">@Target</span>(&#123;ElementType.TYPE&#125;)</span><br><span class="line"><span class="variable">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="variable">@Documented</span></span><br><span class="line"><span class="variable">@Configuration</span></span><br><span class="line">public <span class="variable">@interface</span> SpringBootConfiguration &#123;</span><br></pre></td></tr></table></figure>
+
+<p>其内有一个@Configuration注解。</p>
+<p>1.1  @<strong>Configuration</strong></p>
+<p>@<strong>Configuration</strong>:这是一个Spring注解，标注在配置类上来标注这个注解；</p>
 <blockquote>
-<p>需要注意的是，这张图上只有各个象限里的常见节点，每一个行业，每一个公司和每个人的具体情况都不一样，你<strong>需要根据自己所在的行业、公司和自己整理的具体情况对其中的节点进行增减调整</strong>，从而为自己做出一张量身定制的职业路线图。少需要一两年。</p>
-<p><strong>多花点时间想清楚路线图，可以节省你很多的时间。</strong></p>
+<p>配置类 与  配置文件的作用是一样的，对项目中的相关参数进行配置；使用<strong>配置类可以将配置操作代码化</strong>。</p>
+<p>配置类本质上也是容器中的一个组件，底层用@Component来标注。</p>
 </blockquote>
+<ol start="2">
+<li>@<strong>EnableAutoConfiguration</strong></li>
+</ol>
+<p>作用： <strong>开启自动配置功能；</strong></p>
+<p>以前我们需要配置的东西，Spring Boot帮我们自动配置；@<strong>EnableAutoConfiguration</strong>告诉SpringBoot开启自动配置功能；这样自动配置才能生效； EnableAutoConfiguration也是一个组合注解，是由 AutoConfigurationPackage和 Import两个注解组合而成。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@AutoConfigurationPackage</span></span><br><span class="line"><span class="meta">@Import(EnableAutoConfigurationImportSelector.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EnableAutoConfiguration &#123;</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
+<p>2.1 @<strong>AutoConfigurationPackage</strong>：</p>
+<p>作用：自动配置包</p>
+<p>其AutoConfigurationPackage的组合内，含有如下注解：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@Import(&#123;Registrar.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> AutoConfigurationPackage &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+<p>其本质是一个Spring的底层注解@Import，给容器中导入一个组件；</p>
+<pre><code>    @Import(&#123;Registrar.class&#125;)：
+</code></pre>
+<p>导入的组件由AutoConfigurationPackages.Registrar.class来指定。</p>
+<p>进入Registrar类的核心代码观察到：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Registrar</span> <span class="keyword">implements</span> <span class="title">ImportBeanDefinitionRegistrar</span>, <span class="title">DeterminableImports</span> </span>&#123;</span><br><span class="line">        Registrar() &#123;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">// 注册一些Bean及相关信息</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(AnnotationMetadata metadata, BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line">            AutoConfigurationPackages.register(registry, (<span class="keyword">new</span> AutoConfigurationPackages.PackageImport(metadata)).getPackageName());</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/06/14/docs/sys-linux-series/linux-02Linux%E7%B3%BB%E7%BB%9F%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/">
+<p>在上述代码中</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">AutoConfigurationPackages.PackageImport(metadata)).getPackageName()</span><br></pre></td></tr></table></figure>
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/14/docs/sys-linux-series/linux-02Linux%E7%B3%BB%E7%BB%9F%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">Linux常用命令</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-14 15:27:34" itemprop="dateCreated datePublished" datetime="2020-06-14T15:27:34+08:00">2020-06-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-04 23:41:20" itemprop="dateModified" datetime="2021-07-04T23:41:20+08:00">2021-07-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Linux常用命令"><a href="#Linux常用命令" class="headerlink" title="Linux常用命令"></a>Linux常用命令</h2><h3 id="文件类"><a href="#文件类" class="headerlink" title="文件类"></a>文件类</h3><h4 id="新增软连接"><a href="#新增软连接" class="headerlink" title="新增软连接"></a>新增软连接</h4><blockquote>
-<p>ln -s 软链接是Linux中一个非常重要命令。它的功能是为某一个文件在另外一个位置建立一个同不的链接。</p>
-<p>这个命令最常用的参数是-s,-s 是代号（symbolic）的意思。具这 里有两点要注意：</p>
-<ul>
-<li>第一，ln命令会保持每一处链接文件的同步性，也就是说，不论你改动了哪一处，其它的文件都会发生相同的变化；</li>
-<li>第二，ln的链接又软链接 和硬链接两种，软链接就是ln -s,它只会在你选定的位置上生成一个文件的镜像，不会占用磁盘空间，硬链接ln ,没有参数-s, 它会在你选定的位置上生成一个和源文件大小相同的文件，无论是软链接还是硬链接，文件都保持同步变化。</li>
-</ul>
-</blockquote>
-<p>具体用法是：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ln -s 源文件 目标文件</span><br><span class="line">比如：</span><br><span class="line">ln-s test_chk   test_chk_ln</span><br></pre></td></tr></table></figure>
-
-<h4 id="删除软连接"><a href="#删除软连接" class="headerlink" title="删除软连接"></a>删除软连接</h4><p>正确的删除方式（删除软链接，但不删除实际数据）</p>
-<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">rm -rf  <span class="string">./test_chk_ln</span></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/06/13/docs/sys-linux-series/linux-01Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/13/docs/sys-linux-series/linux-01Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">Linux操作系统基础</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-13 15:27:34" itemprop="dateCreated datePublished" datetime="2020-06-13T15:27:34+08:00">2020-06-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-04 16:51:21" itemprop="dateModified" datetime="2021-07-04T16:51:21+08:00">2021-07-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Linux-操作系统基础"><a href="#Linux-操作系统基础" class="headerlink" title="Linux 操作系统基础"></a>Linux 操作系统基础</h2><h3 id="Linux基础概念"><a href="#Linux基础概念" class="headerlink" title="Linux基础概念"></a>Linux基础概念</h3><p>在Linux系统中，很多概念和Windows是由区别的,掌握这些基本概念，是玩转Linux的前提。</p>
-<h4 id="软连接与硬链接"><a href="#软连接与硬链接" class="headerlink" title="软连接与硬链接"></a>软连接与硬链接</h4><h4 id="管道符“-”和“-”"><a href="#管道符“-”和“-”" class="headerlink" title="管道符“|”和“||”"></a>管道符“|”和“||”</h4><blockquote>
-<p>”| ”则表示一个管道的意思，可以理解为东西从管道的一边流向另外一边。</p>
-<p>“||”表示逻辑或。当命令1执行不正确时，命令2才会执行。当命令1正确执行时，则命令2不会执行。</p>
-</blockquote>
-<p>命令1的正确输出作为命令2的操作对象</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[sxl@ubuntu18:~] 命令1 || 命令2  // 逻辑或的用法</span><br><span class="line">[sxl@ubuntu18:~] 命令1 | 命令2  //  通道的用法</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="Linux中rc的含义"><a href="#Linux中rc的含义" class="headerlink" title="Linux中rc的含义"></a>Linux中rc的含义</h4><p>在Linux中，最为常用的缩略语也许是“rc”，它是“runcomm”的缩写――即名词“run command”(运行命令)的简写。rc”是任何脚本类文件的后缀，这些脚本通常在程序的启动阶段被调用，通常是Linux系统启动时。如/etc/rc（连接到/etc/rc.d/rc）是Linux启动的主脚本，而.bashrc是当Linux的bash shell启动后所运行的脚本。</p>
-<p>.bashrc的前缀“.”是一个命名标准，它被设计用来在用户文件中隐藏那些用户指定的特殊文件;“ls”命令默认情况下不会列出此类文件，“rm”默认情况下也不会删除它们。许多程序在启动时，都需要“rc”后缀的初始文件或配置文件，这对于Unix的文件系统视图来说，没有什么神秘的。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/04/01/docs/z-student-life/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E4%B8%80%E7%AF%87%E7%A1%95%E5%A3%AB%E8%AE%BA%E6%96%87/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/01/docs/z-student-life/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E4%B8%80%E7%AF%87%E7%A1%95%E5%A3%AB%E8%AE%BA%E6%96%87/" class="post-title-link" itemprop="url">硕士论文写作心得</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-01 15:27:34" itemprop="dateCreated datePublished" datetime="2020-04-01T15:27:34+08:00">2020-04-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-12 21:14:17" itemprop="dateModified" datetime="2021-07-12T21:14:17+08:00">2021-07-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%BA%E6%96%87/" itemprop="url" rel="index"><span itemprop="name">论文</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="如何写一篇硕士毕业论文？"><a href="#如何写一篇硕士毕业论文？" class="headerlink" title="如何写一篇硕士毕业论文？"></a>如何写一篇硕士毕业论文？</h1><h2 id="00-前言"><a href="#00-前言" class="headerlink" title="00 - 前言"></a>00 - 前言</h2><p>毕业论文是研究生生涯的最后一站。从当初的一脸懵逼，到现在逐渐知晓了如何完成一篇硕士毕业论文，这期间有很多的经验和教训。基于自己的经历，将这段经历记录如下。在此部分，首先对写论文之前的一些注意事项做出强调。</p>
-<p><strong>相关经验</strong></p>
-<ul>
-<li><strong>提前设置好页面布局和文字格式</strong></li>
-</ul>
-<p>论文撰写好了之后，如果再更改格式，则会导致后面图片图表错乱，导致从新排版。</p>
-<ul>
-<li>毕业的基本流程<ul>
-<li>论文撰写 <ul>
-<li> <a target="_blank" rel="noopener" href="https://seugs.seu.edu.cn/_upload/article/files/d4/10/3e0724b84f799a3d7471d0527998/d1ebee3b-10e6-46c7-8250-129e122184f2.docx">东南大学研究生学位论文格式规定</a> </li>
-<li><a target="_blank" rel="noopener" href="https://seugs.seu.edu.cn/_t137/3688/list1.htm">东南大学硕士研究生封面、独创性声明下载</a></li>
-</ul>
-</li>
-<li>查重</li>
-<li>送审<ul>
-<li><a target="_blank" rel="noopener" href="https://seugs.seu.edu.cn/2013/1022/c12826a123110/page.htm">东南大学研究生学位论文盲审条例（2017年修订）</a></li>
-</ul>
-</li>
-<li>答辩</li>
-<li>毕业</li>
-</ul>
-</li>
-</ul>
-<h2 id="01-东南大学硕士论文基本格式要求"><a href="#01-东南大学硕士论文基本格式要求" class="headerlink" title="01-东南大学硕士论文基本格式要求"></a>01-东南大学硕士论文基本格式要求</h2><p>此处来源：<a target="_blank" rel="noopener" href="https://seugs.seu.edu.cn/_upload/article/files/d4/10/3e0724b84f799a3d7471d0527998/d1ebee3b-10e6-46c7-8250-129e122184f2.docx">东南大学研究生学位论文格式规定</a> </p>
-<h3 id="1-字数要求"><a href="#1-字数要求" class="headerlink" title="1. 字数要求"></a>1. 字数要求</h3><blockquote>
-<p>硕士学位论文一般在三万字以上</p>
-</blockquote>
-<h3 id="2-1-电子文档类型"><a href="#2-1-电子文档类型" class="headerlink" title="2.1 电子文档类型"></a>2.1 电子文档类型</h3><blockquote>
-<p>（1）基本要求</p>
-<p>学位论文要求电子文档用<strong>WORD输入（或PDF矢量文件格式）</strong>；其他格式应经校档案馆特许，原则上应能自动转成WORD格式并不会丢失图形、字符、分式和产生乱码。</p>
-<p>（2）学位论文电子文档的提交方式</p>
-<p>详见<strong>《东南大学研究生学位论文网上提交的要求》</strong>。</p>
-</blockquote>
-<h3 id="2-2-字体"><a href="#2-2-字体" class="headerlink" title="2.2 字体"></a>2.2 字体</h3><h4 id="正文字体"><a href="#正文字体" class="headerlink" title="正文字体"></a>正文字体</h4><p>（0）正文：小四号宋体，首行缩进。除<strong>引文</strong>和前面所述的某些外文符号外，正文一律用宋体，文字用横排。</p>
-<h4 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h4><p>（1）一级标题（题目）：二号宋体居中；</p>
-<h4 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h4><p>（2）二级标题（章）：三号黑体居中。</p>
-<h4 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h4><p>（3）三级标题（节）：四号宋体（加粗）居左；</p>
-<h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><p>（4）四级标题（节内小节）小四号黑体居左。</p>
-<h4 id="表格文字"><a href="#表格文字" class="headerlink" title="表格文字"></a>表格文字</h4><p>（5）表格文字可用<strong>小五宋体</strong>或<strong>正文字体</strong>，居中（或居左）并整齐划一</p>
-<h4 id="表格名-图名字体"><a href="#表格名-图名字体" class="headerlink" title="表格名-图名字体"></a>表格名-图名字体</h4><p>（6）表格名及图名用五号宋体。</p>
-<h4 id="标点符号"><a href="#标点符号" class="headerlink" title="标点符号"></a>标点符号</h4><p>（7）标点符号：单个的标点符号（如句号、逗号、分号、顿号、冒号、感叹号、破折号等）和成双的标点符号（如引号、括号）的后半部分<strong>不得放在行首</strong>，成双的标点符号前半个不得放在句末。</p>
-<h3 id="2-3-纸张尺寸和页码"><a href="#2-3-纸张尺寸和页码" class="headerlink" title="2.3 纸张尺寸和页码"></a>2.3 纸张尺寸和页码</h3><h4 id="尺寸"><a href="#尺寸" class="headerlink" title="尺寸"></a>尺寸</h4><p><strong>A4纸张，四周页边距2cm</strong>，带连续页码（罗马数字或阿拉伯数字页码，底部居中）。</p>
-<p>双面印刷，页数较少时也可用单面印刷。<strong>根据装订需要，左、右两侧的页边距也可以选2.5cm。</strong></p>
-<h4 id="页码"><a href="#页码" class="headerlink" title="页码"></a>页码</h4><p><strong>页码1从正文开始</strong>，<strong>前面摘要和目录等内容的页码用大写罗马数字表示</strong>。</p>
-<p>在WORD中分段设置页码采用菜单里的<strong>“插入”“分隔符”，然后选中“分节符”里的“下一页”</strong>，</p>
-<p>这样就可以分段设置连续页码和不同的页眉和页脚。</p>
-<h3 id="2-4页眉和页脚"><a href="#2-4页眉和页脚" class="headerlink" title="2.4页眉和页脚"></a>2.4页眉和页脚</h3><p>（1）页眉</p>
-<p>页眉采用下列形式（在页眉页脚的页面设置中选择“奇偶页不同”）：</p>
-<p>偶数页：</p>
-<p>东南大学硕士学位论文（<strong>小五号宋体居中</strong>）</p>
-<p>奇数页：</p>
-<p>第 * 章章题目（<strong>小五号宋体居中</strong>）</p>
-<p>若为博士学位论文则将页眉中的“硕士”换为“博士”。</p>
-<p>（2）页脚</p>
-<p><strong>正文及其以后部分，其页脚为居中、连续的阿拉伯数字页码。</strong>不宜采用分章的非连续页码。</p>
-<p><strong>摘要和目录等内容的页脚</strong>为居中、连续的大写罗马数字页码。</p>
-<h3 id="2-5-印刷要求"><a href="#2-5-印刷要求" class="headerlink" title="2.5 印刷要求"></a>2.5 印刷要求</h3><p>（1）印刷版论文必须清晰易读，字体必须美观、呈黑色。</p>
-<p>（2）印刷版论文内芯必须用白色无底纹（或水印）的高质量纸。封面用稍厚的封面纸张。</p>
-<p>（3）印刷版论文必须留足页边以便装订和复制保存。</p>
-<hr>
-<h2 id="02-硕士论文基本组成"><a href="#02-硕士论文基本组成" class="headerlink" title="02-硕士论文基本组成"></a>02-硕士论文基本组成</h2><blockquote>
-<p>一、学位论文的一般格式和顺序</p>
-<p>学位论文应包括：（1）中文封面；（2）中文页面；（3）英文页面；（4）论文独创性声明和使用授权声明；（5）中文内容提要及关键词；（6）英文内容提要及关键词；（7）目录；（8）正文；（9）致谢；（10）参考文献等要素并按此顺序排列。其他可以选择添加的内容有：位于目录之后的内容：（11）符号、变量、缩略词等本论文专用术语的注释表；参考文献后按序排列的内容：（12）附录；（13）索引（中、英文）；（14）作者简介（包括在学期间发表的论文和取得的学术成果清单）；（15）后记。</p>
-</blockquote>
-<h2 id="03-硕士论文各部分如何书写？"><a href="#03-硕士论文各部分如何书写？" class="headerlink" title="03-硕士论文各部分如何书写？"></a>03-硕士论文各部分如何书写？</h2><h3 id="1-论文题目"><a href="#1-论文题目" class="headerlink" title="1.论文题目"></a>1.论文题目</h3><p>论文题目是论文全貌的集中体现，应能概括整个论文最重要的内容，命题必须确切、简明，题目应力求简单，也不应宽泛笼统，须能看出论文的实质性内容和工作重心。</p>
-<p>中文题名一般不超过20个汉字，必要时可加副题名。副题名可另起一行，用破折号与主题名隔开。</p>
-<p>题名中应避免使用非公知公用的缩略语、字符、代号以及结构式和公式。</p>
-<h3 id="2-论文摘要"><a href="#2-论文摘要" class="headerlink" title="2. 论文摘要"></a>2. 论文摘要</h3><h4 id="2-1-中文摘要"><a href="#2-1-中文摘要" class="headerlink" title="2.1 中文摘要"></a>2.1 中文摘要</h4><p>论文摘要包括题名、硕士（博士）研究生姓名、导师姓名、学校名称、正文、关键词。</p>
-<p><strong>中文约500字左右</strong>，英文约200~300词左右，二者应基本对应。</p>
-<p>它是论文内容的高度概括，应说明<strong>研究目的、研究方法、成果和结论</strong>，要突出本论文的创造性成果或新的见解，用语简洁、准确。</p>
-<p>论文摘要后还应注明本文的<strong>关键词3至5个</strong>。关键词应为公知公用的词和学术术语，不可采用自造字词和略写、符号等，词组不宜过长。</p>
-<h4 id="2-2-英文摘要"><a href="#2-2-英文摘要" class="headerlink" title="2.2 英文摘要"></a>2.2 英文摘要</h4><p>英文摘要采用第三人称单数语气介绍该学位论文内容，目的是便于其他文摘摘录，因此在写作英文文摘时不宜用第一人称的语气陈述。</p>
-<p><strong>叙述的基本时态为一般现在时</strong>，确实需要强调过去的事情或者已经完成的行为才使用过去时、完成时等其他时态。可以采用被动语态，<strong>但要避免出现用“This paper”作为主语代替作者完成某些研究行为</strong>。</p>
-<p><strong>中国姓名译为英文时用汉语拼音</strong>，按照姓前名后的原则，姓、名均用全名，不宜用缩写。姓全用大写，名的第一个字母大写，名为双中文字时两个字的拼音之间可以不用短划线，但容易引起歧义时必须用短划线。例如“冯长根”译为“FENG Changgen”或“FENG Chang-gen”，而“冯长安”则必须译为“FENG Chang-an”。论文英文封面上的署名也遵守此规定。</p>
-<h3 id="3-目录"><a href="#3-目录" class="headerlink" title="3. 目录"></a>3. 目录</h3><p>目录是论文的大纲，它反映论文的梗概。论文目录要求层次清楚，应将论文的章节按顺序编好页码，页码居页面的右侧并排列整齐。</p>
-<h3 id="4-专用术语注释表（任选）"><a href="#4-专用术语注释表（任选）" class="headerlink" title="4. 专用术语注释表（任选）"></a>4. 专用术语注释表（任选）</h3><p>本论文专用术语（符号、变量、缩略词等）的注释表，如果有必要可以设置此注释表。此部分内容可根据论文中采用的符号、变量、缩略词等专用术语加以定义和注释，以便于论文阅读和迅速查出某符号的明确含义。</p>
-<h3 id="5-正文"><a href="#5-正文" class="headerlink" title="5. 正文"></a>5. 正文</h3><p>正文是学位论文的主体。内容可因研究课题的性质不同而有所变化。</p>
-<p>一般可包括：文献综述、理论基础、计算方法、实验方法、经过整理加工的实验结果的分析讨论、见解和结论。</p>
-<h4 id="第1章-绪论（前言）"><a href="#第1章-绪论（前言）" class="headerlink" title="第1章 - 绪论（前言）"></a>第1章 - 绪论（前言）</h4><p>本研究课题国内外已有的重要文献的扼要概括，<strong>阐明研究此课题的目的、意义，研究的主要内容和所要解决的问题</strong>。本研究工作在国民经济建设和社会发展中的理论意义与实用价值。绪论一般分为如下几个章节：</p>
-<ul>
-<li>研究背景</li>
-<li>研究现状  / 国内外研究动态</li>
-<li>论文研究内容</li>
-<li>论文组织结构</li>
-</ul>
-<h5 id="1-1-研究背景-重要部分"><a href="#1-1-研究背景-重要部分" class="headerlink" title="1.1 研究背景  (重要部分)"></a>1.1 研究背景  (重要部分)</h5><blockquote>
-<p><strong>此部分很重要，重要程度和摘要相当。</strong>评审老师主要通过看摘要和研究背景来了解文章。</p>
-</blockquote>
-<p>将摘要部分进行展开，详细说明问题的研究背景。这一部分主要说明研究课题的目的、意义和所要解决的问题。</p>
-<p>主要是要解释清楚：</p>
-<ul>
-<li><strong>研究的问题是什么</strong>？</li>
-<li><strong>研究的目的和意义是什么？</strong></li>
-</ul>
-<p>最好使用一张图来说明研究的问题。</p>
+<p>计算的结构为主配置类所在的包名，在本项目中即com.atguigu。</p>
+<p><strong>因此，Registrar</strong>类的作用是：</p>
 <blockquote>
-<p>比如，我的论文题目是“基于区块链的网络博弈平台设计与实现”</p>
-<p>基本的逻辑顺序为：</p>
-<p>阐述背景—&gt; 传统博弈下存在什么问题 —-&gt;将传统博弈转化为网络博弈的研究意义是什么？（用一张图来举例）——-&gt;说明实现网络博弈平台需要解决的问题，最终实现的网络博弈平台的基本组成（最好用一张图来说明）</p>
+<p><strong>将主配置类（@SpringBootApplication标注的类）的所在包及下面所有子包里面的所有组件扫描到Spring容器；</strong></p>
 </blockquote>
-<h5 id="1-2-研究现状-文献综述"><a href="#1-2-研究现状-文献综述" class="headerlink" title="1.2 研究现状 / 文献综述"></a>1.2 研究现状 / 文献综述</h5><p>在查阅国内外文献和了解国内外有关科技情况的基础上，围绕课题涉及的问题，综述前人工作情况，达到承前启后的目的。要求：</p>
-<p>（1）总结课题方向至少10年以来的国内外动态；</p>
-<p>（2）明确前人的工作水平；</p>
-<p>（3）介绍目前尚存在的问题；</p>
-<p>（4）说明<strong>本课题的主攻方向</strong>。文献总结应达到可独立成为一篇综述文章的要求。</p>
-<blockquote>
-<p>我的思路：</p>
-<p>基于区块链的网络博弈平台</p>
-<p>==》 网络博弈的研究现状</p>
-<p>网络博弈的近10年研究现状；</p>
-<p>==》区块链的研究现状</p>
-<p>区块链的近10年研究现状</p>
-<p>===》目前上存在的问题： 没有一个能对博弈机制具有一般表达性的平台</p>
-<p>===》主攻方向：基于去中心化架构的计算模型，实现一个对博弈机制具有一般表达性的网络博弈平台。</p>
-</blockquote>
-<h5 id="1-3-研究内容"><a href="#1-3-研究内容" class="headerlink" title="1.3 研究内容"></a>1.3 研究内容</h5><ul>
-<li><p>要求：</p>
-</li>
-<li><p>写法：</p>
-</li>
-</ul>
-<p>描述清楚自己的研究内容即可。拓展摘要中的工作内容</p>
-<h5 id="1-4-组织结构"><a href="#1-4-组织结构" class="headerlink" title="1.4 组织结构"></a>1.4 组织结构</h5><ul>
-<li>写法：</li>
-</ul>
-<p>按章节阐述之，说明每一章节的主要研究内容。</p>
-<h4 id="第2章-相关理论及技术"><a href="#第2章-相关理论及技术" class="headerlink" title="第2章 - 相关理论及技术"></a>第2章 - 相关理论及技术</h4><p>要求：</p>
-<blockquote>
-<p>相关理论，不要仅仅罗列，要突出相关性。</p>
-</blockquote>
-<h4 id="第3章-理论分析、数值计算或同级分析"><a href="#第3章-理论分析、数值计算或同级分析" class="headerlink" title="第3章 - 理论分析、数值计算或同级分析"></a>第3章 - 理论分析、数值计算或同级分析</h4><p>要求：</p>
-<blockquote>
-<p>利用研究生本人所掌握的理论知识对所选课题进行科学地、严密地<strong>理论分析</strong>、数值计算或统计分析，剖析课题，提出自己的见解。</p>
-</blockquote>
-<p>写法：</p>
-<blockquote>
-<p>需要注意逻辑性，一步一步引入：</p>
-<p>我的论文，这一章主要是建立网络博弈模型，基本的底层逻辑为：</p>
-<ul>
-<li>网络博弈的描述（举两个例子）—&gt;从例子中抽象出网络博弈的基本流程——-{得出传统博弈到网络博弈需要引入网络结构与激励机制}</li>
-<li>网络博弈结构分析 与 动力分析 —&gt; 网络结构的分析—-{博弈动力的分析：博弈机制}</li>
-<li>网络博弈的建模</li>
-</ul>
-</blockquote>
-<h4 id="第4章-实验原理、实验方法及实验装置"><a href="#第4章-实验原理、实验方法及实验装置" class="headerlink" title="第4章 - 实验原理、实验方法及实验装置"></a>第4章 - 实验原理、实验方法及实验装置</h4><p>学位论文要求对实验原理、方法、装置、步骤和有关参数有较详细的阐述，以便评阅人及答辩委员会审核实验的可靠性，并能对实验进行重复以便验证结果的可靠性，也为以后的研究者提供一个较完整的研究方法。</p>
-<h4 id="第5章-实验结果及分析"><a href="#第5章-实验结果及分析" class="headerlink" title="第5章- 实验结果及分析"></a>第5章- 实验结果及分析</h4><p>列出数据的图或表，并对数据结果进行讨论，<strong>对比分析、结果推论要严格准确</strong>，<strong>避免采用模棱两可的评定语言</strong>。对反常的数据要保留并做解释或者说明，<strong>不可随意剔除数据做出有违科学公正的行为</strong>。</p>
-<p>引用别人的研究成果及数据应加注参考文献，较长的公式推导可列入附录。采纳文献及引用数据应为可以公开并能重复查到的文献资源，并需标明准确出处（如页码或图表序号等）。正文引用文献一律用右上角方括号内的次序号（阿拉伯数字）以“上标”格式标示。</p>
-<h4 id="第6章-总结与展望"><a href="#第6章-总结与展望" class="headerlink" title="第6章- 总结与展望"></a>第6章- 总结与展望</h4><p>对论文的工作作出总结和相关展望</p>
+<p>2.2 <strong>@Import(EnableAutoConfigurationImportSelector.class)</strong></p>
+<p><strong>作用</strong>：@Import({AutoConfigurationImportSelector.class})，导入哪些组件的选择器；</p>
+<p><strong>探究：</strong>进入AutoConfigurationImportSelector类，</p>
+<p>通过<code>@Import</code>导入了<code>AutoConfigurationImportSelector</code>类，而这个类的<code>selectImports</code>方法会通过<code>SpringFactoriesLoader</code>得到大量的配置类。而每个配置类则根据条件化配置类做出决策，以实现自动配置的功能。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AutoConfigurationImportSelector</span> <span class="keyword">implements</span> <span class="title">DeferredImportSelector</span>, <span class="title">BeanClassLoaderAware</span>, <span class="title">ResourceLoaderAware</span>, <span class="title">BeanFactoryAware</span>, <span class="title">EnvironmentAware</span>, <span class="title">Ordered</span> </span>&#123;</span><br><span class="line">...</span><br><span class="line">	<span class="keyword">public</span> String[] selectImports(AnnotationMetadata annotationMetadata) &#123;</span><br><span class="line">        <span class="comment">// 省略部分代码...</span></span><br><span class="line">        AutoConfigurationMetadata autoConfigurationMetadata=    </span><br><span class="line">		            AutoConfigurationImportSelector.AutoConfigurationEntry </span><br><span class="line">        autoConfigurationEntry = <span class="keyword">this</span>.getAutoConfigurationEntry(autoConfigurationMetadata, annotationMetadata);</span><br><span class="line">            <span class="keyword">return</span> StringUtils.toStringArray(autoConfigurationEntry.getConfigurations());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">protected</span> List&lt;String&gt; <span class="title">getCandidateConfigurations</span><span class="params">(AnnotationMetadata metadata, AnnotationAttributes attributes)</span> </span>&#123;</span><br><span class="line">        List&lt;String&gt; configurations = SpringFactoriesLoader.loadFactoryNames(<span class="keyword">this</span>.getSpringFactoriesLoaderFactoryClass(), <span class="keyword">this</span>.getBeanClassLoader());</span><br><span class="line">        Assert.notEmpty(configurations, <span class="string">&quot;No auto configuration classes found in META-INF/spring.factories. If you are using a custom packaging, make sure that file is correct.&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> configurations;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span> Class&lt;?&gt; getSpringFactoriesLoaderFactoryClass() &#123;</span><br><span class="line">        <span class="keyword">return</span> EnableAutoConfiguration.class;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2019/06/06/docs/sys-linux-series/linux-100git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/06/06/docs/sys-linux-series/linux-100git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">git常用命令</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-06-06 15:27:34" itemprop="dateCreated datePublished" datetime="2019-06-06T15:27:34+08:00">2019-06-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-22 16:42:00" itemprop="dateModified" datetime="2021-07-22T16:42:00+08:00">2021-07-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Git-常用命令"><a href="#Git-常用命令" class="headerlink" title="Git 常用命令"></a>Git 常用命令</h2><h3 id="初始化本地仓库"><a href="#初始化本地仓库" class="headerlink" title="初始化本地仓库"></a>初始化本地仓库</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
-
-<h3 id="删除本地仓库"><a href="#删除本地仓库" class="headerlink" title="删除本地仓库"></a>删除本地仓库</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rm -rf .git</span><br></pre></td></tr></table></figure>
-
-<h3 id="添加远程仓库地址"><a href="#添加远程仓库地址" class="headerlink" title="添加远程仓库地址"></a>添加远程仓库地址</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git remote add origin https:xxx/xxx </span><br><span class="line">// 当使用ssh Key 功能时，需将地址设为git@github.com这个格式 </span><br><span class="line">git remote add origin git@github.com:userName:/xxxx.git </span><br></pre></td></tr></table></figure>
-
-<h3 id="推送到远程仓库"><a href="#推送到远程仓库" class="headerlink" title="推送到远程仓库"></a>推送到远程仓库</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-
-<h3 id="组合add-commit-和-push-三种命令"><a href="#组合add-commit-和-push-三种命令" class="headerlink" title="组合add commit 和 push 三种命令"></a>组合add commit 和 push 三种命令</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git add -A &amp;&amp; git commit -m <span class="string">&quot;add windows 命令行 和 git使用笔记&quot;</span> &amp;&amp; git push origin master</span><br></pre></td></tr></table></figure>
-
-<h3 id="本地仓库与远程仓库关联的方法"><a href="#本地仓库与远程仓库关联的方法" class="headerlink" title="本地仓库与远程仓库关联的方法"></a>本地仓库与远程仓库关联的方法</h3><p>方法1：</p>
+<p><strong>结论：</strong>将所有需要导入的组件以全类名的方式返回；这些组件就会被添加到容器中；会给容器中导入非常多的自动配置类（xxxAutoConfiguration）有了自动配置类，免去了我们手动编写配置注入功能组件等的工作；</p>
+<p>在上述自动化配置中，最重要的就是SpringFactoriesLoader的loadFactoryNames()方法了。其主要有三步：</p>
 <ol>
-<li>在github上新建一个远程仓库，不要勾选initialize with a ReadMe.</li>
-<li>创建本地仓库</li>
-<li>推送到远程仓库中。</li>
+<li>从classpath下获取所有<code>META-INF/spring.factories</code>这个文件下的信息。</li>
+<li>将上面获取到的信息封装成Enumeration返回</li>
+<li>遍历Enumeration，然后获取key为<code>EnableAutoConfiguration</code>下的所有值。<code>META-INF/spring.factories</code> 在很多第三⽅依赖中都存在，⼀般每导⼊⼀个第三⽅的依赖，除了本⾝的jar包以外，还会有⼀个 xxx-spring-boot-autoConfigure，这个就<br>是第三⽅依赖⾃⼰编写的⾃动配置类。</li>
 </ol>
+<h3 id="自动配置总结"><a href="#自动配置总结" class="headerlink" title="自动配置总结"></a>自动配置总结</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><ol>
+<li>SpringBoot启动的时候加载主配置类，开启了自动配置功能<ul>
+<li>@SpringBootConfiguration（普通：标志该类为SpringBoot的配置类）</li>
+<li><strong>@EnableAutoConfiguration（重点）</strong><ul>
+<li>@EnableAutoConfiguration 是自动配置功能的主要实现类。主要有两部分组成<ul>
+<li><strong>@AutoConfigurationPackage（重点）</strong></li>
+<li><strong>@Import(EnableAutoConfigurationImportSelector.class)（重点）</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="重点1-AutoConfigurationPackage"><a href="#重点1-AutoConfigurationPackage" class="headerlink" title="重点1: @AutoConfigurationPackage"></a>重点1: @AutoConfigurationPackage</h4><p>该注解主要是导入了其AutoConfigurationPackage的组合内，含有如下注解：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@Import(&#123;Registrar.class&#125;)</span></span><br></pre></td></tr></table></figure>
+
+<p>其本质是一个Spring的底层注解@Import，给容器中导入一个组件；</p>
+<pre><code>@Import(&#123;Registrar.class&#125;)：
+</code></pre>
+<p>Registrar类中，导入的包名在</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">AutoConfigurationPackages.PackageImport(metadata)).getPackageName()</span><br></pre></td></tr></table></figure>
+
+<p>计算的结构为主配置类所在的包名，在本项目中即com.example。</p>
+<p>这个注解的作用就是<strong>将主配置类（<code>@SpringBootConfiguration</code>标注的类）所在的包及其下面所有子包里面所有的组件扫描到IOC容器中。所以说，默认情况下主配置类所在包及其子包以外的组件，Spring IOC容器是扫描不到的。</strong></p>
+<h4 id="重点2-Import-EnableAutoConfigurationImportSelector-class"><a href="#重点2-Import-EnableAutoConfigurationImportSelector-class" class="headerlink" title="重点2: @Import(EnableAutoConfigurationImportSelector.class)"></a>重点2: @Import(EnableAutoConfigurationImportSelector.class)</h4><p>利用EnableAutoConfigurationImportSelector给容器中导入一些组件？</p>
+<p>该类中的selectImports()方法通过调用SpringFactoriesLoader.loadFactoryNames()方法，来扫描所有jar包类路径下  META-INF/spring.factories。把扫描到的这些文件的内容包装成properties对象，从properties中获取到EnableAutoConfiguration.class类（类名）对应的值，然后把他们添加在容器中，从而实现自动配置。   </p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>Spring Boot在启动的时候从类路径下的META-INF/spring.factories中获取EnableAutoConfiguration指定的值，将这些值作为<strong>自动配置类导入到容器中</strong>，自动配置类就生效，帮我们进行自动配置工作。</p>
+<p>以 <strong>spring-boot-autocongigure</strong> 这个依赖为例，其下面的<code>META-INF/spring.factories</code>文件</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Auto Configure</span></span><br><span class="line"><span class="meta">org.springframework.boot.autoconfigure.EnableAutoConfiguration</span>=<span class="string">\</span></span><br><span class="line"><span class="string">org.springframework.boot.autoconfigure.admin.SpringApplicationAdminJmxAutoConfiguration,\</span></span><br><span class="line"><span class="string">org.springframework.boot.autoconfigure.aop.AopAutoConfiguration,\</span></span><br><span class="line"><span class="string">org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/09/01/docs/java-b-framework/springboot-sgg/01-SpringBoot%E5%85%A5%E9%97%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/01/docs/java-b-framework/springboot-sgg/01-SpringBoot%E5%85%A5%E9%97%A8/" class="post-title-link" itemprop="url">Springboot入门</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-01 15:27:34" itemprop="dateCreated datePublished" datetime="2020-09-01T15:27:34+08:00">2020-09-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-22 16:39:18" itemprop="dateModified" datetime="2021-07-22T16:39:18+08:00">2021-07-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="一、Spring-Boot-入门"><a href="#一、Spring-Boot-入门" class="headerlink" title="一、Spring Boot 入门"></a>一、Spring Boot 入门</h1><h2 id="1、Spring-Boot-简介"><a href="#1、Spring-Boot-简介" class="headerlink" title="1、Spring Boot 简介"></a>1、Spring Boot 简介</h2><blockquote>
+<p>简化Spring应用开发的一个框架；</p>
+<p>整个Spring技术栈的一个大整合；</p>
+<p>J2EE开发的一站式解决方案；</p>
+</blockquote>
+<h2 id="2、微服务"><a href="#2、微服务" class="headerlink" title="2、微服务"></a>2、微服务</h2><p>2014，martin fowler</p>
+<ul>
+<li>微服务：架构风格（服务微化）</li>
+</ul>
+<p>一个应用应该是一组小型服务；可以通过HTTP的方式进行互通；</p>
+<p>微服务：每一个功能元素最终都是一个可<strong>独立替换</strong>和<strong>独立升级</strong>的软件单元；</p>
+<ul>
+<li><p>单体应用：ALL IN ONE</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://martinfowler.com/articles/microservices.html#MicroservicesAndSoa">详细参照微服务文档</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="3、SpringBoot-HelloWorld"><a href="#3、SpringBoot-HelloWorld" class="headerlink" title="3、SpringBoot HelloWorld"></a>3、SpringBoot HelloWorld</h2><p>功能需求：浏览器发送hello请求，服务器接受请求并处理，响应Hello World字符串；</p>
+<h3 id="1、创建一个maven工程；（jar）"><a href="#1、创建一个maven工程；（jar）" class="headerlink" title="1、创建一个maven工程；（jar）"></a>1、创建一个maven工程；（jar）</h3><h3 id="2、导入spring-boot相关的依赖"><a href="#2、导入spring-boot相关的依赖" class="headerlink" title="2、导入spring boot相关的依赖"></a>2、导入spring boot相关的依赖</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.5.9.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3、编写一个主程序；启动Spring-Boot应用"><a href="#3、编写一个主程序；启动Spring-Boot应用" class="headerlink" title="3、编写一个主程序；启动Spring Boot应用"></a>3、编写一个主程序；启动Spring Boot应用</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@SpringBootApplication</span> 来标注一个主程序类，说明这是一个Spring Boot应用</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldMainApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Spring应用启动起来</span></span><br><span class="line">        SpringApplication.run(HelloWorldMainApplication.class,args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、编写相关的Controller、Service"><a href="#4、编写相关的Controller、Service" class="headerlink" title="4、编写相关的Controller、Service"></a>4、编写相关的Controller、Service</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello World!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、运行主程序测试"><a href="#5、运行主程序测试" class="headerlink" title="5、运行主程序测试"></a>5、运行主程序测试</h3><h3 id="6、简化部署"><a href="#6、简化部署" class="headerlink" title="6、简化部署"></a>6、简化部署</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 这个插件，可以将应用打包成一个可执行的jar包；--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>将这个应用打成jar包，直接使用java -jar的命令进行执行；</p>
+<blockquote>
+<p>在使用Intellij Idea来开发时，只需点击运行按钮便会自动安装部署。若没有安装Idea，也可以使用命令java -jar 来运行程序。</p>
+</blockquote>
+<h2 id="Spring-Initializer-创建项目"><a href="#Spring-Initializer-创建项目" class="headerlink" title="Spring Initializer 创建项目"></a>Spring Initializer 创建项目</h2><h3 id="使用-Spring-Initializer快速创建项目"><a href="#使用-Spring-Initializer快速创建项目" class="headerlink" title="使用 Spring Initializer快速创建项目"></a>使用 Spring Initializer快速创建项目</h3><p>IDE都支持使用Spring的项目创建向导快速创建一个Spring Boot项目；</p>
+<p>选择我们需要的模块；向导会联网创建Spring Boot项目；</p>
+<h4 id="默认项目结构"><a href="#默认项目结构" class="headerlink" title="默认项目结构"></a>默认项目结构</h4><p>默认生成的Spring Boot项目；</p>
+<ul>
+<li>主程序已经生成好了，我们只需要我们自己的逻辑</li>
+<li>resources文件夹中目录结构<ul>
+<li>static：保存所有的静态资源； js css  images；</li>
+<li>templates：保存所有的模板页面；（Spring Boot默认jar包使用嵌入式的Tomcat，默认不支持JSP页面）；可以使用模板引擎（freemarker、thymeleaf）；</li>
+<li>application.properties：Spring Boot应用的配置文件；可以修改一些默认设置；</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/08/19/docs/java-a-base/web/Web-001Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/19/docs/java-a-base/web/Web-001Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">web服务器是什么？</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-19 15:27:34" itemprop="dateCreated datePublished" datetime="2020-08-19T15:27:34+08:00">2020-08-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-06 23:16:06" itemprop="dateModified" datetime="2021-07-06T23:16:06+08:00">2021-07-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E6%9C%8D%E5%8A%A1%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">Web服务器</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="什么是Web服务器？"><a href="#什么是Web服务器？" class="headerlink" title="什么是Web服务器？"></a>什么是Web服务器？</h3><p>Web服务器一般指网站服务器，是指驻留于因特网上某种类型计算机的程序，可以向浏览器等Web客户端提供文档。目前最主流的三个Web服务器是Apache，Nginx 以及 IIS。</p>
+<p><strong>从严格意义上来讲，Web服务器只负责处理HTTP协议，只能发送静态页面的内容。</strong></p>
+<p>客户端和服务器之间的通信使用HTTP协议进行。<strong>交付的页面最常见的是HTML文档，除了文本内容之外，还可能包含图像，样式表和脚本</strong>。</p>
+<h3 id="Web服务端工作流程"><a href="#Web服务端工作流程" class="headerlink" title="Web服务端工作流程"></a>Web服务端工作流程</h3><p>Web服务器的工作原理并不复杂，一般可分成如下4个步骤：连接过程、请求过程、应答过程以及关闭连接。</p>
+<p><strong>1）客户端发送请求</strong></p>
+<p>　　客户端（通过浏览器）和Web服务器建立TCP连接，连接建立以后，向Web服务器发出访问请求（如get）。根据HTTP协议，该请求中包含了客户端的IP地址、浏览器的类型和请求的URL等一系列信息。</p>
+<p> <strong>2）服务器解析请求</strong></p>
+<p>　　Web服务器对请求按照HTTP协议进行解码来确定进一步的动作，设计的内容有三鼐要点：方法（GET）、文档(/sample.html)、和浏览器使用的协议（HTTP/1.1）其中方法告诉服务器应完动的动作，GET方法的含义很明显是：服务器应定位、读取文件并将它返回给客户。</p>
+<p>Web服务器软件现在就知道了，它应该找到文件/sample.html，并使用HTTP/1.1协议将内存返回给客户。信息是经过与请求到来相同的连接发出的，所以服务器不需要定们客户或创建新的连接。</p>
+<p><strong>3）读取其它信息（非必须步骤）</strong></p>
+<p> 　　Web服务器根据需要去读取请求的其它部分。在HTTP/1.1下，客户还应给服务器提供关于它的一些信息。元信息（metainformation）可用来描述浏览器及其能力，以使服务器能据此确定如何返回应答。</p>
+<p><strong>4）完成请求的动作</strong></p>
+<p>　　若现在没有错误出现，WWW服务器将执行请求所要求的动作。如果成功经找到，则发送状态码200，表示一切都OK ，并返回相关文档。如果失败：返回错误指示。若服务器无法找到该资源，则发送状态码404 给客户。</p>
+<p><strong>5）关闭文件和网络连接，结束会话。</strong></p>
+<p>当文件已被发邮或错误已发出后，web服务器结束整个会话。它关闭打开的的被请求文件，关闭网络端口从而结束网络连接。</p>
+<h3 id="服务器端的组成模块"><a href="#服务器端的组成模块" class="headerlink" title="服务器端的组成模块"></a>服务器端的组成模块</h3><ul>
+<li><p>TCP监听模块</p>
+<p>服务器监听某个端口（一般默认是8080端口，用户可以设置其他端口），以建立和用户代理之间的连接。一旦建立连接，用户代理的后续HTTP请求将不用再进入监听模块。</p>
+</li>
+<li><p>预处理</p>
+<p>此处主要做三件事：</p>
+<ol>
+<li>从TCP报文中获取HTTP请求报文。 </li>
+<li>根据和用户代理的协商进行解密，解压，安全处理等等。</li>
+<li> 根据服务器自身的配置进行安全处理，建立会话状态等等。</li>
+</ol>
+</li>
+<li><p>URL路由</p>
+<p>解析URL字符串和动作以确定用户代理请求的资源，根据匹配规则（通常根据正则表达式+后缀）路由到静态资源处理模块或动态资源处理模块。</p>
+</li>
+<li><p>静态资源处理模块</p>
+<p>负责找到静态资源，比如HTML/Javascript/CSS文件/图片/图像，确定内容是字符流或者字节流，并确定对应MIME,比如HTML生成MIME为text/html的字符流，mpeg视频文件生成MIME为video/mpeg的字节流。</p>
+</li>
+<li><p>动态资源处理模块</p>
+<p>运行业务逻辑处理，动态决定返回的资源内容和类型，内容和类型的处理原则同上。</p>
+</li>
+<li><p>后处理</p>
+<p>根据和用户协商的协议进行加密，压缩，安全处理等等。</p>
+</li>
+<li><p>资源输出模块</p>
+<p>把处理好的内容和类型封装成HTTP报文，往TCP连接另一头的用户代理发送TCP报文（内容是HTTP报文）。</p>
+</li>
+</ul>
+<h3 id="Web服务器与应用程序服务器"><a href="#Web服务器与应用程序服务器" class="headerlink" title="Web服务器与应用程序服务器"></a>Web服务器与应用程序服务器</h3><p>应用程序服务器(简称应用服务器)。</p>
+<p>百度百科的定义如下：</p>
+<blockquote>
+<p>通俗的讲，<strong>Web服务器</strong>传送(serves)页面使浏览器可以浏览，然而<strong>应用程序服务器提供的是客户端应用程序可以调用(call)的方法(methods)。</strong></p>
+<p>确切一点，你可以说:Web服务器专门处理HTTP请求(request)，但是<strong>应用程序服务器是通过很多协议来为应用程序提供(serves)商业逻辑 (business logic)。</strong></p>
+</blockquote>
+<p>以Java EE为例，Web服务器主要是处理静态页面处理和作为 Servlet容器，解释和执行servlet/JSP，而应用服务器是运行业务逻辑的，主要是EJB、 JNDI和JMX API等J2EE API方面的，还包含事务处理、数据库连接等功能，所以在企业级应用中，应用服务器提供的功能比WEB服务器强大的多。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/08/17/docs/java-a-base/web/Web-005%E8%AF%B7%E6%B1%82%E4%B8%8E%E8%BD%AC%E5%8F%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/17/docs/java-a-base/web/Web-005%E8%AF%B7%E6%B1%82%E4%B8%8E%E8%BD%AC%E5%8F%91/" class="post-title-link" itemprop="url">Servlet中的请求与转发</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-17 15:27:34" itemprop="dateCreated datePublished" datetime="2020-08-17T15:27:34+08:00">2020-08-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-06 23:01:25" itemprop="dateModified" datetime="2021-07-06T23:01:25+08:00">2021-07-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Servlet/" itemprop="url" rel="index"><span itemprop="name">Servlet</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在JavaWeb的开发中，常常会涉及要对请求的重定向和转发。</p>
+<p>比如用户的自动登录场景。程序若发现用户未登录，则需要将跳转到登录页面。</p>
+<p>实现页面跳转的方式主要有两种：</p>
+<ul>
+<li>请求</li>
+<li>重定向</li>
+</ul>
+<h3 id="Request的转发"><a href="#Request的转发" class="headerlink" title="Request的转发"></a>Request的转发</h3><p>RequestDispatcher接口可以实现请求的转发。 实现请求转发功能的主要步骤如下：</p>
+<ol>
+<li>调用<strong>HttpServletRequest</strong>的getRequestDispatcher()方法获取RequestDispatcher对象。</li>
+<li>调用RequestDispatcher对象的getRequestDispatcher()方法，输入要转发的地址。</li>
+<li>调用HttpServletRequest的forward(request,response)进行请求的转发。</li>
+</ol>
+<p>相关代码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ForwardServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">	System.out.println(<span class="string">&quot;ForwardServlet&#x27;s doGet&quot;</span>);</span><br><span class="line">	</span><br><span class="line">	request.setAttribute(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;abcde&quot;</span>);</span><br><span class="line">	System.out.println(<span class="string">&quot;ForwardServlet&#x27;s name: &quot;</span> + request.getAttribute(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//请求的转发.</span></span><br><span class="line">	<span class="comment">//1. 调用 HttpServletRequest 的 getRequestDispatcher() 方法获取  RequestDispatcher 对象</span></span><br><span class="line">	<span class="comment">//调用 getRequestDispatcher() 需要传入要转发的地址</span></span><br><span class="line">	String path = <span class="string">&quot;testServlet&quot;</span>;</span><br><span class="line">	RequestDispatcher requestDispatcher = request.getRequestDispatcher(<span class="string">&quot;/&quot;</span> + path);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//2. 调用 HttpServletRequest 的 forward(request, response) 进行请求的转发. </span></span><br><span class="line">	requestDispatcher.forward(request, response); </span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Request的重定向"><a href="#Request的重定向" class="headerlink" title="Request的重定向"></a>Request的重定向</h3><p>使用HttpServletResponse对象的sendRedirect()方法，可以实现对请求的重定向。实现方法如下：</p>
+<ul>
+<li>直接调用response.sendRedirect(path)方法，其中，path为重定向的地址。</li>
+</ul>
+<p>相关代码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedirectServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">	System.out.println(<span class="string">&quot;RedirectServlet&#x27;s doGet&quot;</span>);</span><br><span class="line">	</span><br><span class="line">	request.setAttribute(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;xyzmn&quot;</span>);</span><br><span class="line">	System.out.println(<span class="string">&quot;RedirectServlet&#x27;s name: &quot;</span> + request.getAttribute(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//执行请求的重定向, 直接调用 response.sendRedirect(path) 方法,</span></span><br><span class="line">	<span class="comment">//path 为要重定向的地址</span></span><br><span class="line">	String path = <span class="string">&quot;testServlet&quot;</span>;</span><br><span class="line">	response.sendRedirect(path);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="两者区别总结"><a href="#两者区别总结" class="headerlink" title="两者区别总结"></a>两者区别总结</h3><p>请求转发示例：</p>
+<ul>
+<li>request.getRequestDispatcher(“/student_list.jsp”).forward(request,response);</li>
+</ul>
+<p>重定向示例：</p>
+<ul>
+<li>response.sendRedirect(request.getContextPath + “/student_list.jsp”)</li>
+</ul>
+<p><strong>转发过程</strong>：</p>
+<p>客户端首先发送一个请求到服务器，服务器匹配Servlet，并指定执行。当这个Servlet执行完后，它要调用getRequestDispacther()方法，把请求转发给指定的Servlet_list.jsp。</p>
+<p>整个流程都是在服务端完成的，而且是在同一个请求里面完成的，因此Servlet和jsp共享同一个request，在Servlet里面放的所有东西，在student_list.jsp中都能取出来。</p>
+<p>因此，student_list.jsp能把结果getAttribute()出来，getAttribute()出来后执行完把结果返回给客户端，整个过程是一个请求，一个响应。</p>
+<p><strong>重定向过程：</strong></p>
+<p>客户端发送一个请求到服务器端，服务器匹配Servlet，这都和请求转发一样。Servlet处理完之后调用了sendRedirect()这个方法，这个方法是response方法。</p>
+<p>所以，当这个Servlet处理完后，看到response.sendRedirect()方法，立即向客户端返回个响应，响应行告诉客户端你必须再重新发送一个请求，去访问student_list.jsp，紧接着客户端收到这个请求后，立刻发出一个新的请求，去请求student_list.jsp,在这两个请求互不干扰、相互独立，在前面request里面setAttribute()的任何东西，在后面的request里面都获得不了。因此，在sendRedirect()里面是两个请求，两个响应。</p>
+<p><strong>主要区别：</strong></p>
+<p>Forward是在服务器端的跳转，就是客户端一个请求给服务器，服务器直接将请求相关参数的信息原封不动的传递到该服务器的其他jsp或Servlet去处理。而sendRedirect()是客户端的跳转，服务器会返回客户端一个响应报头和新的URL地址，原来的参数信息如果服务器没有特殊处理就不存在了，浏览器会访问新的URL所指向的Servlet或jsp，这可能不是原来服务器上的webService了。</p>
+<p><strong>总结：</strong></p>
+<p>1、转发是在服务器端完成的，重定向是在客户端发生的；</p>
+<p>2、转发的速度快，重定向速度慢；</p>
+<p>3、转发是同一次请求，重定向是两次请求；</p>
+<p>4、转发地址栏没有变化，重定向地址栏有变化；</p>
+<p>5、转发必须是在同一台服务器下完成，重定向可以在不同的服务器下完成。</p>
+<h3 id="经验"><a href="#经验" class="headerlink" title="经验"></a>经验</h3><p> 可以使用请求转发来共享数据，但不能使用重定向来共享数据。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/08/17/docs/java-a-base/web/Web-006Servlet%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/17/docs/java-a-base/web/Web-006Servlet%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" class="post-title-link" itemprop="url">Servlet中的生命周期</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-17 15:27:34" itemprop="dateCreated datePublished" datetime="2020-08-17T15:27:34+08:00">2020-08-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-07 22:01:32" itemprop="dateModified" datetime="2021-07-07T22:01:32+08:00">2021-07-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Servlet/" itemprop="url" rel="index"><span itemprop="name">Servlet</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/08/17/docs/java-a-base/web/Web-007Idea%E8%BF%90%E8%A1%8CWeb%E7%A8%8B%E5%BA%8F%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/17/docs/java-a-base/web/Web-007Idea%E8%BF%90%E8%A1%8CWeb%E7%A8%8B%E5%BA%8F%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">Idea中运行Web的原理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-17 15:27:34" itemprop="dateCreated datePublished" datetime="2020-08-17T15:27:34+08:00">2020-08-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-18 10:32:29" itemprop="dateModified" datetime="2021-07-18T10:32:29+08:00">2021-07-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Servlet/" itemprop="url" rel="index"><span itemprop="name">Servlet</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>使用idea启动项目的过程中，</p>
+<p>idea默认路径是工程的路径 而不是模块的路径。</p>
+<p>在这种情况下，若采用springMVC 框架来开发，则会导致路径访问不正确。在这种情况下，我们需通过配置，将默认的工作路径修改为模块路径。</p>
+<p><img src="../../pics/idea-module-path.png" alt="D7878DAD-D4E8-42C8-98C9-8F63FD4E24C1"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/08/16/docs/java-a-base/web/Web-004%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8E%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/16/docs/java-a-base/web/Web-004%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8E%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84/" class="post-title-link" itemprop="url">Web应用中的绝对路径与相对路径</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-16 15:27:34" itemprop="dateCreated datePublished" datetime="2020-08-16T15:27:34+08:00">2020-08-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-06 22:44:43" itemprop="dateModified" datetime="2021-07-06T22:44:43+08:00">2021-07-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Http/" itemprop="url" rel="index"><span itemprop="name">Http</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在JavaWeb开发中，常常涉及到关于路径的问题。</p>
+<p>例如请求的转发、重定向、超链接等等，都需要明确写出相对应的位置信息。在这个里面，常用到两种路径：<strong>绝对路径与相对路径</strong>。</p>
+<p>在这里先给出结论：</p>
+<p>在JavaWeb开发中，建议使用绝对路径。**使用相对路径可能会有问题, 但使用绝对路径肯定没有问题。</p>
+<p>比如，在由Servlet转发到JSP页面时，此时，浏览器地址栏上显示的是Servlet的路径。如果该JSP页面中的超链接是相对于该JSP页面的地址，则可能会出现路径混乱的问题。</p>
+<h2 id="绝对路径与相对路径"><a href="#绝对路径与相对路径" class="headerlink" title="绝对路径与相对路径"></a>绝对路径与相对路径</h2><p><strong>绝对路径定义</strong>：</p>
+<blockquote>
+<p>在Web开发中，将相对于<strong>当前WEB应用的根路径</strong>的路径，称为绝对路径。即任何的路径都必须要带上contextPath</p>
+</blockquote>
+<p>假设Web应用的项目名为helloworld,则有：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">http:<span class="regexp">//</span>localhost:<span class="number">8989</span><span class="regexp">/helloworld/i</span>ndex.jsp  是绝对路径</span><br><span class="line">而</span><br><span class="line">http:<span class="regexp">//</span>localhost:<span class="number">8989</span>/index.jsp不是绝对路径。</span><br><span class="line">因为http:<span class="regexp">//</span>localhost:<span class="number">8989</span>/helloworld是当前web应用helloworld的根路径。</span><br><span class="line">总结下，绝对路径的基本样式为：</span><br><span class="line">http:<span class="regexp">//</span>localhost:<span class="number">8989</span><span class="regexp">/contextPath(当前WEB应用的上下文路径)/</span>xxx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>如何编写绝对路径？</strong></li>
+</ul>
+<p>在路径的前面加上contextPath路径即可。如超链接里面：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;a href = <span class="string">&quot;TestServlet&quot;</span>&gt;to test&lt;/a&gt;</span><br><span class="line">    改为绝对路径为：</span><br><span class="line">&lt;a href = <span class="string">&quot;&lt;% request.getContextPath()%&gt;&quot;</span>/TestServlet&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在重定向中，使用绝对路径的实现方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">response.sendRedirect(request.getContextPath()+<span class="string">&quot;/path/hello.jsp&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>相对路径定义</strong>：默认从当前目录开始的目录路径称为相对路径。</p>
+<h2 id="“-”代表什么？"><a href="#“-”代表什么？" class="headerlink" title="“/”代表什么？"></a>“/”代表什么？</h2><h3 id="web应用的根目录"><a href="#web应用的根目录" class="headerlink" title="web应用的根目录"></a>web应用的根目录</h3><p>若本地一个应用的开放端口为8989，则该WEB应用的根路径为：<a target="_blank" rel="noopener" href="http://localhost:8989/contextPath/">http://localhost:8989/contextPath/</a></p>
+<p>/  什么时候代表当前 WEB 应用的根目录？</p>
+<p>①：当请求转发时，“/”代表的是WEB应用的根目录</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">request</span>.getRequestDispatcher(<span class="string">&quot;/path/index.jsp&quot;</span>).forward(<span class="built_in">request</span>,<span class="built_in">response</span>);</span><br></pre></td></tr></table></figure>
+
+<p>②：在web.xml文件中映射Servlet访问路径时，“/”代表的是WEB应用的根目录</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>HelloServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/helloServlet<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="站点的根目录"><a href="#站点的根目录" class="headerlink" title="站点的根目录"></a>站点的根目录</h3><p>WEB站点的根路径：<a target="_blank" rel="noopener" href="http://localhost:8989/">http://localhost:8989/</a></p>
+<p><strong>/ 什么时候代表站点的根目录？</strong></p>
+<p>① 超链接：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;a&gt;  href=<span class="string">&quot;/TestServlet&quot;</span>&gt; To B Page&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p>② 表单中的action</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;form action = <span class="string">&quot;/login.jsp&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>③ 请求重定向的时候</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">response.sendRedirect(<span class="string">&quot;/a.jsp&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>总结：</li>
+</ul>
+<p>若 / 需交由Servlet容器来处理，则/代表的是Web应用的根目录。</p>
+<p>若 / 需交由浏览器来处理，则代表站点的根目录。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/08/15/docs/java-a-base/web/Web-003Http%E5%8D%8F%E8%AE%AE%E4%B9%8BSession%E6%9C%BA%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/15/docs/java-a-base/web/Web-003Http%E5%8D%8F%E8%AE%AE%E4%B9%8BSession%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">Http协议之Session机制</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-15 15:27:34" itemprop="dateCreated datePublished" datetime="2020-08-15T15:27:34+08:00">2020-08-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-06 22:37:36" itemprop="dateModified" datetime="2021-07-06T22:37:36+08:00">2021-07-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Http/" itemprop="url" rel="index"><span itemprop="name">Http</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Session的原理"><a href="#Session的原理" class="headerlink" title="Session的原理"></a>Session的原理</h2><p>由于http是一种无状态的协议。在实际开发中，为了记录在连续多次访问中http的访问信息，常见的方式有两种。</p>
+<ul>
+<li>一种是Cookie</li>
+<li>另一种是Session。</li>
+</ul>
+<h3 id="session的定义"><a href="#session的定义" class="headerlink" title="session的定义"></a>session的定义</h3><p>session，中文经常翻译为会话。</p>
+<p>其本来的含义是指有始有终的一系列动作/消息，比如打电话是从拿起电话拨号到挂断电话这中间的一系列过程可以称之为一个session。</p>
+<p>session在Web开发环境下的语义又有了新的扩展，它的含义是指<strong>一类用来在客户端与服务器端之间保持状态的解决方案</strong>。</p>
+<p>有时候Session也用来指这种解决方案的存储结构。</p>
+<h3 id="session机制"><a href="#session机制" class="headerlink" title="session机制"></a>session机制</h3><p>session机制采用的是<strong>在服务器端保持 HTTP 状态信息的方案</strong> 。</p>
+<p>服务器使用一种类似于散列表的结构(也可能就是使用散列表)来保存信息。</p>
+<p>当程序需要为某个客户端的请求创建一个session时，服务器首先检查这个客户端的请求里是否包含了一个session标识(即sessionId),</p>
+<ul>
+<li><p>如果已经包含一个sessionId则说明以前已经为此客户创建过session，服务器就按照session id把这个session检索出来使用</p>
+</li>
+<li><p>如果检索不到，可能会新建一个，这种情况可能出现在服务端已经删除了该用户对应的session对象，但用户人为地在请求的URL后面附加上一个JSESSION的参数)。</p>
+</li>
+<li><p>如果客户请求不包含sessionId，则为此客户创建一个session并且生成一个与此session相关联的sessionId，这个session id将在本次响应中返回给客户端保存。</p>
+</li>
+</ul>
+<h3 id="保存session-id-的-几种方式"><a href="#保存session-id-的-几种方式" class="headerlink" title="保存session id 的 几种方式"></a>保存session id 的 几种方式</h3><p><strong>① cookie方式</strong></p>
+<p>保存session id的方式可以采用cookie，这样在交互过程中浏览器可以自动的按照规则把这个标识发送给服务器。</p>
+<p><strong>② url重写方式</strong></p>
+<p>由于cookie可以被人为的禁用，必须有其它的机制以便在cookie被禁用时仍然能够把session id传递回服务器，经常采用的一种技术叫做URL重写，就是把session id附加在URL路径的后面，附加的方式也有两种，一种是作为URL路径的附加信息，另一种是作为查询字符串附加在URL后面。网络在整个交互过程中始终保持状态，就必须在每个客户端可能请求的路径后面都包含这个session id。</p>
+<p><strong>③ Session Cookie</strong></p>
+<p>session 通过SessionID来区分不同的客户, session是以cookie或URL重写为基础的，默认使用cookie来实现。</p>
+<p>系统会创造一个名为JSESSIONID的输出cookie，这称之为session cookie,以区别persistent cookies(也就是我们通常所说的cookie)。</p>
+<p>session cookie是存储于浏览器内存中的，并不是写到硬盘上的，通常看不到JSESSIONID，但是当把浏览器的cookie禁止后，web服务器会采用URL重写的方式传递Sessionid，这时在地址栏可以看到。</p>
+<p>session cookie 针对某一次会话而言，会话结束session cookie也就随着消失了，而persistent cookie只是存在于客户端硬盘上的一段文本。</p>
+<p>关闭浏览器，只会使浏览器端内存里的session cookie消失，但不会使保存在服务器端的session对象消失，同样也不会使已经保存到硬盘上的持久化cookie消失。</p>
+<h2 id="Session的使用"><a href="#Session的使用" class="headerlink" title="Session的使用"></a>Session的使用</h2><h3 id="Session的创建与删除"><a href="#Session的创建与删除" class="headerlink" title="Session的创建与删除"></a>Session的创建与删除</h3><ul>
+<li><strong>创建</strong></li>
+</ul>
+<p>在含有jsp的页面中，Session的创建时机受到以下几种情况的约束：</p>
+<p>由page 指定的 session 属性来决定： </p>
+<p>1). 默认情况下, 第一次访问一个 WEB 应用的一个 JSP 页面时, 该页面都必须有一个和这个请求相关联的 Session 对象.<br>因为 page 指定的 session 属性默认为 true</p>
+<p>2). 若把 session 属性改为 false, JSP 页面不会要求一定有一个 Session 对象和当前的 JSP 页面相关联<br>所以若第一次访问当前 WEB 应用的 JSP 页面时, 就不会创建一个 Session 对象. </p>
+<p>3). 创建一个 Session 对象: 若 page 指定的 session 设置为 false 或 在 Servlet 中可以通过以下 API 获取 Session 对象. </p>
+<p>request.getSession(flag): 若 flag 为 true, 则一定会返回一个 HttpSession 对象, 如果已经有和当前 JSP 页面关联的 HttpSession<br>对象, 直接返回; 如果没有, 则创建一个新的返回. flag 为 false: 若有关联的, 则返回; 若没有, 则返回 null</p>
+<p>request.getSession(): 相当于 request.getSession(true);</p>
+<ul>
+<li><strong>删除</strong></li>
+</ul>
+<p>session在下列情况下被删除：<br>A．程序调用HttpSession.invalidate()<br>B．距离上一次收到客户端发送的session id时间间隔超过了session的最大有效时间<br>C．服务器进程被停止</p>
+<p>关闭浏览器只会使存储在客户端浏览器内存中的session cookie失效，不会使服务器端的session对象失效。</p>
+<h3 id="跨窗口的会话跟踪"><a href="#跨窗口的会话跟踪" class="headerlink" title="跨窗口的会话跟踪"></a>跨窗口的会话跟踪</h3><p>通常session cookie是不能跨窗口使用的(IE 8 版本以前)，当你新开了一个浏览器窗口进入相同页面时，系统会赋予你一个新的session id，这样信息共享的目的就达不到了。</p>
+<p>此时可以先把session id保存在persistent cookie中(通过设置cookie的最大有效时间)，然后在新窗口中读出来，就可以得到上一个窗口的session id了，这样通过session cookie和persistent cookie的结合就可以实现了跨窗口的会话跟踪。</p>
+<h3 id="Session的超时管理"><a href="#Session的超时管理" class="headerlink" title="Session的超时管理"></a>Session的超时管理</h3><p>WEB服务器无法判断当前的客户端浏览器是否还会继续访问，也无法检测客户端浏览器是否关闭。所以，即使客户已经离开或关闭了浏览器，WEB服务器还要保留与之对应的HttpSession对象。 </p>
+<p>随着时间的推移而不断增加新的访问客户端，WEB服务器内存中将会因此积累起大量的不再被使用的HttpSession对象，并将最终导致服务器内存耗尽。 </p>
+<p><strong>WEB服务器采用“超时限制”的办法来判断客户端是否还在继续访问</strong>。如果某个客户端在一定的时间之内没有发出后续请求，WEB服务器则认为客户端已经停止了活动，结束与该客户端的会话并将与之对应的HttpSession对象变成垃圾。</p>
+<p>如果客户端浏览器超时后再次发出访问请求，WEB服务器则认为这是一个新的会话的开始，将为之创建新的HttpSession对象和分配新的会话标识号。 </p>
+<p>会话的超时间隔可以在web.xml文件中设置，其默认值由Servlet容器定义。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">session-config</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">session-timeout</span>&gt;</span>30<span class="tag">&lt;/<span class="name">session-timeout</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">session-config</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="使用URL重现实现Session跟踪"><a href="#使用URL重现实现Session跟踪" class="headerlink" title="使用URL重现实现Session跟踪"></a>使用URL重现实现Session跟踪</h3><p>Servlet规范中引入了一种补充的会话管理机制，它允许不支持Cookie的浏览器也可以与WEB服务器保持连续的会话。这种补充机制要求在响应消息的实体内容中必须包含下一次请求的超链接，并将会话标识号作为超链接的URL地址的一个特殊参数。 </p>
+<p>将会话标识号以参数形式附加在超链接的URL地址后面的技术称为URL重写。如果在浏览器不支持Cookie或者关闭了Cookie功能的情况下，WEB服务器还要能够与浏览器实现有状态的会话，就必须对所有可能被客户端访问的请求路径（包括超链接、form表单的action属性设置和重定向的URL）进行URL重写。 </p>
+<p>HttpServletResponse接口中定义了两个用于完成URL重写方法：</p>
+<ul>
+<li><strong>encodeURL方法</strong> </li>
+<li><strong>encodeRedirectURL方法</strong></li>
+</ul>
+<h3 id="HttpSession-接口中的常用方法"><a href="#HttpSession-接口中的常用方法" class="headerlink" title="HttpSession 接口中的常用方法"></a>HttpSession 接口中的常用方法</h3><p>在HttpSession 接口中，提供了如下方法供开发人员使用，具体的方法如下：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">getId方法</span><br><span class="line">getCreationTime方法</span><br><span class="line">getLastAccessedTime方法</span><br><span class="line"><span class="keyword">set</span>MaxInactiveInterval方法</span><br><span class="line">getMaxInactiveInterval方法</span><br><span class="line">isNew方法</span><br><span class="line">如果客户端请求消息中返回了一个与Servlet程序当前获得的HttpSession对象的会话标识号相同的会话标识号，则认为这个HttpSession对象不是新建的。</span><br><span class="line">invalidate方法</span><br><span class="line">getServletContext方法</span><br><span class="line"><span class="keyword">set</span>Attribute方法</span><br><span class="line">getAttribute方法</span><br><span class="line">removeAttribute方法</span><br><span class="line">getAttributeNames方法</span><br></pre></td></tr></table></figure>
+
+<h3 id="Session-的典型应用"><a href="#Session-的典型应用" class="headerlink" title="Session 的典型应用"></a>Session 的典型应用</h3><p>在Web开发中，使用Session来实现的典型应用有：</p>
+<ul>
+<li>使用Session实现购物车 </li>
+<li>利用Session防止表单重复提交 </li>
+<li>利用Session实现一次性验证码 </li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/08/14/docs/java-a-base/web/Web-002Web%E5%AE%B9%E5%99%A8%E6%98%AF%E4%BB%80%E4%B9%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/14/docs/java-a-base/web/Web-002Web%E5%AE%B9%E5%99%A8%E6%98%AF%E4%BB%80%E4%B9%88/" class="post-title-link" itemprop="url">Web容器是什么？</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-14 15:27:34" itemprop="dateCreated datePublished" datetime="2020-08-14T15:27:34+08:00">2020-08-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-06 23:10:44" itemprop="dateModified" datetime="2021-07-06T23:10:44+08:00">2021-07-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E6%9C%8D%E5%8A%A1%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">Web服务器</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Web容器是什么？"><a href="#Web容器是什么？" class="headerlink" title="Web容器是什么？"></a>Web容器是什么？</h2><p>Web应用程序是如何运行的呢？Web应用程序又是如何在Web服务器的Web容器内运行。</p>
+<p>基于上述两个疑问，开始了本文的探究。</p>
+<h3 id="什么是Web容器？"><a href="#什么是Web容器？" class="headerlink" title="什么是Web容器？"></a>什么是Web容器？</h3><p>Web服务器的出现的标志着WWW时代的带来，世界变得更加平面化。</p>
+<p>当初尝到甜头的开创者们开始不满足与在互联网上<strong>获取静态资源</strong>，于是出现了CGI脚本来动态获取资源。</p>
+<p>再后来网络发展方向也是朝着增强Web服务器动态获取资源的能力前进。</p>
+<p>以下是代表性的动态技术：</p>
+<table>
+<thead>
+<tr>
+<th align="left">技术名词</th>
+<th align="left">特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">CGI（Common Gateway Interface，公用网关接口）</td>
+<td align="left">以独立进程运行，可以用多种语言开发，比如C,C++,VB,Perl，灵活但效率低，维护复杂</td>
+</tr>
+<tr>
+<td align="left">PHP</td>
+<td align="left">服务器端嵌入HTML脚本，开源，功能强大，扩展性较差</td>
+</tr>
+<tr>
+<td align="left">JSP</td>
+<td align="left">服务器端嵌入HTML脚本，跨平台，部署前需编译，缺点是JSP比较复杂，需熟悉JAVA及相关技术</td>
+</tr>
+<tr>
+<td align="left">ASP</td>
+<td align="left">服务器端嵌入HTML脚本，开发简单，功能强大，只能在windows下运行</td>
+</tr>
+</tbody></table>
+<p>随后Web服务器朝着企业级应用方向发展，快速的业务变化，迫使Web开发人员面对新的挑战：</p>
+<ul>
+<li>如何快速写出鲁棒，可靠，符合业务需求的程序并顺利部署？</li>
+</ul>
+<p>解决这个挑战的一个有效的办法是，<strong>创造一个Web程序开发框架</strong>（含运行环境，比如解释执行JSP,Web API），这个框架解决鲁棒性，可靠性问题，提供快速开发接口。换言之，开发人员只需要专注于实现业务本身，如有更高的需求还可以对框架进行定制和扩展。这个框架的另外一个名字是<strong>Web应用程序容器。</strong></p>
+<p>因此，可以将Web容器，看做是Web程序的开发和运行环境。</p>
+<h3 id="Web容器的基本工作原理"><a href="#Web容器的基本工作原理" class="headerlink" title="Web容器的基本工作原理"></a>Web容器的基本工作原理</h3><p>相对于Web服务器，容器新增或强化了以下模块：</p>
+<ul>
+<li><p><strong>分配线程池资源</strong></p>
+<p>容器为每个请求分配一个线程进行处理，通常采取线程池的方式高效理由CPU算资源。</p>
+</li>
+<li><p><strong>封装Request上下文</strong></p>
+<p>一个请求对应一个Request上下文，它主要封装了用户请求的主要构成：URL,HTTP请求头，以及基于请求头构建的Session,Cookie等对象，方便编程使用。</p>
+</li>
+<li><p><strong>封装Response上下文</strong></p>
+<p>一个请求对应一个Response上下文，主要用于向用户代理返回资源。可以在其中写入输出流，或者重定向，或者返回错误码等等。</p>
+</li>
+<li><p><strong>URL路由</strong></p>
+<p>在容器里，运行开发人员设置不同的路由匹配规则，比如让.HTM返回.HTML,也可以自定义.xyz返回.HTML资源。更加灵活的配置可以参考JAVA MVC或者ASP.NET MVC的配置方案。</p>
+</li>
+<li><p><strong>动态资源处理模块</strong></p>
+<p>通常在这里具体的容器和开发语言都有自己的高效开发模型，比如JAVA的Servlet,ASP</p>
+</li>
+<li><p><strong>回收资源</strong></p>
+<p>这里会回收刚才的线程资源，为了线程复用，除非服务器空闲一般会将线程返回线程池。</p>
+<p>可以看出,Web容器本身具备了做为一个Web服务器的功能。</p>
+<p>事实上<strong>通常实现Web容器功能的服务器就是一个Web服务器</strong>.比如Tomcat , IIS ,Jetty。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/07/15/docs/java-d-mq/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/15/docs/java-d-mq/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="post-title-link" itemprop="url">消息队列的两种模式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-15 15:27:34" itemprop="dateCreated datePublished" datetime="2020-07-15T15:27:34+08:00">2020-07-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-05 23:28:44" itemprop="dateModified" datetime="2021-08-05T23:28:44+08:00">2021-08-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="消息队列的两种模式"><a href="#消息队列的两种模式" class="headerlink" title="消息队列的两种模式"></a>消息队列的两种模式</h3><ul>
+<li>参考链接：<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/HEYUTAO007/article/details/50131089">https://blog.csdn.net/HEYUTAO007/article/details/50131089</a> </li>
+</ul>
+</li>
+</ul>
+<p>Java消息服务（Java Message Service，JMS）应用程序接口是一个Java平台中关于面向消息中间件（MOM）的API，用于在两个应用程序之间，或分布式系统中发送消息，进行异步通信。</p>
+<p>点对点与发布订阅最初是由JMS定义的。</p>
+<p>这两种模式主要区别或解决的问题就是发送到队列的消息能否重复消费(多订阅)。</p>
+<h4 id="队列模式"><a href="#队列模式" class="headerlink" title="队列模式"></a>队列模式</h4><p>消息生产者生产消息发送到queue中，然后消息消费者从queue中取出并且消费消息。<br>消息被消费以后，queue中不再有存储，所以消息消费者不可能消费到已经被消费的消息。Queue支持存在多个消费者，但是对一个消息而言，只会有一个消费者可以消费。</p>
+<img src="../pics/queue-p2p.png" alt="img" style="zoom:50%;" />
+
+<h4 id="发布订阅模式"><a href="#发布订阅模式" class="headerlink" title="发布订阅模式"></a>发布订阅模式</h4><p>消息生产者（发布）将消息发布到topic中，同时有多个消息消费者（订阅）消费该消息。和点对点方式不同，发布到topic的消息会被所有订阅者消费。</p>
+<p>发布订阅模式下，当发布者消息量很大时，显然单个订阅者的处理能力是不足的。实际上现实场景中是多个订阅者节点组成一个订阅组负载均衡消费topic消息即分组订阅，这样订阅者很容易实现消费能力线性扩展。可以看成是一个topic下有多个Queue，每个Queue是点对点的方式，Queue之间是发布订阅方式。</p>
+<img src="../pics/queue-sp.png" alt="img" style="zoom:50%;" />
+
 
       
     </div>
@@ -863,7 +1402,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/welcome/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/welcome/">1</a><span class="space">&hellip;</span><a class="page-number" href="/welcome/page/5/">5</a><span class="page-number current">6</span>
+    <a class="extend prev" rel="prev" href="/welcome/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/welcome/">1</a><span class="space">&hellip;</span><a class="page-number" href="/welcome/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/welcome/page/7/">7</a><a class="extend next" rel="next" href="/welcome/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -931,20 +1470,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
