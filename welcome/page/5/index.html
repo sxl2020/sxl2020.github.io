@@ -195,168 +195,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/10/02/docs/a-0-interview/springboot-questions/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/02/docs/a-0-interview/springboot-questions/" class="post-title-link" itemprop="url">SpringBoot相关面试题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-02 15:27:34" itemprop="dateCreated datePublished" datetime="2020-10-02T15:27:34+08:00">2020-10-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-08 22:42:29" itemprop="dateModified" datetime="2021-07-08T22:42:29+08:00">2021-07-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">面试题</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文由JavaGuide整理翻译自（做了适当删减、修改和补充）：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.javaguides.net/2018/11/spring-boot-interview-questions-and-answers.html">https://www.javaguides.net/2018/11/spring-boot-interview-questions-and-answers.html</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.algrim.co/posts/101-spring-boot-interview-questions">https://www.algrim.co/posts/101-spring-boot-interview-questions</a> </li>
-</ul>
-</blockquote>
-<h3 id="1-什么是-Spring-Boot"><a href="#1-什么是-Spring-Boot" class="headerlink" title="1. 什么是 Spring Boot?"></a>1. 什么是 Spring Boot?</h3><p>首先，重要的是要理解 Spring Boot 并不是一个框架，它是一种创建独立应用程序的更简单方法，只需要很少或没有配置（相比于 Spring 来说）。Spring Boot最好的特性之一是它利用现有的 Spring 项目和第三方项目来开发适合生产的应用程序。</p>
-<h3 id="2-说出使用Spring-Boot的主要优点"><a href="#2-说出使用Spring-Boot的主要优点" class="headerlink" title="2. 说出使用Spring Boot的主要优点"></a>2. 说出使用Spring Boot的主要优点</h3><ol>
-<li>开发基于 Spring 的应用程序很容易。</li>
-<li>Spring Boot 项目所需的开发或工程时间明显减少，通常会提高整体生产力。</li>
-<li>Spring Boot不需要编写大量样板代码、XML配置和注释。</li>
-<li>Spring引导应用程序可以很容易地与Spring生态系统集成，如Spring JDBC、Spring ORM、Spring Data、Spring Security等。</li>
-<li>Spring Boot遵循“固执己见的默认配置”，以减少开发工作（默认配置可以修改）。</li>
-<li>Spring Boot 应用程序提供嵌入式HTTP服务器，如Tomcat和Jetty，可以轻松地开发和测试web应用程序。（这点很赞！普通运行Java程序的方式就能运行基于Spring Boot web 项目，省事很多）</li>
-<li>Spring Boot提供命令行接口(CLI)工具，用于开发和测试Spring Boot应用程序，如Java或Groovy。</li>
-<li>Spring Boot提供了多种插件，可以使用内置工具(如Maven和Gradle)开发和测试Spring Boot应用程序。</li>
-</ol>
-<h3 id="3-为什么需要Spring-Boot"><a href="#3-为什么需要Spring-Boot" class="headerlink" title="3. 为什么需要Spring Boot?"></a>3. 为什么需要Spring Boot?</h3><p>Spring Framework旨在简化J2EE企业应用程序开发。Spring Boot Framework旨在简化Spring开发。</p>
-<p><img src="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-7/why-we-need-springboot.png" alt="why-we-need-springboot"></p>
-<h3 id="4-什么是-Spring-Boot-Starters"><a href="#4-什么是-Spring-Boot-Starters" class="headerlink" title="4. 什么是 Spring Boot Starters?"></a>4. 什么是 Spring Boot Starters?</h3><p>Spring Boot Starters 是一系列依赖关系的集合，因为它的存在，项目的依赖之间的关系对我们来说变的更加简单了。举个例子：在没有Spring Boot Starters之前，我们开发REST服务或Web应用程序时; 我们需要使用像Spring MVC，Tomcat和Jackson这样的库，这些依赖我们需要手动一个一个添加。但是，有了 Spring Boot Starters 我们只需要一个只需添加一个<strong>spring-boot-starter-web</strong>一个依赖就可以了，这个依赖包含的字依赖中包含了我们开发REST 服务需要的所有依赖。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="5-如何在Spring-Boot应用程序中使用Jetty而不是Tomcat"><a href="#5-如何在Spring-Boot应用程序中使用Jetty而不是Tomcat" class="headerlink" title="5. 如何在Spring Boot应用程序中使用Jetty而不是Tomcat?"></a>5. 如何在Spring Boot应用程序中使用Jetty而不是Tomcat?</h3><p>Spring Boot Web starter使用Tomcat作为默认的嵌入式servlet容器, 如果你想使用 Jetty 的话只需要修改pom.xml(Maven)或者build.gradle(Gradle)就可以了。</p>
-<p><strong>Maven:</strong></p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--从Web启动器依赖中排除Tomcat--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-tomcat<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--添加Jetty依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-jetty<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>Gradle:</strong></p>
-<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">compile(<span class="string">&quot;org.springframework.boot:spring-boot-starter-web&quot;</span>) &#123;</span><br><span class="line">     exclude <span class="attr">group:</span> <span class="string">&#x27;org.springframework.boot&#x27;</span>, <span class="attr">module:</span> <span class="string">&#x27;spring-boot-starter-tomcat&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">compile(<span class="string">&quot;org.springframework.boot:spring-boot-starter-jetty&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>说个题外话，从上面可以看出使用 Gradle 更加简洁明了，但是国内目前还是 Maven 使用的多一点，我个人觉得 Gradle 在很多方面都要好很多。</p>
-<h3 id="6-介绍一下-SpringBootApplication注解"><a href="#6-介绍一下-SpringBootApplication注解" class="headerlink" title="6. 介绍一下@SpringBootApplication注解"></a>6. 介绍一下@SpringBootApplication注解</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.boot.autoconfigure;</span><br><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@SpringBootConfiguration</span></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"><span class="meta">@ComponentScan(excludeFilters = &#123;</span></span><br><span class="line"><span class="meta">		@Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),</span></span><br><span class="line"><span class="meta">		@Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) &#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootApplication &#123;</span><br><span class="line">   ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.boot;</span><br><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootConfiguration &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以看出大概可以把 <code>@SpringBootApplication </code>看作是 <code>@Configuration</code>、<code>@EnableAutoConfiguration</code>、<code>@ComponentScan </code> 注解的集合。根据 SpringBoot官网，这三个注解的作用分别是：</p>
-<ul>
-<li><code>@EnableAutoConfiguration</code>：启用 SpringBoot 的自动配置机制</li>
-<li><code>@ComponentScan</code>： 扫描被<code>@Component</code> (<code>@Service</code>,<code>@Controller</code>)注解的bean，注解默认会扫描该类所在的包下所有的类。</li>
-<li><code>@Configuration</code>：允许在上下文中注册额外的bean或导入其他配置类</li>
-</ul>
-<h3 id="7-重要-Spring-Boot-的自动配置是如何实现的"><a href="#7-重要-Spring-Boot-的自动配置是如何实现的" class="headerlink" title="7. (重要)Spring Boot 的自动配置是如何实现的?"></a>7. (重要)Spring Boot 的自动配置是如何实现的?</h3><p>这个是因为<code>@SpringBootApplication </code>注解的原因，在上一个问题中已经提到了这个注解。我们知道 <code>@SpringBootApplication </code>看作是 <code>@Configuration</code>、<code>@EnableAutoConfiguration</code>、<code>@ComponentScan </code> 注解的集合。</p>
-<ul>
-<li><code>@EnableAutoConfiguration</code>：启用 SpringBoot 的自动配置机制</li>
-<li><code>@ComponentScan</code>： 扫描被<code>@Component</code> (<code>@Service</code>,<code>@Controller</code>)注解的bean，注解默认会扫描该类所在的包下所有的类。</li>
-<li><code>@Configuration</code>：允许在上下文中注册额外的bean或导入其他配置类</li>
-</ul>
-<p><code>@EnableAutoConfiguration</code>是启动自动配置的关键，源码如下(建议自己打断点调试，走一遍基本的流程)：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.annotation.Documented;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Inherited;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Import;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@AutoConfigurationPackage</span></span><br><span class="line"><span class="meta">@Import(&#123;AutoConfigurationImportSelector.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EnableAutoConfiguration &#123;</span><br><span class="line">    String ENABLED_OVERRIDE_PROPERTY = <span class="string">&quot;spring.boot.enableautoconfiguration&quot;</span>;</span><br><span class="line"></span><br><span class="line">    Class&lt;?&gt;[] exclude() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    String[] excludeName() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>@EnableAutoConfiguration</code> 注解通过Spring 提供的 <code>@Import</code> 注解导入了<code>AutoConfigurationImportSelector</code>类（<code>@Import</code> 注解可以导入配置类或者Bean到当前类中）。</p>
-<p><code> ``AutoConfigurationImportSelector</code>类中<code>getCandidateConfigurations</code>方法会将所有自动配置类的信息以 List 的形式返回。这些配置信息会被 Spring 容器作 bean 来管理。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> List&lt;String&gt; <span class="title">getCandidateConfigurations</span><span class="params">(AnnotationMetadata metadata, AnnotationAttributes attributes)</span> </span>&#123;</span><br><span class="line">	List&lt;String&gt; configurations = SpringFactoriesLoader.loadFactoryNames(getSpringFactoriesLoaderFactoryClass(),</span><br><span class="line">			getBeanClassLoader());</span><br><span class="line">	Assert.notEmpty(configurations, <span class="string">&quot;No auto configuration classes found in META-INF/spring.factories. If you &quot;</span></span><br><span class="line">			+ <span class="string">&quot;are using a custom packaging, make sure that file is correct.&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> configurations;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>自动配置信息有了，那么自动配置还差什么呢？</p>
-<p><code>@Conditional</code> 注解。<code>@ConditionalOnClass</code>(指定的类必须存在于类路径下),<code>@ConditionalOnBean</code>(容器中是否有指定的Bean)等等都是对<code>@Conditional</code>注解的扩展。拿 Spring Security 的自动配置举个例子:</p>
-<p><code>SecurityAutoConfiguration</code>中导入了<code>WebSecurityEnablerConfiguration</code>类，<code>WebSecurityEnablerConfiguration</code>源代码如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ConditionalOnBean(WebSecurityConfigurerAdapter.class)</span></span><br><span class="line"><span class="meta">@ConditionalOnMissingBean(name = BeanIds.SPRING_SECURITY_FILTER_CHAIN)</span></span><br><span class="line"><span class="meta">@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSecurityEnablerConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>WebSecurityEnablerConfiguration</code>类中使用<code>@ConditionalOnBean</code>指定了容器中必须还有<code>WebSecurityConfigurerAdapter</code> 类或其实现类。所以，一般情况下 Spring Security 配置类都会去实现 <code>WebSecurityConfigurerAdapter</code>，这样自动将配置就完成了。</p>
-<p>更多内容可以参考这篇文章：<a target="_blank" rel="noopener" href="https://sylvanassun.github.io/2018/01/08/2018-01-08-spring_boot_auto_configure/">https://sylvanassun.github.io/2018/01/08/2018-01-08-spring_boot_auto_configure/</a></p>
-<h3 id="8-Spring-Boot支持哪些嵌入式web容器？"><a href="#8-Spring-Boot支持哪些嵌入式web容器？" class="headerlink" title="8. Spring Boot支持哪些嵌入式web容器？"></a>8. Spring Boot支持哪些嵌入式web容器？</h3><p>Spring Boot支持以下嵌入式servlet容器:</p>
-<table>
-<thead>
-<tr>
-<th><strong>Name</strong></th>
-<th><strong>Servlet Version</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Tomcat 9.0</td>
-<td>4.0</td>
-</tr>
-<tr>
-<td>Jetty 9.4</td>
-<td>3.1</td>
-</tr>
-<tr>
-<td>Undertow 2.0</td>
-<td>4.0</td>
-</tr>
-</tbody></table>
-<p>您还可以将Spring引导应用程序部署到任何Servlet 3.1+兼容的 Web 容器中。</p>
-<p>这就是你为什么可以通过直接像运行 普通 Java 项目一样运行 SpringBoot 项目。这样的确省事了很多，方便了我们进行开发，降低了学习难度。</p>
-<h3 id="9-什么是Spring-Security"><a href="#9-什么是Spring-Security" class="headerlink" title="9. 什么是Spring Security ?"></a>9. 什么是Spring Security ?</h3><p>Spring Security 应该属于 Spring 全家桶中学习曲线比较陡峭的几个模块之一，下面我将从起源和定义这两个方面来简单介绍一下它。</p>
-<ul>
-<li><strong>起源：</strong> Spring Security 实际上起源于 Acegi Security，这个框架能为基于 Spring 的企业应用提供强大而灵活安全访问控制解决方案，并且框架这个充分利用 Spring 的 IoC 和 AOP 功能，提供声明式安全访问控制的功能。后面，随着这个项目发展， Acegi Security 成为了Spring官方子项目，后来被命名为 “Spring Security”。</li>
-<li><strong>定义：</strong>Spring Security 是一个功能强大且高度可以定制的框架，侧重于为Java 应用程序提供身份验证和授权。——<a target="_blank" rel="noopener" href="https://spring.io/projects/spring-security">官方介绍</a>。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/10/02/docs/java-a-base/java-basic/02-Javadoc%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -767,6 +605,79 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/10/01/docs/java-a-base/servlet/README/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/01/docs/java-a-base/servlet/README/" class="post-title-link" itemprop="url">Java Servlet基础</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-01 15:27:34" itemprop="dateCreated datePublished" datetime="2020-10-01T15:27:34+08:00">2020-10-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-08 22:50:23" itemprop="dateModified" datetime="2021-07-08T22:50:23+08:00">2021-07-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="Java-Servlet-基础"><a href="#Java-Servlet-基础" class="headerlink" title="Java Servlet 基础"></a>Java Servlet 基础</h4>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/10/01/docs/java-a-base/web/README/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -835,79 +746,6 @@
 <li><h3 id="绝对路径与相对路径-1"><a href="#绝对路径与相对路径-1" class="headerlink" title="绝对路径与相对路径"></a><a href="./docs/Web/Web-004%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8E%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84.md">绝对路径与相对路径</a></h3></li>
 </ul>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/10/01/docs/java-a-base/servlet/README/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/01/docs/java-a-base/servlet/README/" class="post-title-link" itemprop="url">Java Servlet基础</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-01 15:27:34" itemprop="dateCreated datePublished" datetime="2020-10-01T15:27:34+08:00">2020-10-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-08 22:50:23" itemprop="dateModified" datetime="2021-07-08T22:50:23+08:00">2021-07-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="Java-Servlet-基础"><a href="#Java-Servlet-基础" class="headerlink" title="Java Servlet 基础"></a>Java Servlet 基础</h4>
       
     </div>
 
@@ -1325,6 +1163,218 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/09/02/docs/java-b-framework/springboot-sgg/03-Springboot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/02/docs/java-b-framework/springboot-sgg/03-Springboot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">Springboot自动配置详解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-02 15:27:34" itemprop="dateCreated datePublished" datetime="2020-09-02T15:27:34+08:00">2020-09-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-22 16:30:52" itemprop="dateModified" datetime="2021-07-22T16:30:52+08:00">2021-07-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="SpringBoot自动配置"><a href="#SpringBoot自动配置" class="headerlink" title="SpringBoot自动配置"></a>SpringBoot自动配置</h2><h3 id="从pom文件出发"><a href="#从pom文件出发" class="headerlink" title="从pom文件出发"></a>从pom文件出发</h3><p>关于Maven及POM的相关文献，可以参考博客</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_30757197/article/details/102599145">Maven笔记</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_30757197/article/details/103630048">基于maven的Java项目目录结构总结</a></li>
+</ul>
+<p>在springboot项目中，为我们实现了对依赖包的自动配置。那我们就从程序依赖的pom文件入手，一探SpringBoot自动化配置的底层原理。</p>
+<h4 id="spring-boot-starter-parent"><a href="#spring-boot-starter-parent" class="headerlink" title="spring-boot-starter-parent"></a>spring-boot-starter-parent</h4><p>打开所有的springboot项目，其pom文件中，都包含了一个父项目spring-boot-starter-parent。</p>
+<p><strong>父项目</strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;--- --所有Spring-Boot-starter项目的父项目-&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.5.9.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>在Idea中通过快捷键ctrl+点击spring-boot-starter-parent</strong>，进入其父项目的配置文件：</p>
+<ul>
+<li> spring-boot-dependencies。</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.5.9.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">relativePath</span>&gt;</span>../../spring-boot-dependencies<span class="tag">&lt;/<span class="name">relativePath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>在Idea中通过快捷键ctrl+点击spring-boot-dependencies</strong>，进入其配置文件，发现<properties>属性配置了SpringBoot默认的配置</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">activemq.version</span>&gt;</span>5.15.12<span class="tag">&lt;/<span class="name">activemq.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">antlr2.version</span>&gt;</span>2.7.7<span class="tag">&lt;/<span class="name">antlr2.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appengine-sdk.version</span>&gt;</span>1.9.79<span class="tag">&lt;/<span class="name">appengine-sdk.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artemis.version</span>&gt;</span>2.10.1<span class="tag">&lt;/<span class="name">artemis.version</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">aspectj.version</span>&gt;</span>1.9.5<span class="tag">&lt;/<span class="name">aspectj.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span>    </span><br><span class="line">它来真正管理Spring Boot应用里面的所有依赖版本；</span><br></pre></td></tr></table></figure>
+
+<p>从上面的分析汇总，可以知道:</p>
+<p><strong>当我们导入SpringBoot项目时，是不需要写版本的，默认的版本在Springboot中均已配置好。</strong></p>
+<h4 id="spring-boot-starter-web-启动器"><a href="#spring-boot-starter-web-启动器" class="headerlink" title="spring-boot-starter-web 启动器"></a>spring-boot-starter-web 启动器</h4><p>对于基于springboot的问项目，在pom配置文件中，包含了该依赖spring-boot-starter-web。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>spring-boot-starter-web，主要作用是帮我们导入了<strong>web模块</strong>正常运行所依赖的组件。</li>
+</ul>
+<p>Spring Boot将所有的功能场景都抽取出来，称为spring-boot-starter：又叫做spring-boot场景启动器，主要是帮我们导入各种开发场景下所依赖的组件；做成一个个的starters（启动器），只需要在项目里面引入这些starter相关场景的所有依赖都会导入进来。要用什么功能就导入什么场景的启动器。常见的有：</p>
+<ul>
+<li>spring-boot-starter-activemq</li>
+<li>spring-boot-starter-aop等等</li>
+</ul>
+<h3 id="从SpringApplication出发"><a href="#从SpringApplication出发" class="headerlink" title="从SpringApplication出发"></a>从SpringApplication出发</h3><p>所有的Springboot应用，都有一个启动类，在该类中使用 @SpringBootApplication 来标注该类是一个主程序类，该应用是一个Spring Boot应用。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldMainApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// SpringBoot应用启动起来</span></span><br><span class="line">        SpringApplication.run(HelloWorldMainApplication.class,args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="SpringBootApplication"><a href="#SpringBootApplication" class="headerlink" title="@SpringBootApplication:"></a>@<strong>SpringBootApplication</strong>:</h4><p>点击该注解，发现@<strong>SpringBootApplication</strong>是一个组合注解，其组成如下</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@SpringBootConfiguration</span></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"><span class="meta">@ComponentScan(excludeFilters = &#123;</span></span><br><span class="line"><span class="meta">      @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),</span></span><br><span class="line"><span class="meta">      @Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) &#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootApplication &#123;</span><br></pre></td></tr></table></figure>
+
+<p>其结构如下：</p>
+<ul>
+<li><p>@<strong>SpringBootApplication</strong>:</p>
+<ul>
+<li><strong>@SpringBootConfiguration</strong><ul>
+<li><strong>@Configuration</strong></li>
+</ul>
+</li>
+<li>@<strong>EnableAutoConfiguration</strong><ul>
+<li><strong>@AutoConfigurationPackage</strong></li>
+<li><strong>@Import(EnableAutoConfigurationImportSelector.class)</strong></li>
+</ul>
+</li>
+</ul>
+<p>接下来，逐一探究这些注解的意义和作用</p>
+</li>
+</ul>
+<ol>
+<li><strong>@SpringBootConfiguration:</strong></li>
+</ol>
+<p>该注解标注在某个类上，表示这是一个Spring Boot的配置类；这个注解也是一个组合注解，其核心注解代码为：</p>
+<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="variable">@Target</span>(&#123;ElementType.TYPE&#125;)</span><br><span class="line"><span class="variable">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="variable">@Documented</span></span><br><span class="line"><span class="variable">@Configuration</span></span><br><span class="line">public <span class="variable">@interface</span> SpringBootConfiguration &#123;</span><br></pre></td></tr></table></figure>
+
+<p>其内有一个@Configuration注解。</p>
+<p>1.1  @<strong>Configuration</strong></p>
+<p>@<strong>Configuration</strong>:这是一个Spring注解，标注在配置类上来标注这个注解；</p>
+<blockquote>
+<p>配置类 与  配置文件的作用是一样的，对项目中的相关参数进行配置；使用<strong>配置类可以将配置操作代码化</strong>。</p>
+<p>配置类本质上也是容器中的一个组件，底层用@Component来标注。</p>
+</blockquote>
+<ol start="2">
+<li>@<strong>EnableAutoConfiguration</strong></li>
+</ol>
+<p>作用： <strong>开启自动配置功能；</strong></p>
+<p>以前我们需要配置的东西，Spring Boot帮我们自动配置；@<strong>EnableAutoConfiguration</strong>告诉SpringBoot开启自动配置功能；这样自动配置才能生效； EnableAutoConfiguration也是一个组合注解，是由 AutoConfigurationPackage和 Import两个注解组合而成。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@AutoConfigurationPackage</span></span><br><span class="line"><span class="meta">@Import(EnableAutoConfigurationImportSelector.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EnableAutoConfiguration &#123;</span><br></pre></td></tr></table></figure>
+
+<p>2.1 @<strong>AutoConfigurationPackage</strong>：</p>
+<p>作用：自动配置包</p>
+<p>其AutoConfigurationPackage的组合内，含有如下注解：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@Import(&#123;Registrar.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> AutoConfigurationPackage &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其本质是一个Spring的底层注解@Import，给容器中导入一个组件；</p>
+<pre><code>    @Import(&#123;Registrar.class&#125;)：
+</code></pre>
+<p>导入的组件由AutoConfigurationPackages.Registrar.class来指定。</p>
+<p>进入Registrar类的核心代码观察到：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Registrar</span> <span class="keyword">implements</span> <span class="title">ImportBeanDefinitionRegistrar</span>, <span class="title">DeterminableImports</span> </span>&#123;</span><br><span class="line">        Registrar() &#123;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">// 注册一些Bean及相关信息</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(AnnotationMetadata metadata, BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line">            AutoConfigurationPackages.register(registry, (<span class="keyword">new</span> AutoConfigurationPackages.PackageImport(metadata)).getPackageName());</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上述代码中</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">AutoConfigurationPackages.PackageImport(metadata)).getPackageName()</span><br></pre></td></tr></table></figure>
+
+<p>计算的结构为主配置类所在的包名，在本项目中即com.atguigu。</p>
+<p><strong>因此，Registrar</strong>类的作用是：</p>
+<blockquote>
+<p><strong>将主配置类（@SpringBootApplication标注的类）的所在包及下面所有子包里面的所有组件扫描到Spring容器；</strong></p>
+</blockquote>
+<p>2.2 <strong>@Import(EnableAutoConfigurationImportSelector.class)</strong></p>
+<p><strong>作用</strong>：@Import({AutoConfigurationImportSelector.class})，导入哪些组件的选择器；</p>
+<p><strong>探究：</strong>进入AutoConfigurationImportSelector类，</p>
+<p>通过<code>@Import</code>导入了<code>AutoConfigurationImportSelector</code>类，而这个类的<code>selectImports</code>方法会通过<code>SpringFactoriesLoader</code>得到大量的配置类。而每个配置类则根据条件化配置类做出决策，以实现自动配置的功能。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AutoConfigurationImportSelector</span> <span class="keyword">implements</span> <span class="title">DeferredImportSelector</span>, <span class="title">BeanClassLoaderAware</span>, <span class="title">ResourceLoaderAware</span>, <span class="title">BeanFactoryAware</span>, <span class="title">EnvironmentAware</span>, <span class="title">Ordered</span> </span>&#123;</span><br><span class="line">...</span><br><span class="line">	<span class="keyword">public</span> String[] selectImports(AnnotationMetadata annotationMetadata) &#123;</span><br><span class="line">        <span class="comment">// 省略部分代码...</span></span><br><span class="line">        AutoConfigurationMetadata autoConfigurationMetadata=    </span><br><span class="line">		            AutoConfigurationImportSelector.AutoConfigurationEntry </span><br><span class="line">        autoConfigurationEntry = <span class="keyword">this</span>.getAutoConfigurationEntry(autoConfigurationMetadata, annotationMetadata);</span><br><span class="line">            <span class="keyword">return</span> StringUtils.toStringArray(autoConfigurationEntry.getConfigurations());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">protected</span> List&lt;String&gt; <span class="title">getCandidateConfigurations</span><span class="params">(AnnotationMetadata metadata, AnnotationAttributes attributes)</span> </span>&#123;</span><br><span class="line">        List&lt;String&gt; configurations = SpringFactoriesLoader.loadFactoryNames(<span class="keyword">this</span>.getSpringFactoriesLoaderFactoryClass(), <span class="keyword">this</span>.getBeanClassLoader());</span><br><span class="line">        Assert.notEmpty(configurations, <span class="string">&quot;No auto configuration classes found in META-INF/spring.factories. If you are using a custom packaging, make sure that file is correct.&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> configurations;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span> Class&lt;?&gt; getSpringFactoriesLoaderFactoryClass() &#123;</span><br><span class="line">        <span class="keyword">return</span> EnableAutoConfiguration.class;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>结论：</strong>将所有需要导入的组件以全类名的方式返回；这些组件就会被添加到容器中；会给容器中导入非常多的自动配置类（xxxAutoConfiguration）有了自动配置类，免去了我们手动编写配置注入功能组件等的工作；</p>
+<p>在上述自动化配置中，最重要的就是SpringFactoriesLoader的loadFactoryNames()方法了。其主要有三步：</p>
+<ol>
+<li>从classpath下获取所有<code>META-INF/spring.factories</code>这个文件下的信息。</li>
+<li>将上面获取到的信息封装成Enumeration返回</li>
+<li>遍历Enumeration，然后获取key为<code>EnableAutoConfiguration</code>下的所有值。<code>META-INF/spring.factories</code> 在很多第三⽅依赖中都存在，⼀般每导⼊⼀个第三⽅的依赖，除了本⾝的jar包以外，还会有⼀个 xxx-spring-boot-autoConfigure，这个就<br>是第三⽅依赖⾃⼰编写的⾃动配置类。</li>
+</ol>
+<h3 id="自动配置总结"><a href="#自动配置总结" class="headerlink" title="自动配置总结"></a>自动配置总结</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><ol>
+<li>SpringBoot启动的时候加载主配置类，开启了自动配置功能<ul>
+<li>@SpringBootConfiguration（普通：标志该类为SpringBoot的配置类）</li>
+<li><strong>@EnableAutoConfiguration（重点）</strong><ul>
+<li>@EnableAutoConfiguration 是自动配置功能的主要实现类。主要有两部分组成<ul>
+<li><strong>@AutoConfigurationPackage（重点）</strong></li>
+<li><strong>@Import(EnableAutoConfigurationImportSelector.class)（重点）</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="重点1-AutoConfigurationPackage"><a href="#重点1-AutoConfigurationPackage" class="headerlink" title="重点1: @AutoConfigurationPackage"></a>重点1: @AutoConfigurationPackage</h4><p>该注解主要是导入了其AutoConfigurationPackage的组合内，含有如下注解：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@Import(&#123;Registrar.class&#125;)</span></span><br></pre></td></tr></table></figure>
+
+<p>其本质是一个Spring的底层注解@Import，给容器中导入一个组件；</p>
+<pre><code>@Import(&#123;Registrar.class&#125;)：
+</code></pre>
+<p>Registrar类中，导入的包名在</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">AutoConfigurationPackages.PackageImport(metadata)).getPackageName()</span><br></pre></td></tr></table></figure>
+
+<p>计算的结构为主配置类所在的包名，在本项目中即com.example。</p>
+<p>这个注解的作用就是<strong>将主配置类（<code>@SpringBootConfiguration</code>标注的类）所在的包及其下面所有子包里面所有的组件扫描到IOC容器中。所以说，默认情况下主配置类所在包及其子包以外的组件，Spring IOC容器是扫描不到的。</strong></p>
+<h4 id="重点2-Import-EnableAutoConfigurationImportSelector-class"><a href="#重点2-Import-EnableAutoConfigurationImportSelector-class" class="headerlink" title="重点2: @Import(EnableAutoConfigurationImportSelector.class)"></a>重点2: @Import(EnableAutoConfigurationImportSelector.class)</h4><p>利用EnableAutoConfigurationImportSelector给容器中导入一些组件？</p>
+<p>该类中的selectImports()方法通过调用SpringFactoriesLoader.loadFactoryNames()方法，来扫描所有jar包类路径下  META-INF/spring.factories。把扫描到的这些文件的内容包装成properties对象，从properties中获取到EnableAutoConfiguration.class类（类名）对应的值，然后把他们添加在容器中，从而实现自动配置。   </p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>Spring Boot在启动的时候从类路径下的META-INF/spring.factories中获取EnableAutoConfiguration指定的值，将这些值作为<strong>自动配置类导入到容器中</strong>，自动配置类就生效，帮我们进行自动配置工作。</p>
+<p>以 <strong>spring-boot-autocongigure</strong> 这个依赖为例，其下面的<code>META-INF/spring.factories</code>文件</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Auto Configure</span></span><br><span class="line"><span class="meta">org.springframework.boot.autoconfigure.EnableAutoConfiguration</span>=<span class="string">\</span></span><br><span class="line"><span class="string">org.springframework.boot.autoconfigure.admin.SpringApplicationAdminJmxAutoConfiguration,\</span></span><br><span class="line"><span class="string">org.springframework.boot.autoconfigure.aop.AopAutoConfiguration,\</span></span><br><span class="line"><span class="string">org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -1396,20 +1446,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

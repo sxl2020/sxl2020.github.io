@@ -195,211 +195,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/29/docs/data-a-database/mysql/mysql-%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/29/docs/data-a-database/mysql/mysql-%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" class="post-title-link" itemprop="url">Mysql 基础语法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-07-29 00:00:00 / 修改时间：21:46:42" itemprop="dateCreated datePublished" datetime="2021-07-29T00:00:00+08:00">2021-07-29</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Mysql-常见语法"><a href="#Mysql-常见语法" class="headerlink" title="Mysql 常见语法"></a>Mysql 常见语法</h2><h3 id="1-建表语句"><a href="#1-建表语句" class="headerlink" title="1. 建表语句"></a>1. 建表语句</h3><ul>
-<li>一般格式</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> table_name (column_name,column_type)</span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li></li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> tb_emolpyee(</span><br><span class="line">		<span class="string">&#x27;employee_id&#x27;</span> <span class="type">bigint</span>(<span class="number">20</span>) AUTO_INCREMENT,</span><br><span class="line">    <span class="string">&#x27;employee_name&#x27;</span> <span class="type">varchar</span>(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  	<span class="string">&#x27;gender&#x27;</span> <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  	<span class="keyword">PRIMARY</span> KEY (<span class="string">&#x27;employee_id&#x27;</span>)</span><br><span class="line">)ENGINE<span class="operator">=</span>InnoDB CHARSET<span class="operator">=</span>utf8</span><br></pre></td></tr></table></figure>
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/28/docs/design-ddd/01-%E5%A5%88%E5%AD%A6%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1%E8%AF%BE%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/28/docs/design-ddd/01-%E5%A5%88%E5%AD%A6%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1%E8%AF%BE%E7%A8%8B/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-07-28 20:10:39 / 修改时间：20:58:07" itemprop="dateCreated datePublished" datetime="2021-07-28T20:10:39+08:00">2021-07-28</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-DDD在新项目中的使用"><a href="#1-DDD在新项目中的使用" class="headerlink" title="1. DDD在新项目中的使用"></a>1. DDD在新项目中的使用</h3><img src="/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728201142794.png" alt="image-20210728201142794" style="zoom:80%;" />
-
-
-
-
-
-<h3 id="2-领域驱动的解决之道-分而治之"><a href="#2-领域驱动的解决之道-分而治之" class="headerlink" title="2. 领域驱动的解决之道- 分而治之"></a>2. 领域驱动的解决之道- 分而治之</h3><p>![image-20210728201659367](/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728201659367.png)</p>
-<h4 id="1-与微服务集合"><a href="#1-与微服务集合" class="headerlink" title="1. 与微服务集合"></a>1. 与微服务集合</h4><p>![image-20210728201855151](/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728201855151.png)</p>
-<h4 id="整合"><a href="#整合" class="headerlink" title="整合"></a>整合</h4><p>![image-20210728202144462](/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728202144462.png)</p>
-<h3 id="烟筒式开发"><a href="#烟筒式开发" class="headerlink" title="烟筒式开发"></a>烟筒式开发</h3><ul>
-<li>举例</li>
-</ul>
-<img src="/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728202315820.png" alt="image-20210728202315820" style="zoom:50%;" />
-
-<ul>
-<li>缺点：<ul>
-<li><ol>
-<li>修改一张表，涉及到多个模块的改动</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-<p>优化后：</p>
-<ul>
-<li>小而专的微服务<ul>
-<li><img src="/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728202846887.png" alt="image-20210728202846887" style="zoom:50%;" /></li>
-</ul>
-</li>
-</ul>
-<p>微服务设计流程</p>
-<ol>
-<li> 业务领域建模</li>
-<li>业务边界划分</li>
-<li>微服务拆分</li>
-</ol>
-<p>跨库关联查询解决方案：</p>
- <img src="/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728203144064.png" alt="image-20210728203144064" style="zoom:50%;" />
-
-
-
-<ul>
-<li> 软件发展的规律</li>
-</ul>
-<p>![image-20210728204215221](/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728204215221.png)</p>
-<p>​    </p>
-<ul>
-<li>软件–对真实世界的模拟</li>
-</ul>
-<img src="/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728204329839.png" alt="image-20210728204329839" style="zoom:50%;" />
-
-
-
-<ul>
-<li>版本2：</li>
-</ul>
-<img src="/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728204949136.png" alt="image-20210728204949136" style="zoom:50%;" />
-
-<ul>
-<li>版本3</li>
-</ul>
-<img src="/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728205015696.png" alt="image-20210728205015696" style="zoom:50%;" />
-
-<ul>
-<li>版本4</li>
-</ul>
-<img src="/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728205107455.png" alt="image-20210728205107455" style="zoom:50%;" />
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/27/docs/electricity/%E7%94%B5%E5%8A%9B%E8%A1%8C%E4%B8%9A%E6%9C%AF%E8%AF%AD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -608,7 +403,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/07/25/docs/java-z-idea-projects/000-intelij-idea-%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/" class="post-title-link" itemprop="url">小乐の主站Hexo 使用记录</a>
+            <a href="/2021/07/25/docs/java-z-idea-projects/000-intelij-idea-%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/" class="post-title-link" itemprop="url">Idea相关配置</a>
         </h2>
 
         <div class="post-meta">
@@ -625,7 +420,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-05 23:25:48" itemprop="dateModified" datetime="2021-08-05T23:25:48+08:00">2021-08-05</time>
+                <time title="修改时间：2021-08-07 08:18:31" itemprop="dateModified" datetime="2021-08-07T08:18:31+08:00">2021-08-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -929,6 +724,144 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/18/docs/data-b-cache/redis/001-mac-redis-%E5%AE%89%E8%A3%85l/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/18/docs/data-b-cache/redis/001-mac-redis-%E5%AE%89%E8%A3%85l/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-07-18 11:16:11 / 修改时间：22:17:12" itemprop="dateCreated datePublished" datetime="2021-07-18T11:16:11+08:00">2021-07-18</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="mac下安装Redis"><a href="#mac下安装Redis" class="headerlink" title="mac下安装Redis"></a>mac下安装Redis</h3><h4 id="使用brew来安装"><a href="#使用brew来安装" class="headerlink" title="使用brew来安装"></a>使用brew来安装</h4><ul>
+<li>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/realize_dream/article/details/106227622">https://blog.csdn.net/realize_dream/article/details/106227622</a></li>
+</ul>
+<h4 id="安装命令："><a href="#安装命令：" class="headerlink" title="安装命令："></a>安装命令：</h4><figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>redis</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装的路径："><a href="#安装的路径：" class="headerlink" title="安装的路径："></a>安装的路径：</h4><ul>
+<li>Homebrew安装的软件会默认在<code>/usr/local/Cellar/</code>路径下</li>
+<li>redis的配置文件<code>redis.conf</code>存放在<code>/usr/local/etc</code>路径下</li>
+</ul>
+<h4 id="启动命令"><a href="#启动命令" class="headerlink" title="启动命令"></a>启动命令</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">//方式一：使用brew帮助我们启动软件</span><br><span class="line">brew services start redis</span><br><span class="line">//方式二</span><br><span class="line">redis-server /usr/local/etc/redis.conf</span><br></pre></td></tr></table></figure>
+
+<h4 id="链接方式"><a href="#链接方式" class="headerlink" title="链接方式"></a>链接方式</h4><h5 id="使用redis-cli来链接"><a href="#使用redis-cli来链接" class="headerlink" title="使用redis-cli来链接"></a>使用redis-cli来链接</h5><p>redis默认端口号<strong>6379</strong>，默认<strong>auth</strong>为空，输入以下命令即可连接</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">redis</span>-cli -h <span class="number">127.0.0.1</span> -p <span class="number">6379</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="使用Redis客户端链接"><a href="#使用Redis客户端链接" class="headerlink" title="使用Redis客户端链接"></a>使用Redis客户端链接</h5>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/16/docs/data-a-database/mybatis/000-%E4%BB%A3%E5%8A%9E%E4%BA%8B%E9%A1%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/16/docs/data-a-database/mybatis/000-%E4%BB%A3%E5%8A%9E%E4%BA%8B%E9%A1%B9/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-16 10:27:03" itemprop="dateCreated datePublished" datetime="2021-07-16T10:27:03+08:00">2021-07-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-27 23:18:18" itemprop="dateModified" datetime="2021-07-27T23:18:18+08:00">2021-07-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Mybatis代办事项"><a href="#Mybatis代办事项" class="headerlink" title="Mybatis代办事项"></a>Mybatis代办事项</h2><h3 id="Mybatis自动生成常见的sql语句"><a href="#Mybatis自动生成常见的sql语句" class="headerlink" title="Mybatis自动生成常见的sql语句"></a>Mybatis自动生成常见的sql语句</h3><h3 id="修改MyBatis-Generator注释的生成规则"><a href="#修改MyBatis-Generator注释的生成规则" class="headerlink" title="修改MyBatis Generator注释的生成规则"></a><a target="_blank" rel="noopener" href="http://www.macrozheng.com/#/architect/mall_arch_02?id=%E4%BF%AE%E6%94%B9mybatis-generator%E6%B3%A8%E9%87%8A%E7%9A%84%E7%94%9F%E6%88%90%E8%A7%84%E5%88%99">修改MyBatis Generator注释的生成规则</a></h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -1000,20 +933,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
