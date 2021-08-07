@@ -195,201 +195,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/08/17/docs/java-a-base/web/Web-005%E8%AF%B7%E6%B1%82%E4%B8%8E%E8%BD%AC%E5%8F%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/17/docs/java-a-base/web/Web-005%E8%AF%B7%E6%B1%82%E4%B8%8E%E8%BD%AC%E5%8F%91/" class="post-title-link" itemprop="url">Servlet中的请求与转发</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-17 15:27:34" itemprop="dateCreated datePublished" datetime="2020-08-17T15:27:34+08:00">2020-08-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-06 23:01:25" itemprop="dateModified" datetime="2021-07-06T23:01:25+08:00">2021-07-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Servlet/" itemprop="url" rel="index"><span itemprop="name">Servlet</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在JavaWeb的开发中，常常会涉及要对请求的重定向和转发。</p>
-<p>比如用户的自动登录场景。程序若发现用户未登录，则需要将跳转到登录页面。</p>
-<p>实现页面跳转的方式主要有两种：</p>
-<ul>
-<li>请求</li>
-<li>重定向</li>
-</ul>
-<h3 id="Request的转发"><a href="#Request的转发" class="headerlink" title="Request的转发"></a>Request的转发</h3><p>RequestDispatcher接口可以实现请求的转发。 实现请求转发功能的主要步骤如下：</p>
-<ol>
-<li>调用<strong>HttpServletRequest</strong>的getRequestDispatcher()方法获取RequestDispatcher对象。</li>
-<li>调用RequestDispatcher对象的getRequestDispatcher()方法，输入要转发的地址。</li>
-<li>调用HttpServletRequest的forward(request,response)进行请求的转发。</li>
-</ol>
-<p>相关代码如下所示：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ForwardServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">	System.out.println(<span class="string">&quot;ForwardServlet&#x27;s doGet&quot;</span>);</span><br><span class="line">	</span><br><span class="line">	request.setAttribute(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;abcde&quot;</span>);</span><br><span class="line">	System.out.println(<span class="string">&quot;ForwardServlet&#x27;s name: &quot;</span> + request.getAttribute(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//请求的转发.</span></span><br><span class="line">	<span class="comment">//1. 调用 HttpServletRequest 的 getRequestDispatcher() 方法获取  RequestDispatcher 对象</span></span><br><span class="line">	<span class="comment">//调用 getRequestDispatcher() 需要传入要转发的地址</span></span><br><span class="line">	String path = <span class="string">&quot;testServlet&quot;</span>;</span><br><span class="line">	RequestDispatcher requestDispatcher = request.getRequestDispatcher(<span class="string">&quot;/&quot;</span> + path);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//2. 调用 HttpServletRequest 的 forward(request, response) 进行请求的转发. </span></span><br><span class="line">	requestDispatcher.forward(request, response); </span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Request的重定向"><a href="#Request的重定向" class="headerlink" title="Request的重定向"></a>Request的重定向</h3><p>使用HttpServletResponse对象的sendRedirect()方法，可以实现对请求的重定向。实现方法如下：</p>
-<ul>
-<li>直接调用response.sendRedirect(path)方法，其中，path为重定向的地址。</li>
-</ul>
-<p>相关代码如下所示：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedirectServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">	System.out.println(<span class="string">&quot;RedirectServlet&#x27;s doGet&quot;</span>);</span><br><span class="line">	</span><br><span class="line">	request.setAttribute(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;xyzmn&quot;</span>);</span><br><span class="line">	System.out.println(<span class="string">&quot;RedirectServlet&#x27;s name: &quot;</span> + request.getAttribute(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//执行请求的重定向, 直接调用 response.sendRedirect(path) 方法,</span></span><br><span class="line">	<span class="comment">//path 为要重定向的地址</span></span><br><span class="line">	String path = <span class="string">&quot;testServlet&quot;</span>;</span><br><span class="line">	response.sendRedirect(path);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="两者区别总结"><a href="#两者区别总结" class="headerlink" title="两者区别总结"></a>两者区别总结</h3><p>请求转发示例：</p>
-<ul>
-<li>request.getRequestDispatcher(“/student_list.jsp”).forward(request,response);</li>
-</ul>
-<p>重定向示例：</p>
-<ul>
-<li>response.sendRedirect(request.getContextPath + “/student_list.jsp”)</li>
-</ul>
-<p><strong>转发过程</strong>：</p>
-<p>客户端首先发送一个请求到服务器，服务器匹配Servlet，并指定执行。当这个Servlet执行完后，它要调用getRequestDispacther()方法，把请求转发给指定的Servlet_list.jsp。</p>
-<p>整个流程都是在服务端完成的，而且是在同一个请求里面完成的，因此Servlet和jsp共享同一个request，在Servlet里面放的所有东西，在student_list.jsp中都能取出来。</p>
-<p>因此，student_list.jsp能把结果getAttribute()出来，getAttribute()出来后执行完把结果返回给客户端，整个过程是一个请求，一个响应。</p>
-<p><strong>重定向过程：</strong></p>
-<p>客户端发送一个请求到服务器端，服务器匹配Servlet，这都和请求转发一样。Servlet处理完之后调用了sendRedirect()这个方法，这个方法是response方法。</p>
-<p>所以，当这个Servlet处理完后，看到response.sendRedirect()方法，立即向客户端返回个响应，响应行告诉客户端你必须再重新发送一个请求，去访问student_list.jsp，紧接着客户端收到这个请求后，立刻发出一个新的请求，去请求student_list.jsp,在这两个请求互不干扰、相互独立，在前面request里面setAttribute()的任何东西，在后面的request里面都获得不了。因此，在sendRedirect()里面是两个请求，两个响应。</p>
-<p><strong>主要区别：</strong></p>
-<p>Forward是在服务器端的跳转，就是客户端一个请求给服务器，服务器直接将请求相关参数的信息原封不动的传递到该服务器的其他jsp或Servlet去处理。而sendRedirect()是客户端的跳转，服务器会返回客户端一个响应报头和新的URL地址，原来的参数信息如果服务器没有特殊处理就不存在了，浏览器会访问新的URL所指向的Servlet或jsp，这可能不是原来服务器上的webService了。</p>
-<p><strong>总结：</strong></p>
-<p>1、转发是在服务器端完成的，重定向是在客户端发生的；</p>
-<p>2、转发的速度快，重定向速度慢；</p>
-<p>3、转发是同一次请求，重定向是两次请求；</p>
-<p>4、转发地址栏没有变化，重定向地址栏有变化；</p>
-<p>5、转发必须是在同一台服务器下完成，重定向可以在不同的服务器下完成。</p>
-<h3 id="经验"><a href="#经验" class="headerlink" title="经验"></a>经验</h3><p> 可以使用请求转发来共享数据，但不能使用重定向来共享数据。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/08/17/docs/java-a-base/web/Web-006Servlet%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/17/docs/java-a-base/web/Web-006Servlet%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" class="post-title-link" itemprop="url">Servlet中的生命周期</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-17 15:27:34" itemprop="dateCreated datePublished" datetime="2020-08-17T15:27:34+08:00">2020-08-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-07 22:01:32" itemprop="dateModified" datetime="2021-07-07T22:01:32+08:00">2021-07-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Servlet/" itemprop="url" rel="index"><span itemprop="name">Servlet</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/08/17/docs/java-a-base/web/Web-007Idea%E8%BF%90%E8%A1%8CWeb%E7%A8%8B%E5%BA%8F%E5%8E%9F%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1187,6 +992,196 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/06/15/docs/sys-linux-series/Linux-03%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/15/docs/sys-linux-series/Linux-03%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">Linux安装软件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-15 15:27:34" itemprop="dateCreated datePublished" datetime="2020-06-15T15:27:34+08:00">2020-06-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-04 23:42:07" itemprop="dateModified" datetime="2021-07-04T23:42:07+08:00">2021-07-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Linux-环境下安装软件笔记"><a href="#Linux-环境下安装软件笔记" class="headerlink" title="Linux 环境下安装软件笔记"></a>Linux 环境下安装软件笔记</h2><p>在Ubuntu下，使用源码编译源码安装工具，可以实现安装指定版本的需求，且安装后清除系统环境等也很有帮助。但是，源码编译安装笔使用apt等工具安装要复杂多了。为了积累经验，将日常学习和工作中安装软件的实践记录下来，以备将来用之。</p>
+<p>使用源码安装linux相关工具的基本步骤如下：</p>
+<blockquote>
+<ol>
+<li>在官网下载源码压缩包，一般为.tar.gz格式。</li>
+<li>解压缩。一般使用 tar -zxvf xxx.xxx.xxx.tar.gz来解压缩。</li>
+<li>编译安装源码：</li>
+</ol>
+<ul>
+<li>.configure –prefix opt/xxx/xxx  使用configure脚本来检查编译环境，并使用-prefix来指定安装目录。</li>
+<li>make 编译源码</li>
+<li>make install 安装</li>
+</ul>
+</blockquote>
+<h3 id="源码编译方式安装curl"><a href="#源码编译方式安装curl" class="headerlink" title="源码编译方式安装curl"></a>源码编译方式安装curl</h3><p>使用源码安装curl,为了实现最新版本的安装。</p>
+<h6 id="curl-常用参数"><a href="#curl-常用参数" class="headerlink" title="curl 常用参数"></a>curl 常用参数</h6><figure class="highlight smalltalk"><table><tr><td class="code"><pre><span class="line">curl -<span class="type">L</span> --retry <span class="number">5</span> --retry-delay <span class="number">3</span> <span class="comment">&quot;$&#123;URL&#125;&quot;</span> | tar xz || rc=<span class="string">$?</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="L参数"><a href="#L参数" class="headerlink" title="-L参数"></a>-L参数</h6><p>使用 <code>-L</code> 参数，curl 就会跳转到新的网址：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> <span class="built_in">curl</span> <span class="literal">-L</span> www.sina.com</span><br></pre></td></tr></table></figure>
+
+<p>键入上面的命令，结果自动跳转为www. sina. com.</p>
+<h6 id="–retry"><a href="#–retry" class="headerlink" title="–retry"></a>–retry</h6><p>–retry <num> 指定重试次数</p>
+<h6 id="–retry-delay"><a href="#–retry-delay" class="headerlink" title="–retry-delay"></a>–retry-delay</h6><p>–retry-delay <seconds> 传输出现问题时，设置重试间隔时间</p>
+<h5 id="curl的错误总结"><a href="#curl的错误总结" class="headerlink" title="curl的错误总结"></a>curl的错误总结</h5><p>在使用curl来进行网络通信的时候，常常会出现各种错误。一下是对这些错误的总结。</p>
+<h6 id="curl-35-OpenSSL-SSL-connect"><a href="#curl-35-OpenSSL-SSL-connect" class="headerlink" title="curl: (35) OpenSSL SSL_connect"></a>curl: (35) OpenSSL SSL_connect</h6><p>BUG详细信息如下：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">sxl</span>@ubuntu<span class="number">18</span>:~/bkapp$ curl -sSL https://bit.ly/<span class="number">2</span>ysbOFE | bash -s -- <span class="number">2</span>.<span class="number">0</span>.<span class="number">1</span> <span class="number">1</span>.<span class="number">4</span>.<span class="number">6</span> <span class="number">0</span>.<span class="number">4</span>.<span class="number">18</span></span><br><span class="line"><span class="attribute">curl</span>: (<span class="number">35</span>) OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to bit.ly:<span class="number">443</span> </span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="curl-56-Recv-failure"><a href="#curl-56-Recv-failure" class="headerlink" title="curl: (56) Recv failure"></a>curl: (56) Recv failure</h6><p>BUG详细信息如下：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">sxl</span>@ubuntu<span class="number">18</span>:~/bkapp$ curl -sSL http://bit.ly/<span class="number">2</span>ysbOFE | bash -s -- <span class="number">1</span>.<span class="number">4</span>.<span class="number">6</span> <span class="number">1</span>.<span class="number">4</span>.<span class="number">6</span> <span class="number">0</span>.<span class="number">4</span>.<span class="number">18</span></span><br><span class="line"><span class="attribute">curl</span>: (<span class="number">56</span>) Recv failure: 连接被对方重设</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="OpenSSL的源码安装"><a href="#OpenSSL的源码安装" class="headerlink" title="OpenSSL的源码安装"></a>OpenSSL的源码安装</h3><ol>
+<li>下载源码</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">wget https:<span class="regexp">//</span>www.openssl.org<span class="regexp">/source/</span>openssl-<span class="number">1.1</span>.<span class="number">1</span>d.tar.gz --no-check-certificate</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>解压缩</li>
+</ol>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">tar</span> zxvf openssl-<span class="number">1</span>.<span class="number">1</span>.<span class="number">1</span>d.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>配置 &amp; 编译 &amp;安装</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 1.进入解压文件，对程序进行配置</span></span><br><span class="line">cd openssl-<span class="number">1.1</span>.<span class="number">1</span>d/</span><br><span class="line">.<span class="regexp">/config shared --prefix=/u</span>sr<span class="regexp">/local/</span>	<span class="comment"># shared 的意思是创建共享库。</span></span><br><span class="line"><span class="comment">## 2.编译安装</span></span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line"><span class="comment">## 3.copy相关文件至系统文件夹</span></span><br><span class="line">sudo cp libcrypto.so.<span class="number">1.1</span> <span class="regexp">/usr/</span>lib<span class="regexp">/x86_64-linux-gnu/</span></span><br><span class="line">sudo cp libssl.so.<span class="number">1.1</span> <span class="regexp">/usr/</span>lib<span class="regexp">/x86_64-linux-gnu/</span></span><br><span class="line"><span class="comment">## 4. 创建软连接</span></span><br><span class="line">ln -s <span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>openssl <span class="regexp">/usr/</span>bin/openssl</span><br><span class="line">openssl version</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/06/15/docs/sys-linux-series/README/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/15/docs/sys-linux-series/README/" class="post-title-link" itemprop="url">Linux系列目录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-15 15:27:34" itemprop="dateCreated datePublished" datetime="2020-06-15T15:27:34+08:00">2020-06-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-04 16:24:45" itemprop="dateModified" datetime="2021-07-04T16:24:45+08:00">2021-07-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Linux命令总结"><a href="#Linux命令总结" class="headerlink" title="Linux命令总结"></a>Linux命令总结</h3><ul>
+<li><h4 id="Linux系统常用命令总结"><a href="#Linux系统常用命令总结" class="headerlink" title="Linux系统常用命令总结 "></a><a href="./sys-linux-series/linux-02Linux%E7%B3%BB%E7%BB%9F%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93.md">Linux系统常用命令总结 </a></h4></li>
+<li><h4 id="Git-命令使用总结"><a href="#Git-命令使用总结" class="headerlink" title="Git 命令使用总结"></a><a href="./sys-linux-series/linux-100git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93.md">Git 命令使用总结</a></h4></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -1258,20 +1253,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">65</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
