@@ -953,7 +953,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/28/docs/design-ddd/01-%E5%A5%88%E5%AD%A6%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1%E8%AF%BE%E7%A8%8B/">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/27/docs/electricity/%E7%94%B5%E5%8A%9B%E8%A1%8C%E4%B8%9A%E6%9C%AF%E8%AF%AD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/sxl-head.png">
@@ -967,7 +967,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/07/28/docs/design-ddd/01-%E5%A5%88%E5%AD%A6%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1%E8%AF%BE%E7%A8%8B/" class="post-title-link" itemprop="url">未命名</a>
+            <a href="/2021/07/27/docs/electricity/%E7%94%B5%E5%8A%9B%E8%A1%8C%E4%B8%9A%E6%9C%AF%E8%AF%AD/" class="post-title-link" itemprop="url">未命名</a>
         </h2>
 
         <div class="post-meta">
@@ -976,9 +976,8 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-07-28 20:10:39 / 修改时间：20:58:07" itemprop="dateCreated datePublished" datetime="2021-07-28T20:10:39+08:00">2021-07-28</time>
+              <time title="创建时间：2021-07-27 16:29:35" itemprop="dateCreated datePublished" datetime="2021-07-27T16:29:35+08:00">2021-07-27</time>
             </span>
 
           
@@ -992,73 +991,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="1-DDD在新项目中的使用"><a href="#1-DDD在新项目中的使用" class="headerlink" title="1. DDD在新项目中的使用"></a>1. DDD在新项目中的使用</h3><img src="/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728201142794.png" alt="image-20210728201142794" style="zoom:80%;" />
+          <h4 id="消缺"><a href="#消缺" class="headerlink" title="消缺"></a>消缺</h4><p>消缺是消除缺陷的意思，是使有异常、有缺陷的设备恢复正常的过程。</p>
+<p>消缺是电力行业的术语，主要是指通过对发生异常的设备进行<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%B5%8B%E8%AF%95/112688">测试</a>、<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%A0%A1%E9%AA%8C/6445047">校验</a>、<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%A7%A3%E4%BD%93/1523143">解体</a>、<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%9B%B4%E6%8D%A2/1418706">更换</a>、<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%B4%A7%E5%9B%BA/7391764">紧固</a>、<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%84%8A%E6%8E%A5/513162">焊接</a>、<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%B6%A6%E6%BB%91/554802">润滑</a>等工作，使异常设备恢复正常工作的过程。也指施工方对设备厂家到货设备缺陷的处理。</p>
 
-
-
-
-
-<h3 id="2-领域驱动的解决之道-分而治之"><a href="#2-领域驱动的解决之道-分而治之" class="headerlink" title="2. 领域驱动的解决之道- 分而治之"></a>2. 领域驱动的解决之道- 分而治之</h3><p>![image-20210728201659367](/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728201659367.png)</p>
-<h4 id="1-与微服务集合"><a href="#1-与微服务集合" class="headerlink" title="1. 与微服务集合"></a>1. 与微服务集合</h4><p>![image-20210728201855151](/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728201855151.png)</p>
-<h4 id="整合"><a href="#整合" class="headerlink" title="整合"></a>整合</h4><p>![image-20210728202144462](/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728202144462.png)</p>
-<h3 id="烟筒式开发"><a href="#烟筒式开发" class="headerlink" title="烟筒式开发"></a>烟筒式开发</h3><ul>
-<li>举例</li>
-</ul>
-<img src="/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728202315820.png" alt="image-20210728202315820" style="zoom:50%;" />
-
-<ul>
-<li>缺点：<ul>
-<li><ol>
-<li>修改一张表，涉及到多个模块的改动</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-<p>优化后：</p>
-<ul>
-<li>小而专的微服务<ul>
-<li><img src="/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728202846887.png" alt="image-20210728202846887" style="zoom:50%;" /></li>
-</ul>
-</li>
-</ul>
-<p>微服务设计流程</p>
-<ol>
-<li> 业务领域建模</li>
-<li>业务边界划分</li>
-<li>微服务拆分</li>
-</ol>
-<p>跨库关联查询解决方案：</p>
- <img src="/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728203144064.png" alt="image-20210728203144064" style="zoom:50%;" />
-
-
-
-<ul>
-<li> 软件发展的规律</li>
-</ul>
-<p>![image-20210728204215221](/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728204215221.png)</p>
-<p>​    </p>
-<ul>
-<li>软件–对真实世界的模拟</li>
-</ul>
-<img src="/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728204329839.png" alt="image-20210728204329839" style="zoom:50%;" />
-
-
-
-<ul>
-<li>版本2：</li>
-</ul>
-<img src="/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728204949136.png" alt="image-20210728204949136" style="zoom:50%;" />
-
-<ul>
-<li>版本3</li>
-</ul>
-<img src="/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728205015696.png" alt="image-20210728205015696" style="zoom:50%;" />
-
-<ul>
-<li>版本4</li>
-</ul>
-<img src="/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728205107455.png" alt="image-20210728205107455" style="zoom:50%;" />
       
     </div>
 
@@ -1144,20 +1079,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">67</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

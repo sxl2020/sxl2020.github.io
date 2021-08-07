@@ -195,245 +195,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/09/01/docs/java-b-framework/springboot-sgg/01-SpringBoot%E5%85%A5%E9%97%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/01/docs/java-b-framework/springboot-sgg/01-SpringBoot%E5%85%A5%E9%97%A8/" class="post-title-link" itemprop="url">Springboot入门</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-09-01 15:27:34" itemprop="dateCreated datePublished" datetime="2020-09-01T15:27:34+08:00">2020-09-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-22 16:39:18" itemprop="dateModified" datetime="2021-07-22T16:39:18+08:00">2021-07-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="一、Spring-Boot-入门"><a href="#一、Spring-Boot-入门" class="headerlink" title="一、Spring Boot 入门"></a>一、Spring Boot 入门</h1><h2 id="1、Spring-Boot-简介"><a href="#1、Spring-Boot-简介" class="headerlink" title="1、Spring Boot 简介"></a>1、Spring Boot 简介</h2><blockquote>
-<p>简化Spring应用开发的一个框架；</p>
-<p>整个Spring技术栈的一个大整合；</p>
-<p>J2EE开发的一站式解决方案；</p>
-</blockquote>
-<h2 id="2、微服务"><a href="#2、微服务" class="headerlink" title="2、微服务"></a>2、微服务</h2><p>2014，martin fowler</p>
-<ul>
-<li>微服务：架构风格（服务微化）</li>
-</ul>
-<p>一个应用应该是一组小型服务；可以通过HTTP的方式进行互通；</p>
-<p>微服务：每一个功能元素最终都是一个可<strong>独立替换</strong>和<strong>独立升级</strong>的软件单元；</p>
-<ul>
-<li><p>单体应用：ALL IN ONE</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://martinfowler.com/articles/microservices.html#MicroservicesAndSoa">详细参照微服务文档</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="3、SpringBoot-HelloWorld"><a href="#3、SpringBoot-HelloWorld" class="headerlink" title="3、SpringBoot HelloWorld"></a>3、SpringBoot HelloWorld</h2><p>功能需求：浏览器发送hello请求，服务器接受请求并处理，响应Hello World字符串；</p>
-<h3 id="1、创建一个maven工程；（jar）"><a href="#1、创建一个maven工程；（jar）" class="headerlink" title="1、创建一个maven工程；（jar）"></a>1、创建一个maven工程；（jar）</h3><h3 id="2、导入spring-boot相关的依赖"><a href="#2、导入spring-boot相关的依赖" class="headerlink" title="2、导入spring boot相关的依赖"></a>2、导入spring boot相关的依赖</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.5.9.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="3、编写一个主程序；启动Spring-Boot应用"><a href="#3、编写一个主程序；启动Spring-Boot应用" class="headerlink" title="3、编写一个主程序；启动Spring Boot应用"></a>3、编写一个主程序；启动Spring Boot应用</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@SpringBootApplication</span> 来标注一个主程序类，说明这是一个Spring Boot应用</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldMainApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Spring应用启动起来</span></span><br><span class="line">        SpringApplication.run(HelloWorldMainApplication.class,args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="4、编写相关的Controller、Service"><a href="#4、编写相关的Controller、Service" class="headerlink" title="4、编写相关的Controller、Service"></a>4、编写相关的Controller、Service</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello World!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="5、运行主程序测试"><a href="#5、运行主程序测试" class="headerlink" title="5、运行主程序测试"></a>5、运行主程序测试</h3><h3 id="6、简化部署"><a href="#6、简化部署" class="headerlink" title="6、简化部署"></a>6、简化部署</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 这个插件，可以将应用打包成一个可执行的jar包；--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>将这个应用打成jar包，直接使用java -jar的命令进行执行；</p>
-<blockquote>
-<p>在使用Intellij Idea来开发时，只需点击运行按钮便会自动安装部署。若没有安装Idea，也可以使用命令java -jar 来运行程序。</p>
-</blockquote>
-<h2 id="Spring-Initializer-创建项目"><a href="#Spring-Initializer-创建项目" class="headerlink" title="Spring Initializer 创建项目"></a>Spring Initializer 创建项目</h2><h3 id="使用-Spring-Initializer快速创建项目"><a href="#使用-Spring-Initializer快速创建项目" class="headerlink" title="使用 Spring Initializer快速创建项目"></a>使用 Spring Initializer快速创建项目</h3><p>IDE都支持使用Spring的项目创建向导快速创建一个Spring Boot项目；</p>
-<p>选择我们需要的模块；向导会联网创建Spring Boot项目；</p>
-<h4 id="默认项目结构"><a href="#默认项目结构" class="headerlink" title="默认项目结构"></a>默认项目结构</h4><p>默认生成的Spring Boot项目；</p>
-<ul>
-<li>主程序已经生成好了，我们只需要我们自己的逻辑</li>
-<li>resources文件夹中目录结构<ul>
-<li>static：保存所有的静态资源； js css  images；</li>
-<li>templates：保存所有的模板页面；（Spring Boot默认jar包使用嵌入式的Tomcat，默认不支持JSP页面）；可以使用模板引擎（freemarker、thymeleaf）；</li>
-<li>application.properties：Spring Boot应用的配置文件；可以修改一些默认设置；</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/08/19/docs/java-a-base/web/Web-001Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/19/docs/java-a-base/web/Web-001Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">web服务器是什么？</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-19 15:27:34" itemprop="dateCreated datePublished" datetime="2020-08-19T15:27:34+08:00">2020-08-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-06 23:16:06" itemprop="dateModified" datetime="2021-07-06T23:16:06+08:00">2021-07-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web%E6%9C%8D%E5%8A%A1%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">Web服务器</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="什么是Web服务器？"><a href="#什么是Web服务器？" class="headerlink" title="什么是Web服务器？"></a>什么是Web服务器？</h3><p>Web服务器一般指网站服务器，是指驻留于因特网上某种类型计算机的程序，可以向浏览器等Web客户端提供文档。目前最主流的三个Web服务器是Apache，Nginx 以及 IIS。</p>
-<p><strong>从严格意义上来讲，Web服务器只负责处理HTTP协议，只能发送静态页面的内容。</strong></p>
-<p>客户端和服务器之间的通信使用HTTP协议进行。<strong>交付的页面最常见的是HTML文档，除了文本内容之外，还可能包含图像，样式表和脚本</strong>。</p>
-<h3 id="Web服务端工作流程"><a href="#Web服务端工作流程" class="headerlink" title="Web服务端工作流程"></a>Web服务端工作流程</h3><p>Web服务器的工作原理并不复杂，一般可分成如下4个步骤：连接过程、请求过程、应答过程以及关闭连接。</p>
-<p><strong>1）客户端发送请求</strong></p>
-<p>　　客户端（通过浏览器）和Web服务器建立TCP连接，连接建立以后，向Web服务器发出访问请求（如get）。根据HTTP协议，该请求中包含了客户端的IP地址、浏览器的类型和请求的URL等一系列信息。</p>
-<p> <strong>2）服务器解析请求</strong></p>
-<p>　　Web服务器对请求按照HTTP协议进行解码来确定进一步的动作，设计的内容有三鼐要点：方法（GET）、文档(/sample.html)、和浏览器使用的协议（HTTP/1.1）其中方法告诉服务器应完动的动作，GET方法的含义很明显是：服务器应定位、读取文件并将它返回给客户。</p>
-<p>Web服务器软件现在就知道了，它应该找到文件/sample.html，并使用HTTP/1.1协议将内存返回给客户。信息是经过与请求到来相同的连接发出的，所以服务器不需要定们客户或创建新的连接。</p>
-<p><strong>3）读取其它信息（非必须步骤）</strong></p>
-<p> 　　Web服务器根据需要去读取请求的其它部分。在HTTP/1.1下，客户还应给服务器提供关于它的一些信息。元信息（metainformation）可用来描述浏览器及其能力，以使服务器能据此确定如何返回应答。</p>
-<p><strong>4）完成请求的动作</strong></p>
-<p>　　若现在没有错误出现，WWW服务器将执行请求所要求的动作。如果成功经找到，则发送状态码200，表示一切都OK ，并返回相关文档。如果失败：返回错误指示。若服务器无法找到该资源，则发送状态码404 给客户。</p>
-<p><strong>5）关闭文件和网络连接，结束会话。</strong></p>
-<p>当文件已被发邮或错误已发出后，web服务器结束整个会话。它关闭打开的的被请求文件，关闭网络端口从而结束网络连接。</p>
-<h3 id="服务器端的组成模块"><a href="#服务器端的组成模块" class="headerlink" title="服务器端的组成模块"></a>服务器端的组成模块</h3><ul>
-<li><p>TCP监听模块</p>
-<p>服务器监听某个端口（一般默认是8080端口，用户可以设置其他端口），以建立和用户代理之间的连接。一旦建立连接，用户代理的后续HTTP请求将不用再进入监听模块。</p>
-</li>
-<li><p>预处理</p>
-<p>此处主要做三件事：</p>
-<ol>
-<li>从TCP报文中获取HTTP请求报文。 </li>
-<li>根据和用户代理的协商进行解密，解压，安全处理等等。</li>
-<li> 根据服务器自身的配置进行安全处理，建立会话状态等等。</li>
-</ol>
-</li>
-<li><p>URL路由</p>
-<p>解析URL字符串和动作以确定用户代理请求的资源，根据匹配规则（通常根据正则表达式+后缀）路由到静态资源处理模块或动态资源处理模块。</p>
-</li>
-<li><p>静态资源处理模块</p>
-<p>负责找到静态资源，比如HTML/Javascript/CSS文件/图片/图像，确定内容是字符流或者字节流，并确定对应MIME,比如HTML生成MIME为text/html的字符流，mpeg视频文件生成MIME为video/mpeg的字节流。</p>
-</li>
-<li><p>动态资源处理模块</p>
-<p>运行业务逻辑处理，动态决定返回的资源内容和类型，内容和类型的处理原则同上。</p>
-</li>
-<li><p>后处理</p>
-<p>根据和用户协商的协议进行加密，压缩，安全处理等等。</p>
-</li>
-<li><p>资源输出模块</p>
-<p>把处理好的内容和类型封装成HTTP报文，往TCP连接另一头的用户代理发送TCP报文（内容是HTTP报文）。</p>
-</li>
-</ul>
-<h3 id="Web服务器与应用程序服务器"><a href="#Web服务器与应用程序服务器" class="headerlink" title="Web服务器与应用程序服务器"></a>Web服务器与应用程序服务器</h3><p>应用程序服务器(简称应用服务器)。</p>
-<p>百度百科的定义如下：</p>
-<blockquote>
-<p>通俗的讲，<strong>Web服务器</strong>传送(serves)页面使浏览器可以浏览，然而<strong>应用程序服务器提供的是客户端应用程序可以调用(call)的方法(methods)。</strong></p>
-<p>确切一点，你可以说:Web服务器专门处理HTTP请求(request)，但是<strong>应用程序服务器是通过很多协议来为应用程序提供(serves)商业逻辑 (business logic)。</strong></p>
-</blockquote>
-<p>以Java EE为例，Web服务器主要是处理静态页面处理和作为 Servlet容器，解释和执行servlet/JSP，而应用服务器是运行业务逻辑的，主要是EJB、 JNDI和JMX API等J2EE API方面的，还包含事务处理、数据库连接等功能，所以在企业级应用中，应用服务器提供的功能比WEB服务器强大的多。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/08/17/docs/java-a-base/web/Web-005%E8%AF%B7%E6%B1%82%E4%B8%8E%E8%BD%AC%E5%8F%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1261,6 +1022,171 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/06/18/docs/z-student-life/README/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/18/docs/z-student-life/README/" class="post-title-link" itemprop="url">学生生涯目录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-18 15:27:34" itemprop="dateCreated datePublished" datetime="2020-06-18T15:27:34+08:00">2020-06-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-07 08:20:36" itemprop="dateModified" datetime="2021-08-07T08:20:36+08:00">2021-08-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a href="./z-student-life/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E4%B8%80%E7%AF%87%E7%A1%95%E5%A3%AB%E8%AE%BA%E6%96%87.md">如何写好一篇硕士论文</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/06/17/docs/sys-windows/Windows%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/17/docs/sys-windows/Windows%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C/" class="post-title-link" itemprop="url">Linux系列目录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-17 15:27:34" itemprop="dateCreated datePublished" datetime="2020-06-17T15:27:34+08:00">2020-06-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-04 23:42:17" itemprop="dateModified" datetime="2021-07-04T23:42:17+08:00">2021-07-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="CMD命令总结"><a href="#CMD命令总结" class="headerlink" title="CMD命令总结"></a>CMD命令总结</h2><h3 id="进程类"><a href="#进程类" class="headerlink" title="进程类"></a>进程类</h3><h4 id="netstat-命令"><a href="#netstat-命令" class="headerlink" title="netstat 命令"></a>netstat 命令</h4><h5 id="查找某一端口所占用的进程"><a href="#查找某一端口所占用的进程" class="headerlink" title="查找某一端口所占用的进程"></a>查找某一端口所占用的进程</h5><figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">netstat -ano<span class="string">|findstr &quot;</span>端口号<span class="string">&quot;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>命令解析：</p>
+<ul>
+<li>netstat </li>
+</ul>
+<p>netstat 命令用于显示与IP、TCP、UDP和ICMP协议相关的统计数据，一般用于检验本机各端口的网络连接情况。netstat是在内核中访问网络及相关信息的程序，它能提供TCP连接，TCP和UDP监听，进程内存管理的相关报告。</p>
+<p>参数说明：</p>
+<ul>
+<li><p>-a 或 -all 显示所有连线中的Socket。</p>
+</li>
+<li><p>-n 直接使用ip地址，不通过域名服务器</p>
+</li>
+<li><p>-o 显示计时器</p>
+</li>
+<li><p>-an 当不附加”-n”选项时，它显示的是本地计算机的netbios名字+端口号。而加了”-n”选项后，它显示的是本地IP地址+端口号</p>
+</li>
+</ul>
+<p>故 netstat -ano 表示打印所有连接的IP地址+端口号及链接时间</p>
+</blockquote>
+<h4 id="tasklist"><a href="#tasklist" class="headerlink" title="tasklist"></a>tasklist</h4><h5 id="根据PID查找对应的程序"><a href="#根据PID查找对应的程序" class="headerlink" title="根据PID查找对应的程序"></a>根据PID查找对应的程序</h5><figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">tasklist <span class="string">|findstr &quot;</span>PID<span class="string">&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="结束某一进程"><a href="#结束某一进程" class="headerlink" title="结束某一进程"></a>结束某一进程</h5><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">taskkill <span class="regexp">/pid xxxx /</span>F</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -1332,20 +1258,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">67</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

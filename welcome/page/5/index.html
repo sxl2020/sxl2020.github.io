@@ -195,258 +195,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/10/02/docs/java-a-base/java-basic/02-Javadoc%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/02/docs/java-a-base/java-basic/02-Javadoc%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">Java Doc的使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-02 15:27:34" itemprop="dateCreated datePublished" datetime="2020-10-02T15:27:34+08:00">2020-10-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-08 22:40:02" itemprop="dateModified" datetime="2021-07-08T22:40:02+08:00">2021-07-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-为什么要学习Javadoc？"><a href="#1-为什么要学习Javadoc？" class="headerlink" title="1. 为什么要学习Javadoc？"></a>1. 为什么要学习Javadoc？</h3><blockquote>
-<p>很多程序对Javadoc都不重视，认识不到Javadoc的作用，很多人都是这样认为的：“我只要写好功能就够了，写Javadoc太浪费时间，也没啥作用，还不如用写Javadoc的时间再多些个功能呢！”</p>
-<p>我们知道注释是为了解释代码的作用的，是为了将来给自己或者别人快速了解代码的，在方法内一般用行注释//的比较多，是针对一小块代码做出解释的，而<strong>Javadoc的作用</strong>是针对整个方法或者整个类做一个简要的概述的，使得别人不通过看具体方法代码就能知道某个方法或者某个类的作用和功能。</p>
-<p>写了Javadoc的在别人使用到类时，将鼠标悬停到类上或者方法上，javadoc会以提示信息显示出来，这样开发者在跳进源代码中就能知道类或者方法的作用。说到这里可能还是有很多人不能认同这种观点，还是认识不到Javadoc的作用。</p>
-<p>我们看一下Spring框架，随便打开一个文件可以看到一般注释内容都要比代码量多，有的时候注释量占整个文件内容的2/3。有人还是认为Spring是大框架，每个Java项目都在用他们写的好事应该的，我们公司自己的项目就我们公司几个人看，没必要花时间去写多余的Javadoc，那你是不是该这么认为了Spring大厂中的顶尖大牛都这么做，我们小菜鸟是不是对自己要求更严格一些，向大牛去学习呢？！</p>
-<p>认识不到Javadoc的作用就像认识不到设计模式的作用一样，很多人都认识不到设计模式的作用，认为将简单问题复杂化，你看一下每个大框架都会用到多种设计模式，如果只知道写增删改查，再工作几年仍然不会有提高。</p>
-</blockquote>
-<p>综上所述，javadoc的作用就是：对整个<strong>方法</strong>或者<strong>类</strong>做一个简要的概述，说明某个方法或者类的作用和功能。</p>
-<h3 id="2-Java注释的基本格式"><a href="#2-Java注释的基本格式" class="headerlink" title="2. Java注释的基本格式"></a>2. Java注释的基本格式</h3><ul>
-<li><p><strong>写在类上的文档标注一般分为三段：</strong></p>
-<ul>
-<li>第一段：概要描述，通常用一句或者一段话简要描述该类的作用，以英文句号作为结束</li>
-<li>第二段：详细描述，通常用一段或者多段话来详细描述该类的作用，一般每段话都以英文句号作为结束</li>
-<li>第三段：文档标注，用于标注作者、创建时间、参阅类等信息</li>
-</ul>
-</li>
-<li><p><strong>写在方法上的文档标注一般分为三段</strong>：</p>
-<ul>
-<li><p>第一段：概要描述，通常用一句或者一段话简要描述该方法的作用，以英文句号作为结束</p>
-</li>
-<li><p>第二段：详细描述，通常用一段或者多段话来详细描述该方法的作用，一般每段话都以英文句号作为结束</p>
-</li>
-<li><p>第三段：文档标注，用于标注参数、返回值、异常、参阅等</p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="3-使用javadoc来写注释"><a href="#3-使用javadoc来写注释" class="headerlink" title="3. 使用javadoc来写注释"></a>3. 使用javadoc来写注释</h3><p>在注释中出现以@开头的形式，统统被称之为<strong>Javadoc文档标记</strong>。</p>
-<p>这些字段是JDK定义好的：如@author、@version、@since、@see、@link、@code、@param、@return、@exception、@throws等。</p>
-<h4 id="3-1-写在类上的javadoc"><a href="#3-1-写在类上的javadoc" class="headerlink" title="3.1 写在类上的javadoc"></a>3.1 写在类上的javadoc</h4><h5 id="1-第一段：概要描述"><a href="#1-第一段：概要描述" class="headerlink" title="(1) 第一段：概要描述"></a>(1) 第一段：概要描述</h5><ul>
-<li>单行示例：</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.util;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Miscellaneous &#123;<span class="doctag">@link</span> String&#125; utility methods.</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">StringUtils</span> </span>&#123;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>多行示例</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> java.lang;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Class &#123;<span class="doctag">@code</span> Object&#125; is the root of the class hierarchy.</span></span><br><span class="line"><span class="comment"> * Every class has &#123;<span class="doctag">@code</span> Object&#125; as a superclass. All objects,</span></span><br><span class="line"><span class="comment"> * including arrays, implement the methods of this class.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Object</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>相关字段介绍</li>
-</ul>
-<h6 id="1-link"><a href="#1-link" class="headerlink" title="1. @link"></a>1. @link</h6><p> @link用于快速链接到相关代码。其使用语法为：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&#123;<span class="meta">@link</span> 包名.类名#方法名(参数类型)&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其中，当包名在当前类中已经导入了包名可以省略，可以只是一个类名，也可以是仅仅是一个方法名，也可以是类名.方法名，使用此文档标记的类或者方法，可用通过按住Ctrl键+单击 可以快速跳到相应的类或者方法上。使用javadoc解析为html后，对应的html标记为：&lt; code&gt; 包名.类名#方法名(参数类型)&lt; /code&gt;</p>
-<h6 id="2-code"><a href="#2-code" class="headerlink" title="2. @code"></a>2. @code</h6><p>@code用于将文本标记为code。其基本的语法为：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&#123;<span class="meta">@code</span> text&#125;</span><br></pre></td></tr></table></figure>
-
-<p>将文本标记为代码样式的文本，在code内部可以使用 &lt; 、&gt; 等不会被解释成html标签, code标签有自己的样式。一般在Javadoc中只要涉及到类名或者方法名，都需要使用@code进行标记。{@code text} 会被解析成  &lt; code&gt; text &lt; /code&gt;.一般在Javadoc中只要涉及到类名或者方法名，都需要使用@code进行标记。</p>
-<h5 id="第二段：详细描述"><a href="#第二段：详细描述" class="headerlink" title="第二段：详细描述"></a>第二段：详细描述</h5><p>详细描述一般用一段或者几个锻炼来详细描述类的作用，详细描述中可以使用html标签，如 &lt; p &gt;,&lt; pre &gt;,&lt; a &gt;,&lt; ul &gt;,&lt; i &gt;等标签， 通常详细描述都以段落p标签开始。详细描述和概要描述中间通常有一个空行来分割。</p>
-<p>如下所示：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.util;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Miscellaneous &#123;<span class="doctag">@link</span> String&#125; utility methods.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;Mainly for internal use within the framework; consider</span></span><br><span class="line"><span class="comment"> * &lt;a href=&quot;http://commons.apache.org/proper/commons-lang/&quot;&gt;Apache&#x27;s Commons Lang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> * for a more comprehensive suite of &#123;<span class="doctag">@code</span> String&#125; utilities.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;This class delivers some simple functionality that should really be</span></span><br><span class="line"><span class="comment"> * provided by the core Java &#123;<span class="doctag">@link</span> String&#125; and &#123;<span class="doctag">@link</span> StringBuilder&#125;</span></span><br><span class="line"><span class="comment"> * classes. It also provides easy-to-use methods to convert between</span></span><br><span class="line"><span class="comment"> * delimited strings, such as CSV strings, and collections and arrays.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">StringUtils</span> </span>&#123;</span><br></pre></td></tr></table></figure>
-
-<p>一般段落都用p标签来标记，凡涉及到类名和方法名都用@code标记，凡涉及到组织的，一般用a标签提供出来链接地址。</p>
-<h6 id="3-param"><a href="#3-param" class="headerlink" title="3. @param"></a>3. @param</h6><p>一般类中支持泛型时会通过@param来解释泛型的类型</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> &lt;E&gt; the type of elements in this list</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">List</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">Collection</span>&lt;<span class="title">E</span>&gt; </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="第三段：文档标注"><a href="#第三段：文档标注" class="headerlink" title="第三段：文档标注"></a>第三段：文档标注</h5><h6 id="4-author"><a href="#4-author" class="headerlink" title="4. @author"></a>4. @author</h6><p>详细描述后面一般使用@author来标记作者，如果一个文件有多个作者来维护就标记多个@author，@author 后面可以跟作者姓名(也可以附带邮箱地址)、组织名称(也可以附带组织官网地址)</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 纯文本作者</span></span><br><span class="line"><span class="meta">@author</span> Rod Johnson</span><br><span class="line"></span><br><span class="line"><span class="comment">// 纯文本作者，邮件</span></span><br><span class="line"><span class="meta">@author</span> Igor Hersht, igorh<span class="meta">@ca</span>.ibm.com</span><br><span class="line"></span><br><span class="line"><span class="comment">// 超链接邮件 纯文本作者</span></span><br><span class="line"><span class="meta">@author</span> &lt;a href=<span class="string">&quot;mailto:ovidiu@cup.hp.com&quot;</span>&gt;Ovidiu Predescu&lt;/a&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 纯文本邮件</span></span><br><span class="line"><span class="meta">@author</span> shane_curcuru<span class="meta">@us</span>.ibm.com</span><br><span class="line"></span><br><span class="line"><span class="comment">// 纯文本 组织</span></span><br><span class="line"><span class="meta">@author</span> Apache Software Foundation</span><br><span class="line"></span><br><span class="line"><span class="comment">// 超链接组织地址 纯文本组织</span></span><br><span class="line"><span class="meta">@author</span> &lt;a href=<span class="string">&quot;https://jakarta.apache.org/turbine&quot;</span>&gt; Apache Jakarta Turbine&lt;/a&gt;</span><br></pre></td></tr></table></figure>
-
-<h6 id="5-see-另请参阅"><a href="#5-see-另请参阅" class="headerlink" title="5. @see 另请参阅"></a>5. @see 另请参阅</h6><p>@see 一般用于标记该类相关联的类,@see即可以用在类上，也可以用在方法上。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> IntStream</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> LongStream</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> DoubleStream</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> &lt;a href=&quot;package-summary.html&quot;&gt;java.util.stream&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> * /</span></span><br><span class="line"><span class="comment">public interface Stream&lt;T&gt; extends BaseStream&lt;T, Stream&lt;T&gt;&gt; &#123;&#125;</span></span><br></pre></td></tr></table></figure>
-
-<h6 id="6-since-从以下版本开始"><a href="#6-since-从以下版本开始" class="headerlink" title="6. @since  从以下版本开始"></a>6. @since  从以下版本开始</h6><p>@since 一般用于标记文件创建时项目当时对应的版本，一般后面跟版本号，也可以跟是一个时间，表示文件当前创建的时间。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> java.util.stream;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@since</span> 1.8</span></span><br><span class="line"><span class="comment">* <span class="doctag">@since</span> 16 April 2001</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Stream</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">BaseStream</span>&lt;<span class="title">T</span>, <span class="title">Stream</span>&lt;<span class="title">T</span>&gt;&gt; </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<h6 id="7-version-版本"><a href="#7-version-版本" class="headerlink" title="7. @version 版本"></a>7. @version 版本</h6><p>@version 用于标记当前版本，默认为1.0</p>
-<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sun.org.apache.xml.internal.resolver;</span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @version 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">Resolver</span> <span class="keyword">extends</span> <span class="title">Catalog</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-2-写在方法上的-javadoc"><a href="#3-2-写在方法上的-javadoc" class="headerlink" title="3.2 写在方法上的 javadoc"></a>3.2 写在方法上的 javadoc</h4><p>方法详细描述上经常使用html标签来，通常都以p标签开始，而且p标签通常都是单标签，不使用结束标签，其中使用最多的就是p标签和pre标签,ul标签, i 标签。</p>
-<p>pre元素可定义预格式化的文本。被包围在pre元素中的文本通常会保留空格和换行符。而文本也会呈现为等宽字体，pre标签的一个常见应用就是用来表示计算机的源代码。</p>
-<h6 id="8-param"><a href="#8-param" class="headerlink" title="8. @param"></a>8. @param</h6><p>@param 后面跟参数名，再跟参数描述</p>
-<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* @param str the &#123;@code CharSequence&#125; to check (may be &#123;@code null&#125;)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="selector-tag">public</span> <span class="selector-tag">static</span> <span class="selector-tag">boolean</span> <span class="selector-tag">containsWhitespace</span>(<span class="variable">@Nullable</span> CharSequence str) &#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<h6 id="9-return"><a href="#9-return" class="headerlink" title="9. @return"></a>9. @return</h6><p>@return 跟返回值的描述</p>
-<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* @return &#123;@code true&#125; if the &#123;@code String&#125; is not &#123;@code null&#125;, its</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="selector-tag">public</span> <span class="selector-tag">static</span> <span class="selector-tag">boolean</span> <span class="selector-tag">hasText</span>(<span class="variable">@Nullable</span> String str)&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<h6 id="10-throws"><a href="#10-throws" class="headerlink" title="10. @throws"></a>10. @throws</h6><p>@throws 跟异常类型 异常描述 , 用于描述方法内部可能抛出的异常</p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@throws </span>IllegalArgumentException when the given source contains invalid encoded sequences</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">String</span> <span class="function"><span class="title">uriDecode</span>(<span class="params"><span class="built_in">String</span> source, Charset charset</span>)</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<h6 id="11-exception"><a href="#11-exception" class="headerlink" title="11. @exception"></a>11. @exception</h6><p>用于描述方法签名throws对应的异常</p>
-<figure class="highlight processing"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* @exception IllegalArgumentException if &lt;code&gt;key&lt;/code&gt; is null.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">Object</span> <span class="built_in">get</span>(<span class="keyword">String</span> <span class="built_in">key</span>) <span class="keyword">throws</span> IllegalArgumentException &#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<h6 id="12-see"><a href="#12-see" class="headerlink" title="12. @see"></a>12. @see</h6><p>@see既可以用来类上也可以用在方法上，表示可以参考的类或者方法</p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@see </span>java.net.URLDecoder#decode(String, String)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">String</span> <span class="function"><span class="title">uriDecode</span>(<span class="params"><span class="built_in">String</span> source, Charset charset</span>)</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<h6 id="13-value"><a href="#13-value" class="headerlink" title="13. @value"></a>13. @value</h6><p>用于标注在常量上，{@value} 用于表示常量的值</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">/** 默认数量 &#123;<span class="doctag">@value</span>&#125; */</span></span><br><span class="line"><span class="keyword">private</span> <span class="built_in">static</span> <span class="keyword">final</span> <span class="keyword">Integer</span> QUANTITY = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-
-<h6 id="14-inheritDoc"><a href="#14-inheritDoc" class="headerlink" title="14. @inheritDoc"></a>14. @inheritDoc</h6><p>@inheritDoc用于注解在重写方法或者子类上，用于继承父类中的Javadoc</p>
-<ul>
-<li>基类的文档注释被继承到了子类</li>
-<li>子类可以再加入自己的注释（特殊化扩展）</li>
-<li>@return @param @throws 也会被继承</li>
-</ul>
-<h3 id="4-示例"><a href="#4-示例" class="headerlink" title="4. 示例"></a>4. 示例</h3><p>spring-core中的StringUtils 示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.util;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Miscellaneous &#123;<span class="doctag">@link</span> String&#125; utility methods.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;Mainly for internal use within the framework; consider</span></span><br><span class="line"><span class="comment"> * &lt;a href=&quot;http://commons.apache.org/proper/commons-lang/&quot;&gt;Apache&#x27;s Commons Lang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> * for a more comprehensive suite of &#123;<span class="doctag">@code</span> String&#125; utilities.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;This class delivers some simple functionality that should really be</span></span><br><span class="line"><span class="comment"> * provided by the core Java &#123;<span class="doctag">@link</span> String&#125; and &#123;<span class="doctag">@link</span> StringBuilder&#125;</span></span><br><span class="line"><span class="comment"> * classes. It also provides easy-to-use methods to convert between</span></span><br><span class="line"><span class="comment"> * delimited strings, such as CSV strings, and collections and arrays.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Rod Johnson</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Juergen Hoeller</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Keith Donald</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Rob Harrop</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Rick Evans</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Arjen Poutsma</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Sam Brannen</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Brian Clozel</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 16 April 2001</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">StringUtils</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Decode the given encoded URI component value. Based on the following rules:</span></span><br><span class="line"><span class="comment">	 * &lt;ul&gt;</span></span><br><span class="line"><span class="comment">	 * &lt;li&gt;Alphanumeric characters &#123;<span class="doctag">@code</span> &quot;a&quot;&#125; through &#123;<span class="doctag">@code</span> &quot;z&quot;&#125;, &#123;<span class="doctag">@code</span> &quot;A&quot;&#125; through &#123;<span class="doctag">@code</span> &quot;Z&quot;&#125;,</span></span><br><span class="line"><span class="comment">	 * and &#123;<span class="doctag">@code</span> &quot;0&quot;&#125; through &#123;<span class="doctag">@code</span> &quot;9&quot;&#125; stay the same.&lt;/li&gt;</span></span><br><span class="line"><span class="comment">	 * &lt;li&gt;Special characters &#123;<span class="doctag">@code</span> &quot;-&quot;&#125;, &#123;<span class="doctag">@code</span> &quot;_&quot;&#125;, &#123;<span class="doctag">@code</span> &quot;.&quot;&#125;, and &#123;<span class="doctag">@code</span> &quot;*&quot;&#125; stay the same.&lt;/li&gt;</span></span><br><span class="line"><span class="comment">	 * &lt;li&gt;A sequence &quot;&#123;<span class="doctag">@code</span> %&lt;i&gt;xy&lt;/i&gt;&#125;&quot; is interpreted as a hexadecimal representation of the character.&lt;/li&gt;</span></span><br><span class="line"><span class="comment">	 * &lt;/ul&gt;</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> source the encoded String</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> charset the character set</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> the decoded value</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@throws</span> IllegalArgumentException when the given source contains invalid encoded sequences</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@since</span> 5.0</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@see</span> java.net.URLDecoder#decode(String, String)</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">uriDecode</span><span class="params">(String source, Charset charset)</span> </span>&#123;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>普通业务代码中的实例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 类 &#123;<span class="doctag">@code</span> OrderService&#125; 订单服务层.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt; 主要包括 创建订单、取消订单、查询订单等功能更</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> Order</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:mengday.zhang@gmail.com&quot;&gt;Mengday Zhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2018/5/12</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/** 默认数量 &#123;<span class="doctag">@value</span>&#125; */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Integer QUANTITY = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建订单.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &lt;p&gt; 创建订单需要传用户id和商品列表(商品id和商品数量).</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;&lt;pre&gt;&#123;<span class="doctag">@code</span></span></span><br><span class="line"><span class="comment">     *  演示如何使用该方法</span></span><br><span class="line"><span class="comment">     *  List&lt;Goods&gt; items = new ArrayList&lt;&gt;();</span></span><br><span class="line"><span class="comment">     *  Goods goods = new Goods(1L, BigDecimal.ONE);</span></span><br><span class="line"><span class="comment">     *  Goods goods2 = new Goods(2L, BigDecimal.TEN);</span></span><br><span class="line"><span class="comment">     *  items.add(goods);</span></span><br><span class="line"><span class="comment">     *  items.add(goods2);</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     *  Order order1 = new Order();</span></span><br><span class="line"><span class="comment">     *  order.setUserId(&quot;1&quot;);</span></span><br><span class="line"><span class="comment">     *  order.setItems(items);</span></span><br><span class="line"><span class="comment">     *  OrderService#createOrder(order);</span></span><br><span class="line"><span class="comment">     * &#125;</span></span><br><span class="line"><span class="comment">     * &lt;/pre&gt;</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> order 订单信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> NullPointerException 参数信息为空</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@exception</span> IllegalArgumentException  数量不合法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 是否创建成功</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@see</span> &#123;<span class="doctag">@link</span> Order&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">createOrder</span><span class="params">(Order order)</span> <span class="keyword">throws</span> IllegalArgumentException</span>&#123;</span><br><span class="line">        Objects.requireNonNull(order);</span><br><span class="line"></span><br><span class="line">        List&lt;Goods&gt; items = order.getItems();</span><br><span class="line">        items.forEach(goods -&gt; &#123;</span><br><span class="line">            BigDecimal quantity = goods.getQuantity();</span><br><span class="line">            <span class="keyword">if</span> (quantity == <span class="keyword">null</span> || BigDecimal.ZERO.compareTo(quantity) == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;create order...&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-生成Javadoc"><a href="#5-生成Javadoc" class="headerlink" title="5. 生成Javadoc"></a>5. 生成Javadoc</h3><p>idea生成javadoc <a target="_blank" rel="noopener" href="https://www.cnblogs.com/cyberniuniu/p/5021910.html">https://www.cnblogs.com/cyberniuniu/p/5021910.html</a></p>
-<p>通过IDEA生成Javadoc： Tools –&gt; Generate JavaDoc –&gt;<br>注意要配置编码，如果不配送为生成乱码，还需要配置Output directory</p>
-<h3 id="6-转载说明"><a href="#6-转载说明" class="headerlink" title="6. 转载说明"></a>6. 转载说明</h3><p>本文转载与原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/vbirdbest/article/details/80296136">https://blog.csdn.net/vbirdbest/article/details/80296136</a> </p>
-<p>并在此基础上进行了重新整理与排版。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/10/01/docs/a-0-interview/README/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/01/docs/a-0-interview/README/" class="post-title-link" itemprop="url">备战面试类文章目录</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-01 15:27:34" itemprop="dateCreated datePublished" datetime="2020-10-01T15:27:34+08:00">2020-10-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-08 23:07:07" itemprop="dateModified" datetime="2021-07-08T23:07:07+08:00">2021-07-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="备战面试"><a href="#备战面试" class="headerlink" title="备战面试"></a>备战面试</h4>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/10/01/docs/java-a-base/README/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -678,6 +426,80 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/10/01/docs/java-b-framework/springboot-sgg/README/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/01/docs/java-b-framework/springboot-sgg/README/" class="post-title-link" itemprop="url">SpringBoot笔记总目录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-01 15:27:34" itemprop="dateCreated datePublished" datetime="2020-10-01T15:27:34+08:00">2020-10-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-08 23:04:01" itemprop="dateModified" datetime="2021-07-08T23:04:01+08:00">2021-07-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>SpringBoot 学习笔记</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/10/01/docs/java-a-base/web/README/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -745,80 +567,6 @@
 <li><h3 id="绝对路径与相对路径"><a href="#绝对路径与相对路径" class="headerlink" title="绝对路径与相对路径"></a><a href="./docs/Web/Web-004%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8E%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84.md">绝对路径与相对路径</a></h3></li>
 <li><h3 id="绝对路径与相对路径-1"><a href="#绝对路径与相对路径-1" class="headerlink" title="绝对路径与相对路径"></a><a href="./docs/Web/Web-004%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8E%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84.md">绝对路径与相对路径</a></h3></li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/10/01/docs/java-b-framework/springboot-sgg/README/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/01/docs/java-b-framework/springboot-sgg/README/" class="post-title-link" itemprop="url">SpringBoot笔记总目录</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-01 15:27:34" itemprop="dateCreated datePublished" datetime="2020-10-01T15:27:34+08:00">2020-10-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-08 23:04:01" itemprop="dateModified" datetime="2021-07-08T23:04:01+08:00">2021-07-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>SpringBoot 学习笔记</p>
 
       
     </div>
@@ -1375,6 +1123,245 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/09/01/docs/java-b-framework/springboot-sgg/01-SpringBoot%E5%85%A5%E9%97%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/01/docs/java-b-framework/springboot-sgg/01-SpringBoot%E5%85%A5%E9%97%A8/" class="post-title-link" itemprop="url">Springboot入门</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-01 15:27:34" itemprop="dateCreated datePublished" datetime="2020-09-01T15:27:34+08:00">2020-09-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-22 16:39:18" itemprop="dateModified" datetime="2021-07-22T16:39:18+08:00">2021-07-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="一、Spring-Boot-入门"><a href="#一、Spring-Boot-入门" class="headerlink" title="一、Spring Boot 入门"></a>一、Spring Boot 入门</h1><h2 id="1、Spring-Boot-简介"><a href="#1、Spring-Boot-简介" class="headerlink" title="1、Spring Boot 简介"></a>1、Spring Boot 简介</h2><blockquote>
+<p>简化Spring应用开发的一个框架；</p>
+<p>整个Spring技术栈的一个大整合；</p>
+<p>J2EE开发的一站式解决方案；</p>
+</blockquote>
+<h2 id="2、微服务"><a href="#2、微服务" class="headerlink" title="2、微服务"></a>2、微服务</h2><p>2014，martin fowler</p>
+<ul>
+<li>微服务：架构风格（服务微化）</li>
+</ul>
+<p>一个应用应该是一组小型服务；可以通过HTTP的方式进行互通；</p>
+<p>微服务：每一个功能元素最终都是一个可<strong>独立替换</strong>和<strong>独立升级</strong>的软件单元；</p>
+<ul>
+<li><p>单体应用：ALL IN ONE</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://martinfowler.com/articles/microservices.html#MicroservicesAndSoa">详细参照微服务文档</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="3、SpringBoot-HelloWorld"><a href="#3、SpringBoot-HelloWorld" class="headerlink" title="3、SpringBoot HelloWorld"></a>3、SpringBoot HelloWorld</h2><p>功能需求：浏览器发送hello请求，服务器接受请求并处理，响应Hello World字符串；</p>
+<h3 id="1、创建一个maven工程；（jar）"><a href="#1、创建一个maven工程；（jar）" class="headerlink" title="1、创建一个maven工程；（jar）"></a>1、创建一个maven工程；（jar）</h3><h3 id="2、导入spring-boot相关的依赖"><a href="#2、导入spring-boot相关的依赖" class="headerlink" title="2、导入spring boot相关的依赖"></a>2、导入spring boot相关的依赖</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.5.9.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3、编写一个主程序；启动Spring-Boot应用"><a href="#3、编写一个主程序；启动Spring-Boot应用" class="headerlink" title="3、编写一个主程序；启动Spring Boot应用"></a>3、编写一个主程序；启动Spring Boot应用</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@SpringBootApplication</span> 来标注一个主程序类，说明这是一个Spring Boot应用</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldMainApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Spring应用启动起来</span></span><br><span class="line">        SpringApplication.run(HelloWorldMainApplication.class,args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、编写相关的Controller、Service"><a href="#4、编写相关的Controller、Service" class="headerlink" title="4、编写相关的Controller、Service"></a>4、编写相关的Controller、Service</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello World!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、运行主程序测试"><a href="#5、运行主程序测试" class="headerlink" title="5、运行主程序测试"></a>5、运行主程序测试</h3><h3 id="6、简化部署"><a href="#6、简化部署" class="headerlink" title="6、简化部署"></a>6、简化部署</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 这个插件，可以将应用打包成一个可执行的jar包；--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>将这个应用打成jar包，直接使用java -jar的命令进行执行；</p>
+<blockquote>
+<p>在使用Intellij Idea来开发时，只需点击运行按钮便会自动安装部署。若没有安装Idea，也可以使用命令java -jar 来运行程序。</p>
+</blockquote>
+<h2 id="Spring-Initializer-创建项目"><a href="#Spring-Initializer-创建项目" class="headerlink" title="Spring Initializer 创建项目"></a>Spring Initializer 创建项目</h2><h3 id="使用-Spring-Initializer快速创建项目"><a href="#使用-Spring-Initializer快速创建项目" class="headerlink" title="使用 Spring Initializer快速创建项目"></a>使用 Spring Initializer快速创建项目</h3><p>IDE都支持使用Spring的项目创建向导快速创建一个Spring Boot项目；</p>
+<p>选择我们需要的模块；向导会联网创建Spring Boot项目；</p>
+<h4 id="默认项目结构"><a href="#默认项目结构" class="headerlink" title="默认项目结构"></a>默认项目结构</h4><p>默认生成的Spring Boot项目；</p>
+<ul>
+<li>主程序已经生成好了，我们只需要我们自己的逻辑</li>
+<li>resources文件夹中目录结构<ul>
+<li>static：保存所有的静态资源； js css  images；</li>
+<li>templates：保存所有的模板页面；（Spring Boot默认jar包使用嵌入式的Tomcat，默认不支持JSP页面）；可以使用模板引擎（freemarker、thymeleaf）；</li>
+<li>application.properties：Spring Boot应用的配置文件；可以修改一些默认设置；</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2020/08/19/docs/java-a-base/web/Web-001Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/19/docs/java-a-base/web/Web-001Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">web服务器是什么？</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-19 15:27:34" itemprop="dateCreated datePublished" datetime="2020-08-19T15:27:34+08:00">2020-08-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-06 23:16:06" itemprop="dateModified" datetime="2021-07-06T23:16:06+08:00">2021-07-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E6%9C%8D%E5%8A%A1%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">Web服务器</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="什么是Web服务器？"><a href="#什么是Web服务器？" class="headerlink" title="什么是Web服务器？"></a>什么是Web服务器？</h3><p>Web服务器一般指网站服务器，是指驻留于因特网上某种类型计算机的程序，可以向浏览器等Web客户端提供文档。目前最主流的三个Web服务器是Apache，Nginx 以及 IIS。</p>
+<p><strong>从严格意义上来讲，Web服务器只负责处理HTTP协议，只能发送静态页面的内容。</strong></p>
+<p>客户端和服务器之间的通信使用HTTP协议进行。<strong>交付的页面最常见的是HTML文档，除了文本内容之外，还可能包含图像，样式表和脚本</strong>。</p>
+<h3 id="Web服务端工作流程"><a href="#Web服务端工作流程" class="headerlink" title="Web服务端工作流程"></a>Web服务端工作流程</h3><p>Web服务器的工作原理并不复杂，一般可分成如下4个步骤：连接过程、请求过程、应答过程以及关闭连接。</p>
+<p><strong>1）客户端发送请求</strong></p>
+<p>　　客户端（通过浏览器）和Web服务器建立TCP连接，连接建立以后，向Web服务器发出访问请求（如get）。根据HTTP协议，该请求中包含了客户端的IP地址、浏览器的类型和请求的URL等一系列信息。</p>
+<p> <strong>2）服务器解析请求</strong></p>
+<p>　　Web服务器对请求按照HTTP协议进行解码来确定进一步的动作，设计的内容有三鼐要点：方法（GET）、文档(/sample.html)、和浏览器使用的协议（HTTP/1.1）其中方法告诉服务器应完动的动作，GET方法的含义很明显是：服务器应定位、读取文件并将它返回给客户。</p>
+<p>Web服务器软件现在就知道了，它应该找到文件/sample.html，并使用HTTP/1.1协议将内存返回给客户。信息是经过与请求到来相同的连接发出的，所以服务器不需要定们客户或创建新的连接。</p>
+<p><strong>3）读取其它信息（非必须步骤）</strong></p>
+<p> 　　Web服务器根据需要去读取请求的其它部分。在HTTP/1.1下，客户还应给服务器提供关于它的一些信息。元信息（metainformation）可用来描述浏览器及其能力，以使服务器能据此确定如何返回应答。</p>
+<p><strong>4）完成请求的动作</strong></p>
+<p>　　若现在没有错误出现，WWW服务器将执行请求所要求的动作。如果成功经找到，则发送状态码200，表示一切都OK ，并返回相关文档。如果失败：返回错误指示。若服务器无法找到该资源，则发送状态码404 给客户。</p>
+<p><strong>5）关闭文件和网络连接，结束会话。</strong></p>
+<p>当文件已被发邮或错误已发出后，web服务器结束整个会话。它关闭打开的的被请求文件，关闭网络端口从而结束网络连接。</p>
+<h3 id="服务器端的组成模块"><a href="#服务器端的组成模块" class="headerlink" title="服务器端的组成模块"></a>服务器端的组成模块</h3><ul>
+<li><p>TCP监听模块</p>
+<p>服务器监听某个端口（一般默认是8080端口，用户可以设置其他端口），以建立和用户代理之间的连接。一旦建立连接，用户代理的后续HTTP请求将不用再进入监听模块。</p>
+</li>
+<li><p>预处理</p>
+<p>此处主要做三件事：</p>
+<ol>
+<li>从TCP报文中获取HTTP请求报文。 </li>
+<li>根据和用户代理的协商进行解密，解压，安全处理等等。</li>
+<li> 根据服务器自身的配置进行安全处理，建立会话状态等等。</li>
+</ol>
+</li>
+<li><p>URL路由</p>
+<p>解析URL字符串和动作以确定用户代理请求的资源，根据匹配规则（通常根据正则表达式+后缀）路由到静态资源处理模块或动态资源处理模块。</p>
+</li>
+<li><p>静态资源处理模块</p>
+<p>负责找到静态资源，比如HTML/Javascript/CSS文件/图片/图像，确定内容是字符流或者字节流，并确定对应MIME,比如HTML生成MIME为text/html的字符流，mpeg视频文件生成MIME为video/mpeg的字节流。</p>
+</li>
+<li><p>动态资源处理模块</p>
+<p>运行业务逻辑处理，动态决定返回的资源内容和类型，内容和类型的处理原则同上。</p>
+</li>
+<li><p>后处理</p>
+<p>根据和用户协商的协议进行加密，压缩，安全处理等等。</p>
+</li>
+<li><p>资源输出模块</p>
+<p>把处理好的内容和类型封装成HTTP报文，往TCP连接另一头的用户代理发送TCP报文（内容是HTTP报文）。</p>
+</li>
+</ul>
+<h3 id="Web服务器与应用程序服务器"><a href="#Web服务器与应用程序服务器" class="headerlink" title="Web服务器与应用程序服务器"></a>Web服务器与应用程序服务器</h3><p>应用程序服务器(简称应用服务器)。</p>
+<p>百度百科的定义如下：</p>
+<blockquote>
+<p>通俗的讲，<strong>Web服务器</strong>传送(serves)页面使浏览器可以浏览，然而<strong>应用程序服务器提供的是客户端应用程序可以调用(call)的方法(methods)。</strong></p>
+<p>确切一点，你可以说:Web服务器专门处理HTTP请求(request)，但是<strong>应用程序服务器是通过很多协议来为应用程序提供(serves)商业逻辑 (business logic)。</strong></p>
+</blockquote>
+<p>以Java EE为例，Web服务器主要是处理静态页面处理和作为 Servlet容器，解释和执行servlet/JSP，而应用服务器是运行业务逻辑的，主要是EJB、 JNDI和JMX API等J2EE API方面的，还包含事务处理、数据库连接等功能，所以在企业级应用中，应用服务器提供的功能比WEB服务器强大的多。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -1446,20 +1433,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">67</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
