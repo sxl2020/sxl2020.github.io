@@ -195,6 +195,293 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/08/16/docs/data-a-database/mysql/mysql%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/16/docs/data-a-database/mysql/mysql%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/" class="post-title-link" itemprop="url">mysql语句执行顺序</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-08-16 21:27:34 / 修改时间：22:29:39" itemprop="dateCreated datePublished" datetime="2021-08-16T21:27:34+08:00">2021-08-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Mybatis/" itemprop="url" rel="index"><span itemprop="name">Mybatis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>在一个常见的SQL查询中用到的关键词有：select、distinct、from、join、on、where、group by、having、sum、count、max、avg、order by、limit等。</p>
+<h4 id="书写顺序："><a href="#书写顺序：" class="headerlink" title="书写顺序："></a>书写顺序：</h4><p> select-&gt;distinct-&gt;from-&gt;join-&gt;on-&gt;where-&gt;group by-&gt;having-&gt;order by-&gt;limit</p>
+<p> 必须字段：select、from</p>
+<p> 可选字段：distinct、join、on、where、group by、having、sum、count、max、avg、order by、limit</p>
+<h4 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h4><p> from-&gt;on-&gt;join-&gt;where-&gt;group by（开始使用select中的别名，后面的语句中都可以使用别名）-&gt;sum、count、max、avg-&gt;having-&gt;select-&gt;distinct-&gt;order by-&gt;limit</p>
+<h3 id="原理剖析"><a href="#原理剖析" class="headerlink" title="原理剖析"></a>原理剖析</h3><p>在sql查询语句中，各个关键字的含义如下：</p>
+<h4 id="字段含义"><a href="#字段含义" class="headerlink" title="字段含义"></a>字段含义</h4><ul>
+<li><p><strong>from</strong>：需要从哪个数据表检索数据</p>
+</li>
+<li><p><strong>join</strong>：对需要关联查询的表进行关联</p>
+<p> 关联查询时，数据库会选择一个驱动表，然后用此表的记录去关联其他表<br>​ left join一般以左表为驱动表（right join一般为右表）,inner join一般以结果集少的表为驱动表,left join某些情况下会被查询优化器优化为inner join</p>
+<ul>
+<li>驱动表选择原则：在对最终结果集没影响的前提下，优先选择结果集最少的那张表作为驱动表</li>
+</ul>
+</li>
+<li><p><strong>on</strong>：关联条件</p>
+</li>
+<li><p><strong>where</strong>：过滤表中数据的条件</p>
+<ul>
+<li>执行顺序：自下而上、从右到左</li>
+<li>注：对数据库记录生效，无法对聚合结果生效，可以过滤掉最大数量记录的条件必须写在where子句末尾，不能使用聚合函数（sum、count、max、avg）</li>
+</ul>
+</li>
+<li><p><strong>group by</strong>：如何将上面过滤出的数据分组</p>
+<ul>
+<li>执行顺序：从左往右</li>
+<li>注：尽量在group by之前使用where过滤，避免之后使用having过滤</li>
+</ul>
+</li>
+<li><p><strong>having</strong>：对上面已经分组的数据进行过滤的条件</p>
+<ul>
+<li><p>注：对聚合结果过滤，因此很耗资源，可以使用聚合函数</p>
+</li>
+<li><p>例：筛选统计人口数量大于100W的地区</p>
+<p> select region, sum(population), sum(area) from bbc group by region having sum(population)&gt;1000000，不能用where筛选超过100W的地区，因为不存在这样的一条记录</p>
+</li>
+</ul>
+</li>
+<li><p><strong>select</strong>：查看结果集中的哪个列或列的计算结果</p>
+</li>
+<li><p><strong>distinct</strong>：对结果集重复值去重</p>
+</li>
+<li><p><strong>order by</strong>：按照什么样的顺序来查看返回的数据</p>
+<ul>
+<li>执行顺序：从左到右</li>
+<li>注：很耗资源</li>
+</ul>
+</li>
+<li><p><strong>limit</strong>：截取出目标页数据</p>
+</li>
+</ul>
+<h4 id="执行顺序剖析"><a href="#执行顺序剖析" class="headerlink" title="执行顺序剖析"></a>执行顺序剖析</h4><p>在理解每个关键字的执行顺序之前，可以从字段是在<strong>结果返回之前</strong>生效还是<strong>结果返回之后</strong>生效来理解执行顺序。</p>
+<ol>
+<li>Where 是一个约束声明，使用Where约束来自数据库的数据，Where是在结果返回之前起作用的，Where中不能使用聚合函数。</li>
+</ol>
+<ol start="2">
+<li>group by 是<strong>对查询返回的结果集</strong>进行过滤，得到数据的分组</li>
+<li>Having是一个过滤声明，是<strong>对查询返回的结果集</strong>进行的过滤操作，在Having中可以使用聚合函数。在查询过程中聚合语句(sum,min,max,avg,count)要比having子句优先执行。而where子句在查询过程中执行优先级高于聚合语句。</li>
+</ol>
+<p>依次类推，可以得到sql的执行顺序为：</p>
+<ul>
+<li>(数据源） from -&gt; on -&gt; join </li>
+<li>(对数据源进行筛选）where </li>
+<li>(对结果集进行操作) group by–&gt;sum、count、max、avg-&gt;having-&gt;select-&gt;distinct-&gt;order by-&gt;limit</li>
+</ul>
+<p>注意，在普通的查询中，order by 在limit之前，所有其它的操作之后执行的。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/08/11/docs/front-end/nginx/windows%E4%B8%AD%E7%9A%84Nginx%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/11/docs/front-end/nginx/windows%E4%B8%AD%E7%9A%84Nginx%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">Nginx在windows中的使用笔记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-11 09:00:00" itemprop="dateCreated datePublished" datetime="2021-08-11T09:00:00+08:00">2021-08-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-12 10:16:33" itemprop="dateModified" datetime="2021-08-12T10:16:33+08:00">2021-08-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%93%E5%AD%98/" itemprop="url" rel="index"><span itemprop="name">缓存</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>下载压缩包，解压到对应的路径即可。</p>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>进入安装目录，执行：</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"><span class="built_in">start</span> nginx</span><br></pre></td></tr></table></figure>
+
+<h3 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h3><p>进入安装目录，执行：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">nginx -s stop                   <span class="regexp">//</span>停止nginx</span><br><span class="line">nginx -s reload                <span class="regexp">//</span>重新加载nginx</span><br><span class="line">nginx -s quit                  <span class="regexp">//</span>退出nginx</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/08/09/docs/data-b-cache/redis/002-redis-windows%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/09/docs/data-b-cache/redis/002-redis-windows%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" class="post-title-link" itemprop="url">Redis在windows中的使用笔记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-08-09 09:00:00 / 修改时间：09:04:53" itemprop="dateCreated datePublished" datetime="2021-08-09T09:00:00+08:00">2021-08-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%93%E5%AD%98/" itemprop="url" rel="index"><span itemprop="name">缓存</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h2><h3 id="1-在windows中启动redis"><a href="#1-在windows中启动redis" class="headerlink" title="1. 在windows中启动redis"></a>1. 在windows中启动redis</h3><p>一，进入redis的安装目录下，在地址栏输入“cmd”，回车</p>
+<p>二，然后会进入cmd界面，直接运行命令</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">redis-server<span class="selector-class">.exe</span> redis<span class="selector-class">.windows</span>.conf</span><br></pre></td></tr></table></figure>
+
+<p>如果报错，依次执行第一条指令：redis-cli.exe</p>
+<p>第二条指令：shutdown</p>
+<p>第三条指令：exit</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/08/06/docs/data-a-database/mybatis-plus/Mybatis-plus%E5%B8%B8%E7%94%A8%E8%AE%B0%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -538,6 +825,92 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/29/docs/data-a-database/mybatis/100-sz01-mybatis-spring-%E6%95%B4%E5%90%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/29/docs/data-a-database/mybatis/100-sz01-mybatis-spring-%E6%95%B4%E5%90%88/" class="post-title-link" itemprop="url">mybatis与Spring 整合</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-29 15:27:34" itemprop="dateCreated datePublished" datetime="2021-07-29T15:27:34+08:00">2021-07-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-31 19:56:32" itemprop="dateModified" datetime="2021-07-31T19:56:32+08:00">2021-07-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ORM/" itemprop="url" rel="index"><span itemprop="name">ORM</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本文参考链接：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.ityouknow.com/springboot/2016/11/06/spring-boot-mybatis.html">Spring Boot(六)：如何优雅的使用 Mybatis</a></li>
+</ul>
+<h3 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h3><ol>
+<li>创建Springboot项目</li>
+<li>在pom文件中，引入mybatis框架</li>
+<li>创建mybatis-配置文件</li>
+<li>创建mapper-映射文件</li>
+<li>配置数据库信息</li>
+</ol>
+<h3 id="1-创建SpringBoot项目"><a href="#1-创建SpringBoot项目" class="headerlink" title="1. 创建SpringBoot项目"></a>1. 创建SpringBoot项目</h3><p>使用Idea，采用Initializer 的方式，创建一个SpringBoot项目。</p>
+<h3 id="2-在pom文件中引入mybatis框架"><a href="#2-在pom文件中引入mybatis框架" class="headerlink" title="2. 在pom文件中引入mybatis框架"></a>2. 在pom文件中引入mybatis框架</h3><p>通过在maven repository中，可以找到mybatis相关的依赖。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/29/docs/data-a-database/mybatis/100-sz00-mybatis%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -612,92 +985,6 @@
 </li>
 </ul>
 <h3 id="方式对比"><a href="#方式对比" class="headerlink" title="方式对比"></a>方式对比</h3><p>这两种方式所引入的mybatis的pom依赖是不一样的，整合Spring，应用的<code>mybatis</code>,而整合SpringBoot，采用的是<code>mybatis-spring-boot-starter</code></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/29/docs/data-a-database/mybatis/100-sz01-mybatis-spring-%E6%95%B4%E5%90%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/29/docs/data-a-database/mybatis/100-sz01-mybatis-spring-%E6%95%B4%E5%90%88/" class="post-title-link" itemprop="url">mybatis与Spring 整合</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-29 15:27:34" itemprop="dateCreated datePublished" datetime="2021-07-29T15:27:34+08:00">2021-07-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-31 19:56:32" itemprop="dateModified" datetime="2021-07-31T19:56:32+08:00">2021-07-31</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ORM/" itemprop="url" rel="index"><span itemprop="name">ORM</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本文参考链接：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="http://www.ityouknow.com/springboot/2016/11/06/spring-boot-mybatis.html">Spring Boot(六)：如何优雅的使用 Mybatis</a></li>
-</ul>
-<h3 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h3><ol>
-<li>创建Springboot项目</li>
-<li>在pom文件中，引入mybatis框架</li>
-<li>创建mybatis-配置文件</li>
-<li>创建mapper-映射文件</li>
-<li>配置数据库信息</li>
-</ol>
-<h3 id="1-创建SpringBoot项目"><a href="#1-创建SpringBoot项目" class="headerlink" title="1. 创建SpringBoot项目"></a>1. 创建SpringBoot项目</h3><p>使用Idea，采用Initializer 的方式，创建一个SpringBoot项目。</p>
-<h3 id="2-在pom文件中引入mybatis框架"><a href="#2-在pom文件中引入mybatis框架" class="headerlink" title="2. 在pom文件中引入mybatis框架"></a>2. 在pom文件中引入mybatis框架</h3><p>通过在maven repository中，可以找到mybatis相关的依赖。</p>
 
       
     </div>
@@ -795,316 +1082,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/29/docs/java-z-idea-projects/001-%E5%BC%80%E5%8F%91%E8%A7%84%E7%BA%A6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/29/docs/java-z-idea-projects/001-%E5%BC%80%E5%8F%91%E8%A7%84%E7%BA%A6/" class="post-title-link" itemprop="url">Java开发中常见的名称</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-29 13:12:34" itemprop="dateCreated datePublished" datetime="2021-07-29T13:12:34+08:00">2021-07-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-05 23:27:05" itemprop="dateModified" datetime="2021-08-05T23:27:05+08:00">2021-08-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/" itemprop="url" rel="index"><span itemprop="name">代码质量</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Java开发中常见的名称"><a href="#Java开发中常见的名称" class="headerlink" title="Java开发中常见的名称"></a>Java开发中常见的名称</h2><ul>
-<li><p>参考链接：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zxf330301/p/6534643.html">https://www.cnblogs.com/zxf330301/p/6534643.html</a> </li>
-</ul>
-</li>
-<li><p> <a target="_blank" rel="noopener" href="https://www.cnblogs.com/qixuejia/p/10789612.html">领域驱动设计系列文章（1）——通过现实例子显示领域驱动设计的威力</a></p>
-</li>
-</ul>
-<h3 id="PO"><a href="#PO" class="headerlink" title="PO"></a>PO</h3><p>**PO: ** persistant object持久对象,可以看成是与数据库中的表相映射的java对象。</p>
-<p>最简单的PO就是对应数据库中某个表中的一条记录，多个记录可以用PO的集合。PO中应该不包含任何对数据库的操作.</p>
-<h3 id="VO"><a href="#VO" class="headerlink" title="VO"></a>VO</h3><p>**VO: **value object值对象。通常用于业务层之间的数据传递，和PO一样也是仅仅包含数据而已。但应是抽象出的业务对象,可以和表对应,也可以不,这根据业务的需要.个人觉得同DTO(数据传输对象),在web上传递.</p>
-<h3 id="DAO"><a href="#DAO" class="headerlink" title="DAO"></a>DAO</h3><p><strong>DAO:</strong> data access object数据访问对象，此对象用于访问数据库。通常和PO结合使用，DAO中包含了各种数据库的操作方法。通过它的方法,结合PO对数据库进行相关的操作.</p>
-<h3 id="BO"><a href="#BO" class="headerlink" title="BO"></a>BO</h3><p>  **BO:**business object业务对象,封装业务逻辑的java对象,通过调用DAO方法,结合PO,VO进行业务操作;</p>
-<h3 id="DO"><a href="#DO" class="headerlink" title="DO"></a>DO</h3><p><strong>DO</strong>（Domain Object）：领域对象，就是从现实世界中抽象出来的有形或无形的业务实体。</p>
-<h3 id="DTO"><a href="#DTO" class="headerlink" title="DTO"></a>DTO</h3><p><strong>DTO</strong>：（Data Transfer Objec）数据传输对象，这个概念来源于J2EE的设计模。</p>
-<p>泛指用于展示层与服务层之间的数据传输对象。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/29/docs/data-a-database/mysql/mysql-%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/29/docs/data-a-database/mysql/mysql-%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" class="post-title-link" itemprop="url">Mysql 基础语法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-07-29 00:00:00 / 修改时间：21:46:42" itemprop="dateCreated datePublished" datetime="2021-07-29T00:00:00+08:00">2021-07-29</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Mysql-常见语法"><a href="#Mysql-常见语法" class="headerlink" title="Mysql 常见语法"></a>Mysql 常见语法</h2><h3 id="1-建表语句"><a href="#1-建表语句" class="headerlink" title="1. 建表语句"></a>1. 建表语句</h3><ul>
-<li>一般格式</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> table_name (column_name,column_type)</span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li></li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> tb_emolpyee(</span><br><span class="line">		<span class="string">&#x27;employee_id&#x27;</span> <span class="type">bigint</span>(<span class="number">20</span>) AUTO_INCREMENT,</span><br><span class="line">    <span class="string">&#x27;employee_name&#x27;</span> <span class="type">varchar</span>(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  	<span class="string">&#x27;gender&#x27;</span> <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  	<span class="keyword">PRIMARY</span> KEY (<span class="string">&#x27;employee_id&#x27;</span>)</span><br><span class="line">)ENGINE<span class="operator">=</span>InnoDB CHARSET<span class="operator">=</span>utf8</span><br></pre></td></tr></table></figure>
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/26/docs/design-ddd/01-%E5%A5%88%E5%AD%A6%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1%E8%AF%BE%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/26/docs/design-ddd/01-%E5%A5%88%E5%AD%A6%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1%E8%AF%BE%E7%A8%8B/" class="post-title-link" itemprop="url">奈学教育DDD课程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-26 15:27:34" itemprop="dateCreated datePublished" datetime="2021-07-26T15:27:34+08:00">2021-07-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-07 08:37:38" itemprop="dateModified" datetime="2021-08-07T08:37:38+08:00">2021-08-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">架构设计</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-DDD在新项目中的使用"><a href="#1-DDD在新项目中的使用" class="headerlink" title="1. DDD在新项目中的使用"></a>1. DDD在新项目中的使用</h3><img src="./pics/image-20210728201142794.png" alt="image-20210728201142794" style="zoom:80%;" />
-
-
-
-
-
-<h3 id="2-领域驱动的解决之道-分而治之"><a href="#2-领域驱动的解决之道-分而治之" class="headerlink" title="2. 领域驱动的解决之道- 分而治之"></a>2. 领域驱动的解决之道- 分而治之</h3><p><img src="./pics/image-20210728201659367.png" alt="image-20210728201659367"></p>
-<h4 id="1-与微服务集合"><a href="#1-与微服务集合" class="headerlink" title="1. 与微服务集合"></a>1. 与微服务集合</h4><p><img src="./pics/image-20210728201855151.png" alt="image-20210728201855151"></p>
-<h4 id="整合"><a href="#整合" class="headerlink" title="整合"></a>整合</h4><p><img src="./pics/image-20210728202144462.png" alt="image-20210728202144462"></p>
-<h3 id="烟筒式开发"><a href="#烟筒式开发" class="headerlink" title="烟筒式开发"></a>烟筒式开发</h3><ul>
-<li>举例</li>
-</ul>
-<img src="./pics/image-20210728202315820.png" alt="image-20210728202315820" style="zoom:50%;" />
-
-<ul>
-<li>缺点：<ul>
-<li><ol>
-<li>修改一张表，涉及到多个模块的改动</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-<p>优化后：</p>
-<ul>
-<li>小而专的微服务<ul>
-<li><img src="./pics/image-20210728202846887.png" alt="image-20210728202846887" style="zoom:50%;" /></li>
-</ul>
-</li>
-</ul>
-<p>微服务设计流程</p>
-<ol>
-<li> 业务领域建模</li>
-<li>业务边界划分</li>
-<li>微服务拆分</li>
-</ol>
-<p>跨库关联查询解决方案：</p>
- <img src="/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728203144064.png" alt="image-20210728203144064" style="zoom:50%;" />
-
-
-
-<ul>
-<li> 软件发展的规律</li>
-</ul>
-<p><img src="./pics/image-20210728204215221.png" alt="image-20210728204215221"></p>
-<p>​    </p>
-<ul>
-<li>软件–对真实世界的模拟</li>
-</ul>
-<img src="./pics/image-20210728204329839.png" alt="image-20210728204329839" style="zoom:50%;" />
-
-
-
-<ul>
-<li>版本2：</li>
-</ul>
-<img src="./pics/image-20210728204949136.png" alt="image-20210728204949136" style="zoom:50%;" />
-
-<ul>
-<li>版本3</li>
-</ul>
-<img src="./pics/image-20210728205015696.png" alt="image-20210728205015696" style="zoom:50%;" />
-
-<ul>
-<li>版本4</li>
-</ul>
-<img src="/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728205107455.png" alt="image-20210728205107455" style="zoom:50%;" />
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1176,7 +1153,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1189,7 +1166,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -195,6 +195,316 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/29/docs/java-z-idea-projects/001-%E5%BC%80%E5%8F%91%E8%A7%84%E7%BA%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/29/docs/java-z-idea-projects/001-%E5%BC%80%E5%8F%91%E8%A7%84%E7%BA%A6/" class="post-title-link" itemprop="url">Java开发中常见的名称</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-29 13:12:34" itemprop="dateCreated datePublished" datetime="2021-07-29T13:12:34+08:00">2021-07-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-05 23:27:05" itemprop="dateModified" datetime="2021-08-05T23:27:05+08:00">2021-08-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/" itemprop="url" rel="index"><span itemprop="name">代码质量</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Java开发中常见的名称"><a href="#Java开发中常见的名称" class="headerlink" title="Java开发中常见的名称"></a>Java开发中常见的名称</h2><ul>
+<li><p>参考链接：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zxf330301/p/6534643.html">https://www.cnblogs.com/zxf330301/p/6534643.html</a> </li>
+</ul>
+</li>
+<li><p> <a target="_blank" rel="noopener" href="https://www.cnblogs.com/qixuejia/p/10789612.html">领域驱动设计系列文章（1）——通过现实例子显示领域驱动设计的威力</a></p>
+</li>
+</ul>
+<h3 id="PO"><a href="#PO" class="headerlink" title="PO"></a>PO</h3><p>**PO: ** persistant object持久对象,可以看成是与数据库中的表相映射的java对象。</p>
+<p>最简单的PO就是对应数据库中某个表中的一条记录，多个记录可以用PO的集合。PO中应该不包含任何对数据库的操作.</p>
+<h3 id="VO"><a href="#VO" class="headerlink" title="VO"></a>VO</h3><p>**VO: **value object值对象。通常用于业务层之间的数据传递，和PO一样也是仅仅包含数据而已。但应是抽象出的业务对象,可以和表对应,也可以不,这根据业务的需要.个人觉得同DTO(数据传输对象),在web上传递.</p>
+<h3 id="DAO"><a href="#DAO" class="headerlink" title="DAO"></a>DAO</h3><p><strong>DAO:</strong> data access object数据访问对象，此对象用于访问数据库。通常和PO结合使用，DAO中包含了各种数据库的操作方法。通过它的方法,结合PO对数据库进行相关的操作.</p>
+<h3 id="BO"><a href="#BO" class="headerlink" title="BO"></a>BO</h3><p>  **BO:**business object业务对象,封装业务逻辑的java对象,通过调用DAO方法,结合PO,VO进行业务操作;</p>
+<h3 id="DO"><a href="#DO" class="headerlink" title="DO"></a>DO</h3><p><strong>DO</strong>（Domain Object）：领域对象，就是从现实世界中抽象出来的有形或无形的业务实体。</p>
+<h3 id="DTO"><a href="#DTO" class="headerlink" title="DTO"></a>DTO</h3><p><strong>DTO</strong>：（Data Transfer Objec）数据传输对象，这个概念来源于J2EE的设计模。</p>
+<p>泛指用于展示层与服务层之间的数据传输对象。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/29/docs/data-a-database/mysql/mysql-%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/29/docs/data-a-database/mysql/mysql-%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" class="post-title-link" itemprop="url">Mysql 基础语法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-07-29 00:00:00 / 修改时间：21:46:42" itemprop="dateCreated datePublished" datetime="2021-07-29T00:00:00+08:00">2021-07-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Mysql-常见语法"><a href="#Mysql-常见语法" class="headerlink" title="Mysql 常见语法"></a>Mysql 常见语法</h2><h3 id="1-建表语句"><a href="#1-建表语句" class="headerlink" title="1. 建表语句"></a>1. 建表语句</h3><ul>
+<li>一般格式</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> table_name (column_name,column_type)</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> tb_emolpyee(</span><br><span class="line">		<span class="string">&#x27;employee_id&#x27;</span> <span class="type">bigint</span>(<span class="number">20</span>) AUTO_INCREMENT,</span><br><span class="line">    <span class="string">&#x27;employee_name&#x27;</span> <span class="type">varchar</span>(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  	<span class="string">&#x27;gender&#x27;</span> <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  	<span class="keyword">PRIMARY</span> KEY (<span class="string">&#x27;employee_id&#x27;</span>)</span><br><span class="line">)ENGINE<span class="operator">=</span>InnoDB CHARSET<span class="operator">=</span>utf8</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/26/docs/design-ddd/01-%E5%A5%88%E5%AD%A6%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1%E8%AF%BE%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/sxl-head.png">
+      <meta itemprop="name" content="苏小乐">
+      <meta itemprop="description" content="人惟患无志,有志无有不成者">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏小乐の主站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/26/docs/design-ddd/01-%E5%A5%88%E5%AD%A6%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1%E8%AF%BE%E7%A8%8B/" class="post-title-link" itemprop="url">奈学教育DDD课程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-26 15:27:34" itemprop="dateCreated datePublished" datetime="2021-07-26T15:27:34+08:00">2021-07-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-07 08:37:38" itemprop="dateModified" datetime="2021-08-07T08:37:38+08:00">2021-08-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">架构设计</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1-DDD在新项目中的使用"><a href="#1-DDD在新项目中的使用" class="headerlink" title="1. DDD在新项目中的使用"></a>1. DDD在新项目中的使用</h3><img src="./pics/image-20210728201142794.png" alt="image-20210728201142794" style="zoom:80%;" />
+
+
+
+
+
+<h3 id="2-领域驱动的解决之道-分而治之"><a href="#2-领域驱动的解决之道-分而治之" class="headerlink" title="2. 领域驱动的解决之道- 分而治之"></a>2. 领域驱动的解决之道- 分而治之</h3><p><img src="./pics/image-20210728201659367.png" alt="image-20210728201659367"></p>
+<h4 id="1-与微服务集合"><a href="#1-与微服务集合" class="headerlink" title="1. 与微服务集合"></a>1. 与微服务集合</h4><p><img src="./pics/image-20210728201855151.png" alt="image-20210728201855151"></p>
+<h4 id="整合"><a href="#整合" class="headerlink" title="整合"></a>整合</h4><p><img src="./pics/image-20210728202144462.png" alt="image-20210728202144462"></p>
+<h3 id="烟筒式开发"><a href="#烟筒式开发" class="headerlink" title="烟筒式开发"></a>烟筒式开发</h3><ul>
+<li>举例</li>
+</ul>
+<img src="./pics/image-20210728202315820.png" alt="image-20210728202315820" style="zoom:50%;" />
+
+<ul>
+<li>缺点：<ul>
+<li><ol>
+<li>修改一张表，涉及到多个模块的改动</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<p>优化后：</p>
+<ul>
+<li>小而专的微服务<ul>
+<li><img src="./pics/image-20210728202846887.png" alt="image-20210728202846887" style="zoom:50%;" /></li>
+</ul>
+</li>
+</ul>
+<p>微服务设计流程</p>
+<ol>
+<li> 业务领域建模</li>
+<li>业务边界划分</li>
+<li>微服务拆分</li>
+</ol>
+<p>跨库关联查询解决方案：</p>
+ <img src="/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728203144064.png" alt="image-20210728203144064" style="zoom:50%;" />
+
+
+
+<ul>
+<li> 软件发展的规律</li>
+</ul>
+<p><img src="./pics/image-20210728204215221.png" alt="image-20210728204215221"></p>
+<p>​    </p>
+<ul>
+<li>软件–对真实世界的模拟</li>
+</ul>
+<img src="./pics/image-20210728204329839.png" alt="image-20210728204329839" style="zoom:50%;" />
+
+
+
+<ul>
+<li>版本2：</li>
+</ul>
+<img src="./pics/image-20210728204949136.png" alt="image-20210728204949136" style="zoom:50%;" />
+
+<ul>
+<li>版本3</li>
+</ul>
+<img src="./pics/image-20210728205015696.png" alt="image-20210728205015696" style="zoom:50%;" />
+
+<ul>
+<li>版本4</li>
+</ul>
+<img src="/Users/suqiancheng/Library/Application Support/typora-user-images/image-20210728205107455.png" alt="image-20210728205107455" style="zoom:50%;" />
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/26/docs/design-ddd/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -748,403 +1058,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/14/docs/java-c-utils/hibernate-validator/001-hibernate-validators/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/14/docs/java-c-utils/hibernate-validator/001-hibernate-validators/" class="post-title-link" itemprop="url">参数校验神器 hibernate-validator</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-07-14 00:00:00 / 修改时间：14:14:08" itemprop="dateCreated datePublished" datetime="2021-07-14T00:00:00+08:00">2021-07-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%BC%80%E5%8F%91%E7%A5%9E%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">开发神器</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="参数校验神器-hibernate-validator"><a href="#参数校验神器-hibernate-validator" class="headerlink" title="参数校验神器 hibernate-validator"></a>参数校验神器 hibernate-validator</h1><ul>
-<li>参考链接<ul>
-<li><a target="_blank" rel="noopener" href="https://www.huaweicloud.com/articles/7cfa6af14757127869a40f614f33954f.html">https://www.huaweicloud.com/articles/7cfa6af14757127869a40f614f33954f.html</a> </li>
-<li><a target="_blank" rel="noopener" href="https://zhanglijun1217.github.io/blog/2018/08/18/validate%E6%B3%A8%E8%A7%A3%E5%81%9A%E6%A0%A1%E9%AA%8C/">https://zhanglijun1217.github.io/blog/2018/08/18/validate%E6%B3%A8%E8%A7%A3%E5%81%9A%E6%A0%A1%E9%AA%8C/</a> </li>
-</ul>
-</li>
-</ul>
-<p><strong>数据校验</strong>是任何一个应用程序都会用到的功能。无论是显示层还是持久层。</p>
-<p>通常，相同的校验逻辑会分散在各个层中, 这样,不仅浪费了时间还会导致重复代码。</p>
-<p>为了避免重复， 开发人员经常会把这些校验逻辑直接写在领域模型里面。其实现原来如下图所示：</p>
-<p><img src="....%5Cpics%5Chibernate-validator-001.png" alt="dd"></p>
-<p>但是这样又把领域模型代码和校验代码混杂在了一起。</p>
-<p>为了将校验代码与领域模型代码分离，<strong>校验逻辑更应该是描述领域模型的元数据</strong>。</p>
-<p>JSR 303，349 - Bean Validation等标准 为实体验证定义了元数据模型和API。 默认的元数据模型是通过Annotations来描述的，但是也可以使用XML来重载或者扩展。</p>
-<p>Bean Validation API 并不局限于应用程序的某一层或者哪种编程模型,  Bean Validation 可以被用在任何一层, 或者是像类似Swing的富客户端程序中。如下图所示：</p>
-<p><img src="....%5Cpics%5Chibernate-validator-002.png" alt="JSR303、349 -Bean Validation 数据校验规范使用说明和验证流程源码分析3"></p>
-<p>一个 constraint 通常由 annotation 和相应的 constraint validator 组成，它们是一对多的关系。也就是说可以有多个 constraint validator 对应一个 annotation。在运行时，Bean Validation 框架本身会根据被注释元素的类型来选择合适的 constraint validator 对数据进行验证。</p>
-<p>JSR303是一项标准，JSR-349是其的升级版本，添加了一些新特性，他们规定一些校验规范即校验注解，如@Null，@NotNull，@Pattern，他们位于javax.validation.constraints包下，只提供规范不提供实现。</p>
-<h3 id="参数校验的标准"><a href="#参数校验的标准" class="headerlink" title="参数校验的标准"></a>参数校验的标准</h3><ul>
-<li>参考链接<ul>
-<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6972046499853107214">https://juejin.cn/post/6972046499853107214</a> </li>
-<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/6f3d809c6705">https://www.jianshu.com/p/6f3d809c6705</a> </li>
-</ul>
-</li>
-<li>显示异常信息<ul>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_38800446/article/details/115956972">https://blog.csdn.net/weixin_38800446/article/details/115956972</a> </li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/14/docs/java-c-utils/hibernate-validator/002-%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C%E7%9B%B8%E5%85%B3%E6%B3%A8%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/14/docs/java-c-utils/hibernate-validator/002-%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C%E7%9B%B8%E5%85%B3%E6%B3%A8%E8%A7%A3/" class="post-title-link" itemprop="url">参数校验神器 hibernate-validator</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-14 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-14T00:00:00+08:00">2021-07-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-15 13:52:43" itemprop="dateModified" datetime="2021-07-15T13:52:43+08:00">2021-07-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%BC%80%E5%8F%91%E7%A5%9E%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">开发神器</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="参数校验相关注解"><a href="#参数校验相关注解" class="headerlink" title="参数校验相关注解"></a>参数校验相关注解</h3><h3 id="声明bean约束"><a href="#声明bean约束" class="headerlink" title="声明bean约束"></a>声明bean约束</h3><p>Bean验证中的约束是通过Java注解表示的。我们可以通过这些注解来增强对象的实际性能。</p>
-<p>bean约束一共有四种类型：</p>
-<ul>
-<li>字段约束</li>
-<li>属性约束</li>
-<li>容器元素约束</li>
-<li>类约束</li>
-</ul>
-<p>此外，我们还将介绍：</p>
-<ul>
-<li>约束继承</li>
-<li>对象图（即级联约束）</li>
-</ul>
-<h4 id="Valid"><a href="#Valid" class="headerlink" title="@Valid"></a>@Valid</h4><p>@Valid注解用于校验，所属包为：javax.validation.Valid。</p>
-<p>需要在实体类的相应字段上添加用于充当校验条件的注解</p>
-<h4 id="Validated"><a href="#Validated" class="headerlink" title="@Validated"></a>@Validated</h4><p>@Valid是javax.validation里的。</p>
-<p>@Validated是@Valid 的一次封装，是Spring提供的校验机制使用。**@Valid不提供分组功能**</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sxl2020.github.io/2021/07/13/docs/java-a-base/java-basic/01-Java%E4%B8%AD%E5%A6%82%E4%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E6%B3%A8%E8%A7%A3%EF%BC%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/sxl-head.png">
-      <meta itemprop="name" content="苏小乐">
-      <meta itemprop="description" content="人惟患无志,有志无有不成者">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏小乐の主站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/13/docs/java-a-base/java-basic/01-Java%E4%B8%AD%E5%A6%82%E4%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E6%B3%A8%E8%A7%A3%EF%BC%9F/" class="post-title-link" itemprop="url">Java 如何自定义注解？</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-07-13 15:27:34 / 修改时间：11:20:14" itemprop="dateCreated datePublished" datetime="2021-07-13T15:27:34+08:00">2021-07-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Java中如何自定义一个注解？"><a href="#Java中如何自定义一个注解？" class="headerlink" title="Java中如何自定义一个注解？"></a>Java中如何自定义一个注解？</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Java注解与Java配置文件是Java程序开发中进行配置的两种方式。</p>
-<p>使用注解，可以使得注解代码化。</p>
-<p>本文将学习SpringBoot的过程中遇到的一些底层注解进行学习和整理，形成了本文。</p>
-<blockquote>
-<p>在学习SpringBoot的自动配置过程中，了解到其关键在主配置类注解@SpringBootApplication</p>
-<p>本文从这个组合注解开始。</p>
-</blockquote>
-<p>发现，该注解有以下多个注解组合而成</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@SpringBootConfiguration</span></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"><span class="meta">@ComponentScan(excludeFilters = &#123; @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),</span></span><br><span class="line"><span class="meta">		@Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) &#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootApplication &#123;</span><br><span class="line">    <span class="comment">// TODO</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>在正式探究上述几个注解之前，我产生了一个疑问：如何自定义一个注解？</p>
-<h3 id="注解的基础知识"><a href="#注解的基础知识" class="headerlink" title="注解的基础知识"></a>注解的基础知识</h3><p>注解是Java 1.5引入的，Java自定义注解是通过<strong>运行时靠反射获取注解</strong>，注解相当于是一种嵌入在程序中的元数据，可以使用注解解析工具或编译器对其进行解析，也可以指定注解在编译期或运行期有效。</p>
-<p>在学习自定义注解，涉及了以下四个知识点：</p>
-<ul>
-<li><strong>元数据</strong>、<strong>注解的分类</strong>、<strong>内置注解</strong>、<strong>自定义注解</strong>。</li>
-</ul>
-<hr>
-<h4 id="元数据-metadata"><a href="#元数据-metadata" class="headerlink" title="元数据 metadata"></a>元数据 metadata</h4><p>元数据从metadata一词译来，就是“关于数据的数据”的意思，即描述数据的结构信息。</p>
-<p>也就是<strong>描述代码间关系，或者代码与其他资源（例如数据库表）之间内在联系的数据</strong>。</p>
-<ul>
-<li>元数据应用举例</li>
-</ul>
-<p>在Java中，元数据以标签的形式存在于Java代码中。</p>
-<p>元数据标签的存在并不影响程序代码的编译和执行，只是被用来生成其它的文件或只在运行时知道被运行代码的描述信息。</p>
-<p>在一些技术框架，如struts、hibernate就不知不觉用到了元数据。</p>
-<p>对struts来说，元数据指的是struts-config.xml；对hibernate来说就是hbm文件。</p>
-<p>以上阐述的几种元数据都是基于xml文件的或者其他形式的单独配置文件。这样表示有些不便之处：</p>
-<ul>
-<li><p><strong>① 与被描述的文件分离，不利于一致性的维护；</strong></p>
-</li>
-<li><p><strong>② 所有这样文件都是ASCII文件，没有显式的类型支持。</strong></p>
-</li>
-</ul>
-<p>基于元数据的广泛应用，JDK5.0 引入了 Annotation 的概念来描述元数据。在Java中，元数据以标签的形式存在于Java代码中，元数据标签的存在并不影响程序代码的编译和执行。</p>
-<p>JDK5.0出来后，java语言中就有了四种类型（TYPE），即：</p>
-<blockquote>
-<p><strong>类(class)  枚举(enum) 接口(interface)    注解(@interface)</strong></p>
-</blockquote>
-<p>它们是处在同一级别的。Java就是通过注解来表示元数据的。</p>
-<h4 id="注解简介"><a href="#注解简介" class="headerlink" title="注解简介"></a>注解简介</h4><p>注解是Java 1.5引入的，目前已被广泛应用于各种Java框架，如Hibernate，Jersey，Spring。</p>
-<p><strong>Annotation(注解)</strong> 就是Java提供了一种程序中的元素关联任何信息和任何元数据(metadata)的途径和方法。</p>
-<p>Annotation是一个接口，程序可以通过<strong>反射</strong>来获取指定程序元素的Annotation对象，然后通过Annotation对象来获取注解里面的元数据。注解API非常强大，被广泛应用于各种Java框架。</p>
-<h4 id="注解分类"><a href="#注解分类" class="headerlink" title="注解分类"></a>注解分类</h4><p>根据注解参数的个数进行分类，可以分为：</p>
-<blockquote>
-<p>1)标记注解 : 一个没有成员定义的Annotation类型被称为标记注解；</p>
-<p>2)单值注解 : 只有一个值；</p>
-<p>3)完整注解 : 拥有多个值。</p>
-</blockquote>
-<p>根据注解使用方法和用途，可以分为：</p>
-<blockquote>
-<ol>
-<li><p>JDK内置系统注解</p>
-</li>
-<li><p>元注解</p>
-</li>
-<li><p>自定义注解</p>
-</li>
-</ol>
-</blockquote>
-<h4 id="内置注解"><a href="#内置注解" class="headerlink" title="内置注解"></a>内置注解</h4><p>JavaSE中内置三个标准注解，定义在java.lang中：</p>
-<h5 id="Override"><a href="#Override" class="headerlink" title="@Override"></a><strong>@Override</strong></h5><p>限定重写父类方法，若想要重写父类的一个方法时，需要使用该注解告知编译器我们正在重写一个方法。如此一来，当父类的方法被删除或修改了，编译器会提示错误信息。</p>
-<h5 id="Deprecated"><a href="#Deprecated" class="headerlink" title="@Deprecated"></a>@Deprecated</h5><p>标记已过时，当我们想要让编译器知道一个方法已经被弃用(deprecate)时，应该使用这个注解。Java推荐在javadoc中提供信息，告知用户为什么这个方法被弃用了，以及替代方法是什么；</p>
-<h5 id="SuppressWarnings"><a href="#SuppressWarnings" class="headerlink" title="@SuppressWarnings"></a>@SuppressWarnings</h5><p>抑制编译器警告，该注解仅仅告知编译器，忽略它们产生了特殊警告。如：在java泛型中使用原始类型。其保持性策略(retention policy)是SOURCE，在编译器中将被丢弃。</p>
-<h4 id="interface"><a href="#interface" class="headerlink" title="@interface"></a>@interface</h4><p>从上文基础知识的阐述中，可知道Java语言有四种类型，其中注解的类型使用(@interface)来表示。</p>
-<p>@interface用来声明一个注解。注解类里的每一个方法实际上是声明了一个配置参数。方法的名称就是参数的名称，返回值类型就是参数的类型。可以通过default来声明参数的默认值。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@interface</span> Simple&#123;</span><br><span class="line">	<span class="comment">//这里定义了一个空的注解</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="四个元注解"><a href="#四个元注解" class="headerlink" title="四个元注解"></a>四个元注解</h4><p>元注解的作用就是负责注解其他注解。Java5.0定义了4个标准的meta-annotation类型，它们被用来提供对其它 annotation类型作说明。</p>
-<p>Java5.0定义的元注解有四个,这些类型和它们所支持的类在java.lang.annotation包中可以找到。</p>
-<h5 id="Target"><a href="#Target" class="headerlink" title="@Target"></a>@Target</h5><p>用于描述注解的使用范围。</p>
-<p>即：被描述的注解可以用在什么地方。</p>
-<p>@Target表示支持注解的程序元素的种类，一些可能的值有<strong>TYPE, METHOD, CONSTRUCTOR, FIELD</strong>等等。</p>
-<p><strong>如果Target元注解不存在，那么该注解就可以使用在任何程序元素之上。</strong></p>
-<p>取值(ElementType)有：</p>
-<blockquote>
-<p>1.CONSTRUCTOR: 用于描述构造器<br>2.FIELD: 用于描述域<br>3.LOCAL_VARIABLE: 用于描述局部变量<br>4.METHOD: 用于描述方法<br>5.PACKAGE: 用于描述包<br>6.PARAMETER: 用于描述参数<br>7.TYPE: 用于描述类、接口(包括注解类型) 或enum声明</p>
-</blockquote>
-<p>此时在空注解中加入@Target元注解如下所示:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//此注解只能用在方法上</span></span><br><span class="line"><span class="meta">@Target(ElementType.METHOD)</span> </span><br><span class="line"><span class="meta">@interface</span> TestMethod &#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="Retention"><a href="#Retention" class="headerlink" title="@Retention"></a>@Retention</h5><p>表示需要在什么级别保存该注释信息，用于描述注解的生命周期.</p>
-<p>即：被描述的注解在什么范围内有效）表示注解类型保留时间的长短。</p>
-<p>取值(RetentionPoicy)有：</p>
-<blockquote>
-<ul>
-<li>1.SOURCE: 在源文件中有效（即源文件保留）</li>
-<li>2.CLASS: 在class文件中有效（即class保留）</li>
-<li>3.RUNTIME: 在运行时有效（即运行时保留）</li>
-</ul>
-</blockquote>
-<p>此时在上述注解中加入@Retention元注解如:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 此注解可以用于注解类、接口(包括注解类型) 或enum声明</span></span><br><span class="line"><span class="meta">@Target(ElementType.TYPE)</span> </span><br><span class="line"><span class="comment">//该注解运行时有效。注解处理器可以通过反射，获取到该注解的属性值，从而去做一些运行时的逻辑处理</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@interface</span> TestRn&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="Documented"><a href="#Documented" class="headerlink" title="@Documented"></a>@Documented</h5><p>表示使用该注解的元素应 被javadoc 或类似工具 进行文档化，在生成的javadoc中显示出来。</p>
-<p>如果一个类型声明添加了Documented注解，那么它的注解会成为被注解元素的公共API的一部分。@Documented是一个标记注解。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//可以被例如javadoc此类的工具文档化</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@interface</span> TestDoc&#123;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="Inherited"><a href="#Inherited" class="headerlink" title="@Inherited"></a><strong>@Inherited</strong></h5><p>表示一个注解类型会被自动继承。</p>
-<p>如果用户在类声明的时候查询注解类型，同时类声明中也没有这个类型的注解，那么注解类型会自动查询该类的父类，这个过程将会不停地重复，直到该类型的注解被找到为止，或是到达类结构的顶层（Object）。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//被子类继承的注解</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@interface</span> TestInheri&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="自定义注解步骤"><a href="#自定义注解步骤" class="headerlink" title="自定义注解步骤"></a>自定义注解步骤</h4><p>使用@interface自定义注解时，自动继承了java.lang.annotation.<strong>Annotation</strong>接口，由编译程序自动完成其他细节。在定义注解时，不能继承其他的注解或接口。</p>
-<h5 id="定义注解格式"><a href="#定义注解格式" class="headerlink" title="定义注解格式"></a>定义注解格式</h5><p>@interface用来声明一个注解，其中的每一个方法实际上是声明了一个配置参数。方法的名称就是参数的名称，返回值类型就是参数的类型（返回值类型只能是<strong>基本类型、Class、String、enum</strong>）。可以通过default来声明参数的默认值。如下所示：</p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">基本格式：</span><br><span class="line"><span class="keyword">public</span> @<span class="class"><span class="keyword">interface</span> 注解名</span>&#123;定义体s&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="注解参数-即方法"><a href="#注解参数-即方法" class="headerlink" title="注解参数(即方法)"></a>注解参数(即方法)</h5><p>注解里面的每一个方法实际上就是声明了一个配置参数，其规则如下:</p>
-<h6 id="①修饰符"><a href="#①修饰符" class="headerlink" title="①修饰符"></a>①修饰符</h6><p>只能用public或默认(default)这两个访问权修饰 ，默认为default</p>
-<h6 id="②类型"><a href="#②类型" class="headerlink" title="②类型"></a>②类型</h6><p>注解参数只支持以下数据类型：</p>
-<p>基本数据类型（int,float,boolean,byte,double,char,long,short)；</p>
-<p>String类型；Class类型；enum类型；Annotation类型;</p>
-<p>以上所有类型的数组</p>
-<h6 id="③命名"><a href="#③命名" class="headerlink" title="③命名"></a>③命名</h6><p>对取名没有要求，如果只有一个参数成员,最好把参数名称设为”<strong>value</strong>“,后加小括号。</p>
-<h6 id="④参数"><a href="#④参数" class="headerlink" title="④参数"></a>④参数</h6><p>注解中的方法不能存在参数</p>
-<h6 id="⑤默认值"><a href="#⑤默认值" class="headerlink" title="⑤默认值"></a>⑤默认值</h6><p>可以包含默认值，使用default来声明默认值。</p>
-<h5 id="实例说明"><a href="#实例说明" class="headerlink" title="实例说明"></a>实例说明</h5><p>接下来，按照上述的说明，分别自定义几个注解，并给出使用的案例。</p>
-<ul>
-<li><strong>自定义 “程序员注解”</strong></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 程序员注解</span></span><br><span class="line"><span class="meta">@Target(ElementType.FIELD)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@interface</span> Programmer&#123;</span><br><span class="line">	<span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;马云&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>自定义 “程序员类型注解”</strong></li>
-</ul>
-<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="variable">@Target</span>(ElementType.FIELD)</span><br><span class="line"><span class="variable">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="variable">@Documented</span></span><br><span class="line"><span class="variable">@interface</span> ProgrammerType &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 类型枚举  程序猿 射鸡师</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="selector-tag">public</span> <span class="selector-tag">enum</span> <span class="selector-tag">CoderType</span>&#123;<span class="selector-tag">MONKEYS</span>,<span class="selector-tag">LION</span>,<span class="selector-tag">CHOOK</span>&#125;;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 颜色属性</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="selector-tag">CoderType</span> <span class="selector-tag">type</span>() <span class="selector-tag">default</span> <span class="selector-tag">CoderType</span><span class="selector-class">.MONKEYS</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>自定义“ 程序员制造厂注解”</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.FIELD)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@interface</span> ProgrammerProductor &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 厂家编号</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">id</span><span class="params">()</span> <span class="keyword">default</span> -1</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 厂家名称</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> &quot;shsxt&quot;</span>; </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 厂家地址</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">address</span><span class="params">()</span> <span class="keyword">default</span> &quot;上海&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>对上述三个注解的使用如下所示：</li>
-</ul>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Coder</span></span>&#123;</span><br><span class="line">		<span class="meta">@Programmer</span>(<span class="string">&quot;老裴&quot;</span>)</span><br><span class="line">	    <span class="keyword">private</span> <span class="built_in">String</span> coderName;</span><br><span class="line">		<span class="meta">@ProgrammerType</span>(<span class="keyword">type</span>=CoderType.MONKEYS)</span><br><span class="line">	    <span class="keyword">private</span> <span class="built_in">String</span> coderType;</span><br><span class="line">	    <span class="comment">// 注意，此处使用的ProgrammerProductor注解，并不是将这三个参数注入到下面的         // 变量中，而是仅仅做注释的作用。</span></span><br><span class="line">		<span class="meta">@ProgrammerProductor</span>(id=<span class="number">1</span>,name=<span class="string">&quot;程序猿乐园&quot;</span>,address=<span class="string">&quot;荣乐东路&quot;</span>)</span><br><span class="line">	    <span class="keyword">private</span> <span class="built_in">String</span> coderProductor;</span><br><span class="line">		<span class="keyword">public</span> <span class="built_in">String</span> <span class="function"><span class="title">getCoderName</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> coderName;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">public</span> <span class="built_in">void</span> <span class="function"><span class="title">setCoderName</span>(<span class="params"><span class="built_in">String</span> coderName</span>)</span> &#123;</span><br><span class="line">			<span class="built_in">this</span>.coderName = coderName;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">public</span> <span class="built_in">String</span> <span class="function"><span class="title">getCoderType</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> coderType;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">public</span> <span class="built_in">void</span> <span class="function"><span class="title">setCoderType</span>(<span class="params"><span class="built_in">String</span> coderType</span>)</span> &#123;</span><br><span class="line">			<span class="built_in">this</span>.coderType = coderType;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">public</span> <span class="built_in">String</span> <span class="function"><span class="title">getCoderProductor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> coderProductor;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">public</span> <span class="built_in">void</span> <span class="function"><span class="title">setCoderProductor</span>(<span class="params"><span class="built_in">String</span> coderProductor</span>)</span> &#123;</span><br><span class="line">			<span class="built_in">this</span>.coderProductor = coderProductor;</span><br><span class="line">		&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="参考说明："><a href="#参考说明：" class="headerlink" title="参考说明："></a>参考说明：</h3><p>作者：乐字节 链接：<a target="_blank" rel="noopener" href="https://juejin.im/post/5d3ac8d5e51d4577407b1e3a">https://juejin.im/post/5d3ac8d5e51d4577407b1e3a</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1216,7 +1129,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1229,7 +1142,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
