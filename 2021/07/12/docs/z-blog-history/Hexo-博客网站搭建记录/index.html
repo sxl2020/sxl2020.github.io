@@ -28,7 +28,7 @@
 <meta property="og:description" content="小乐の主站Hexo 使用记录Hexo不渲染.md或者.html文件的方法 参考连接  不渲染 md 文件如果想保留原 md 文件后缀要怎么做呢？这就需要在 站点配置文件 _config.yml 中配置. 基本步骤具体操作步骤如下：   找到站点配置文件_config.yml    找到 skip_render 参数    配置该参数。匹配的位置是基于你的 source_dir 的，一般来说，是你的">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-07-12T05:12:34.000Z">
-<meta property="article:modified_time" content="2021-08-07T00:20:08.263Z">
+<meta property="article:modified_time" content="2021-08-30T15:43:56.600Z">
 <meta property="article:author" content="苏小乐">
 <meta property="article:tag" content="hexo">
 <meta name="twitter:card" content="summary">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-07 08:20:08" itemprop="dateModified" datetime="2021-08-07T08:20:08+08:00">2021-08-07</time>
+                <time title="修改时间：2021-08-30 23:43:56" itemprop="dateModified" datetime="2021-08-30T23:43:56+08:00">2021-08-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -297,6 +297,23 @@
 <p>上述文件的路径，默认是以/source文件路径，作为配置的根路径来 生成的。</p>
 <h4 id="不渲染-html-文件"><a href="#不渲染-html-文件" class="headerlink" title="不渲染 html 文件"></a>不渲染 html 文件</h4><p>在不想被渲染的 html 文件最上面添加如下代码:</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">layout: false</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="hexo-自定义主页"><a href="#hexo-自定义主页" class="headerlink" title="hexo 自定义主页"></a>hexo 自定义主页</h3><ol>
+<li>首先我们找到Hexo的<strong>根</strong>配置文件**_config.yml**，注意不是主题的配置文件。</li>
+<li>然后按照下面图片中的内容搜索：index_generator:，在图片中对应位置修改相关参数即可</li>
+</ol>
+<figure class="highlight vbnet"><table><tr><td class="code"><pre><span class="line"># Home page setting</span><br><span class="line"># path: Root path <span class="keyword">for</span> your blogs index page. (<span class="keyword">default</span> = <span class="comment">&#x27;&#x27;)</span></span><br><span class="line"># per_page: Posts displayed per page. (<span class="number">0</span> = disable pagination)</span><br><span class="line"># order_by: Posts <span class="keyword">order</span>. (<span class="keyword">Order</span> <span class="keyword">by</span> <span class="type">date</span> descending <span class="keyword">by</span> <span class="keyword">default</span>)</span><br><span class="line"><span class="symbol">index_generator:</span></span><br><span class="line">  path: <span class="comment">&#x27;&#x27;</span></span><br><span class="line">  per_page: <span class="number">10</span></span><br><span class="line">  order_by: -<span class="type">date</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="自定义主页"><a href="#自定义主页" class="headerlink" title="自定义主页"></a>自定义主页</h4><p>当path为‘ ’时，默认展示最新的博客页面。</p>
+<p>修改标签下的path值，创建目录，并在相关目录下建立index.md即可.</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">index_generator:</span><br><span class="line">  path: &#x27;/welcome/&#x27;</span><br><span class="line">  per_page: 10</span><br><span class="line">  order_by: -date</span><br></pre></td></tr></table></figure>
+
+<h4 id="实现分页"><a href="#实现分页" class="headerlink" title="实现分页"></a>实现分页</h4><ol>
+<li>在配置文件内容搜索：per_page，在图片中对应位置修改数字即可。</li>
+</ol>
+
     </div>
 
     
@@ -318,8 +335,8 @@
       <i class="fa fa-chevron-left"></i> 单点登录功能
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/07/13/docs/java-a-base/java-basic/Untitled/" rel="next" title="">
-       <i class="fa fa-chevron-right"></i>
+    <a href="/2021/07/13/docs/java-a-base/java-basic/001-Java%E4%B8%AD%E5%A6%82%E4%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E6%B3%A8%E8%A7%A3%EF%BC%9F/" rel="next" title="Java 如何自定义注解？">
+      Java 如何自定义注解？ <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -379,7 +396,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E4%B9%90%E3%81%AE%E4%B8%BB%E7%AB%99Hexo-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">小乐の主站Hexo 使用记录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo%E4%B8%8D%E6%B8%B2%E6%9F%93-md%E6%88%96%E8%80%85-html%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">Hexo不渲染.md或者.html文件的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E6%B8%B2%E6%9F%93-md-%E6%96%87%E4%BB%B6"><span class="nav-number">1.1.1.</span> <span class="nav-text">不渲染 md 文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">基本步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BE%E4%BE%8B%E8%AF%B4%E6%98%8E"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">举例说明</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E6%B8%B2%E6%9F%93-html-%E6%96%87%E4%BB%B6"><span class="nav-number">1.1.2.</span> <span class="nav-text">不渲染 html 文件</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E4%B9%90%E3%81%AE%E4%B8%BB%E7%AB%99Hexo-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">小乐の主站Hexo 使用记录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo%E4%B8%8D%E6%B8%B2%E6%9F%93-md%E6%88%96%E8%80%85-html%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">Hexo不渲染.md或者.html文件的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E6%B8%B2%E6%9F%93-md-%E6%96%87%E4%BB%B6"><span class="nav-number">1.1.1.</span> <span class="nav-text">不渲染 md 文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">基本步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BE%E4%BE%8B%E8%AF%B4%E6%98%8E"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">举例说明</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E6%B8%B2%E6%9F%93-html-%E6%96%87%E4%BB%B6"><span class="nav-number">1.1.2.</span> <span class="nav-text">不渲染 html 文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%BB%E9%A1%B5"><span class="nav-number">1.2.</span> <span class="nav-text">hexo 自定义主页</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%BB%E9%A1%B5"><span class="nav-number">1.2.1.</span> <span class="nav-text">自定义主页</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%88%86%E9%A1%B5"><span class="nav-number">1.2.2.</span> <span class="nav-text">实现分页</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -395,20 +412,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
